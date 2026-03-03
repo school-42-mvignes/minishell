@@ -8,7 +8,7 @@
 
 ## Mandatory Part
 
-## Project Structure (Bonus)
+### Project Structure (Bonus)
 ```bash
 projet/
 ├── Makefile             # Master Makefile
