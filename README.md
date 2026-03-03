@@ -10,7 +10,7 @@
 
 ### Project Structure (Bonus)
 ```bash
-projet/
+minishell/
 ├── Makefile             # Master Makefile
 ├── README.md            # README.md
 ├── includes/
