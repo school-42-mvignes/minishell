@@ -6,7 +6,7 @@
 #    By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/22 14:39:19 by mvignes           #+#    #+#              #
-#    Updated: 2026/03/03 18:02:22 by mvignes          ###   ########.fr        #
+#    Updated: 2026/03/12 19:24:57 by mvignes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -116,7 +116,7 @@ OBJS_BONUS	= $(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS_BONUS))
 TOTAL = $(words $(OBJS), $(OBJS_BONUS))
 
 all:
-	@$(MAKE) -j$(NPROC) $(NAME) 
+	@$(MAKE) -j12 $(NAME) 
 
 $(NAME): $(OBJS) $(MLX_LIB)
 	@printf "\n"
@@ -141,7 +141,7 @@ fclean: clean
 re: fclean all
 
 bonus:
-	@$(MAKE) -j$(NPROC) $(NAME) $(OBJS_BONUS)
+	@$(MAKE) -j12 $(NAME) $(OBJS_BONUS)
 
 
 #============================================================#
@@ -184,8 +184,8 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 #===========================================#
 
 COLOR_FILE	= .last_colors
-COLOR_MAX	= $(call get_random_color_user)$(GRAS)
-COLOR_MAT	= $(call get_random_color_user)$(GRAS)
+COLOR_MAX	:= $(call get_random_color)$(GRAS)
+COLOR_MAT	:= $(call get_random_color)$(GRAS)
 
 
 # Fonction pour obtenir une couleur différente de la précédente
