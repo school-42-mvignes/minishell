@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 22:03:09 by mvignes           #+#    #+#             */
-/*   Updated: 2026/01/30 13:51:42 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/14 02:11:22 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static char	*ft_strcpy(char *dest, const char *src)
 	int	i;
 
 	i = 0;
+	if (!src)
+		return (NULL);
 	while (src[i] != '\0')
 	{
 		dest[i] = src[i];
@@ -32,6 +34,11 @@ char	*ft_strdup(char *src)
 	size_t	size;
 
 	size = ft_strlen(src);
+	// if (size == 0)
+	// {
+	// 	new = malloc(1);
+	// 	new[0] = '\0';
+	// }
 	new = malloc(sizeof(char) * (size + 1));
 	if (!new)
 		return (NULL);

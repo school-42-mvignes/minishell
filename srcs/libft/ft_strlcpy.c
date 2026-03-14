@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 13:28:13 by mvignes           #+#    #+#             */
-/*   Updated: 2026/01/30 13:51:48 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/14 01:47:55 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,27 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 	dest[i] = '\0';
 	return (ft_strlen(src));
 }
+
+// size_t	ft_strlcpy(char *dest, const char *src, size_t size)
+// {
+// 	size_t	i;
+// 	size_t	len_src;
+
+// 	if (!src)
+// 		return (0);
+// 	len_src = ft_strlen(src);
+// 	if (size == 0 || !dest)
+// 		return (len_src);
+// 	i = 0;
+// 	while (src[i] != '\0' && i < (size - 1))
+// 	{
+// 		dest[i] = src[i];
+// 		i++;
+// 	}
+// 	dest[i] = '\0';
+// 	return (len_src);
+// }
+
 /*
 #include <bsd/string.h>
 #include <stdio.h>

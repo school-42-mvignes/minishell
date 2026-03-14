@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 18:39:15 by mvignes           #+#    #+#             */
-/*   Updated: 2026/01/30 13:51:50 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/14 01:37:40 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(const char *str)
 	size_t	i;
 
 	i = 0;
+	if (!str || str[i] == '\0')
+		return (0);
 	while (str[i] != '\0')
 		i++;
 	return (i);
