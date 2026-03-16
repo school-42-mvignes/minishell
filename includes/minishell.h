@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/13 22:14:00 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/16 15:58:26 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,48 +23,46 @@
 // <unistd.h>
 
 # include "libft.h"
-
 # include <X11/keysym.h>
 # include <math.h>
 # include <stdbool.h>
 
-
-typedef enum	e_type
+typedef enum e_type
 {
-	WORD,		// mot
-	SP_AND,		// &&
-	SP_OR,		// ||
-	SP_PIPE,	// |
-	REDIR_IN,	// >
-	REDIR_OUT,	// <
-	REDIR_APP,	// >>
-	REDIR_HERE,	// <<
-	L_BRACKET,	// (
-	R_BRACKET,	// )
-	NONE,		// y'a R
-}			t_type;
+	WORD,       // mot
+	SP_AND,     // &&
+	SP_OR,      // ||
+	SP_PIPE,    // |
+	REDIR_IN,   // <
+	REDIR_OUT,  // >
+	REDIR_APP,  // >>
+	REDIR_HERE, // <<
+	L_BRACKET,  // (
+	R_BRACKET,  // )
+	NONE,       // y'a R
+}						t_type;
 
-typedef struct			s_redir
+typedef struct s_redir
 {
 	char				*file;
 	t_type				token;
-	struct t_redir		*next;
+	struct s_redir		*next;
 }						t_redir;
 
-typedef struct			s_env
+typedef struct s_env
 {
 	char				*key_var;
 	char				*var;
-	struct t_env		*next;
+	struct s_env		*next;
 }						t_env;
 
-typedef struct			s_shell
+typedef struct s_shell
 {
 	t_env				*env;
 	int					*exit_status;
 }						t_shell;
 
-typedef struct			s_command
+typedef struct s_command
 {
 	int					ac;
 	char				**av;
@@ -72,10 +70,14 @@ typedef struct			s_command
 	t_redir				*redir;
 	t_type				sep;
 	t_shell				*shell;
-	struct t_command	*next;
+	struct s_command	*next;
 }						t_command;
 
-
-
+typedef struct s_token
+{
+	t_type				token;
+	char				*value;
+	struct s_token		*next;
+}						t_token;
 
 #endif
