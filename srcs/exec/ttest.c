@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 16:46:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/17 17:30:42 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/17 19:54:06 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	**split_in_two(char *str, char c)
 	size_t  key_len;
 
 	printf("PROBLEME DEBUGGEUR N1\n");
-	tab = malloc(sizeof(char *) * 2);
+	tab = malloc(sizeof(char *) * 3);
 	if (!tab)
 		return (NULL);
 	printf("PROBLEME DEBUGGEUR N2\n");
@@ -75,23 +75,17 @@ char	**split_in_two(char *str, char c)
 	key_len = ft_strlen(str) - ft_strlen(var_delimiter);
 
 	printf("PROBLEME DEBUGGEUR N4\n");
-	tab[0] = ft_substr(str, 0, (key_len - 1)); // PROBLEME ICI <-----------------------------------------
+	tab[0] = ft_substr(str, 0, (key_len - 1));
 	if (!tab[0])
 		return (NULL);
 	printf("PROBLEME DEBUGGEUR N5\n");
-	tab[1] = ft_substr(str, ft_strlen(var_delimiter), (ft_strlen(str) - key_len)); // PROBLEME ICI <-----------------------------------------
+	tab[1] = ft_strdup(var_delimiter);
 	if (!tab[1])
 		return (NULL);
-	// tab[2] = NULL;
+	tab[2] = NULL;
 	printf("PROBLEME DEBUGGEUR N10\n");
 	return (tab);
 }
-
-/* void	del(void *data)
-{
-	free(data);
-	data = NULL;
-} */
 
 void	ft_envdelone(t_env *env, void (*del)(void *))
 {
@@ -117,21 +111,11 @@ void	ft_envclear(t_env **env, void (*del)(void *))
 
 t_env	*ft_envnew(char **tab)
 {
-	// int		i = -1;
 	t_env	*element;
 
-	element = malloc(sizeof(t_list));
+	element = malloc(sizeof(t_env));
 	if (!element)
-		return (NULL);
-	// printf("\033[0;32m\n\n\n\n\n\nYOUHOU CEST MOI JAI TROUVER TAB[0] = {%s} et tab[1] = {%s}\n \033[0m", tab[0], tab[1]); // mis en commentaire car leak
-	// while (tab[0][++i])
-	// 	element->key_var[i] = tab[0][i];
-	// element->key_var[i] = '\0';
-	// i = -1;
-	// while (tab[1][++i])
-	// 	element->var = tab[1][i];
-	// element->var[i] = '\0';
-	
+		return (NULL);	
 	element->key_var = tab[0];
 	if (!element->key_var)
 		return (NULL);
@@ -139,8 +123,7 @@ t_env	*ft_envnew(char **tab)
 	if (!element->var)
 		return (NULL);
 	element->next = NULL;
-	// printf("\033[0;31m\nNODE ENV avant retourn; key = %s, var = %s\n\033[0m", element->key_var, element->var); // ICI CA MARCHE
-	return (element); // PUIS QUAND CA PASSE ICI JE VAIS ME FAIRE ENCULER
+	return (element);
 }
 
 t_env	*ft_envlast(t_env *lst)
@@ -164,10 +147,7 @@ void	ft_envadd_back(t_env **lst, t_env *new)
 		return ;
 	}
 	last = ft_envlast(*lst);
-	if (last)
-		last->next = new;
-	else
-		(*lst) = new;
+	last->next = new;
 }
 
 
@@ -186,17 +166,9 @@ void	init_lst_env(t_list *lst, t_env **env)
 			return ;
 		printf("YOUHOU CEST MOI JAI TROUVER TAB[0] = {%s} et tab[1] = {%s}\n", tab[0], tab[1]); // mis en commentaire car leak
 		new = ft_envnew(tab);
-		// if (!new)
-		// {
-		// 	printf("VRAIMENT GROS PROBLEME A LA CREATION DES NODES ENV\n");
-		// 	exit (1);
-		// }
-		// printf("\033[0;33m\n NODE ENV; key = %s, var = %s\n\033[0m", tmp->key_var, tmp->var);
 		ft_envadd_back(env, new);
-		lst = lst->next; // a voir si ca va pas poser trop de proubleme
-		// if (tab)
-		// 	free_tab(tab);
-		// free(tab);
+		lst = lst->next;
+		free(tab);
 	}
 }
 
@@ -204,11 +176,13 @@ void	split_tab_to_list(char **old_tab, t_list **lst)
 {
 	int		i;
 	t_list	*new;
+	char	*envi;
 
 	i = 0;
 	while (old_tab[i])
 	{
-		new = ft_lstnew(old_tab[i]);
+		envi = ft_strdup(old_tab[i]);
+		new = ft_lstnew(envi);
 		if (!new)
 			break;
 		ft_lstadd_back(lst, new);
@@ -235,6 +209,19 @@ void	split_tab_to_list(char **old_tab, t_list **lst)
 	return (tab);
 } */
 
+void	new_ft_lstclear(t_list **lst)
+{
+	t_list	*tmp;
+
+	while (*lst)
+	{
+		tmp = (*lst)->next;
+		free((*lst)->content);
+		free(lst);
+		*lst = tmp;
+	}
+}
+
 int main(int ac, char **av, char **env)
 {
 	t_list  *lst = NULL;
@@ -248,10 +235,6 @@ int main(int ac, char **av, char **env)
 		printf("proubleme lst\n");
 		return (1);
 	}
-
-	// printf("100\n");
-	// char *test = lst->content;
-	// printf("test = %s\n\n\n", test);
 	printf_list(lst);
 	init_lst_env(lst, &lst_env);
 	if (lst_env == NULL)
@@ -261,19 +244,13 @@ int main(int ac, char **av, char **env)
 	}
 
 	printf("========================================================================================\nLE MUR DU NORD OU DE BERLIN OU DU MEXIQUE /// COMME TU VEUX FRERO\n========================================================================================\n");
-	// printf("100\n");
-	printf_env(lst_env); // ET LA CA FONCTION MAIS WTF FAUT ALLER SE FAIRE ENCULER
+
+	printf_env(lst_env);
 
 	// tab_env = rebuild_env(&lst_env);			// a voir lundi, commence a fatiguer
 
 
-	ft_lstclear(&lst, free);					// fait crash, a voir
-	ft_envclear(&lst_env, free);				// fait surement crash car pareil que l'autre
-
-
-	// int i = -1;
-	// while (tab_env[++i])
-	// 	printf("tab_env[i] = %s", tab_env[i]);
-	// free_tab(tab_env);
+	ft_lstclear(&lst, free);
+	ft_envclear(&lst_env, free);
 	return (0);
 }
