@@ -6,26 +6,20 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/17 16:05:23 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/03/18 17:15:44 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-// Deja dans libft.h
-// <fcntl.h>
-// <limits.h>
-// <stdarg.h>
-// <stdint.h>
-// <stdio.h>
-// <stdlib.h>
-// <unistd.h>
-
-# include "libft.h"
 # include <X11/keysym.h>
 # include <math.h>
 # include <stdbool.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <unistd.h>
 
 typedef enum e_type
 {
@@ -37,8 +31,8 @@ typedef enum e_type
 	REDIR_OUT,  // >
 	REDIR_APP,  // >>
 	REDIR_HERE, // <<
-	S_QUOTE,	// ''
-	D_QUOTE,	// ""
+	S_QUOTE,    // ''
+	D_QUOTE,    // ""
 	L_BRACKET,  // (
 	R_BRACKET,  // )
 	NONE,       // y'a R
@@ -78,8 +72,21 @@ typedef struct s_command
 typedef struct s_token
 {
 	t_type				token;
+	int					type;
 	char				*value;
 	struct s_token		*next;
 }						t_token;
+
+/*LEXER*/
+
+t_token					*create_token(t_type token, char *value, int n);
+t_token					*add_token(t_token **lst, t_token *new_nod);
+t_token					*lexer(char *str, t_token *token);
+int						lexer_quote(t_token *token, char *str, int i, int j);
+int						lexer_sep1(t_token *token, char *str, int i);
+int						lexer_sep2(t_token *token, char *str, int i);
+int						lexer_sep3(t_token *token, char *str, int i);
+int						lexer_word(t_token *token, char *str, int i);
+void					free_token_lst(t_token *lst);
 
 #endif
