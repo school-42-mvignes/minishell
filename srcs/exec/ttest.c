@@ -6,165 +6,26 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 16:46:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/18 03:51:10 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/18 05:59:00 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-// LA SAINTE COMMANDE DU SEIGNEUR :  cc ttest.c ../libft/ft_lstnew.c ../libft/ft_lstadd_back.c ../libft/ft_lstlast.c ../libft/ft_memset.c ../libft/ft_strlen.c ../libft/ft_strchr.c ../libft/ft_strlcpy.c ../libft/ft_strdup.c ../libft/ft_free_tab.c ../libft/ft_lstclear.c ../libft/ft_lstdelone.c ../libft/ft_substr.c -g3
-
+// LA SAINTE COMMANDE DU SEIGNEUR : cc ttest.c ../libft/ft_lstnew.c ../libft/ft_lstadd_back.c ../libft/ft_lstlast.c ../libft/ft_memset.c ../libft/ft_strlen.c ../libft/ft_strchr.c ../libft/ft_strlcpy.c ../libft/ft_strdup.c ../libft/ft_free_tab.c ../libft/ft_lstclear.c ../libft/ft_lstdelone.c ../libft/ft_substr.c ../libft/get_next_line_utils.c ../libft/ft_strjoin.c ../utils/lstenv.c ../utils/other_split.c ../utils/print_struc.c ../libft/ft_putendl_fd.c ../libft/ft_putstr_fd.c ../libft/ft_putchar_fd.c -g3
 // pour la suite surement des fonctions dans ../libft/get_next_line_utils.c ou les recoder
-
 
 #include "../../includes/minishell.h"
 
-void	printf_list(t_list *lst)
-{
-	// printf("222\n");
-	t_list	*tmp;
-
-	// printf("223\n");
-	tmp = lst;
-	// printf("224\n");
-	while (tmp)
-	{
-		// printf("JE SUIS PASSER ICI\n");
-		printf("\n node lst ===  %s\n", (char *)tmp->content);
-		// printf("230\n");
-		tmp = tmp->next;
-	}
-}
-
-void	printf_env(t_env *lst)
-{
-	// printf("222\n");
-	t_env	*tmp;
-	int		i;
-
-	// printf("223\n");
-	tmp = lst;
-	i = 0;
-	// printf("224\n");
-	while (tmp)
-	{
-		// printf("JE SUIS PASSER ICI\n");
-		// printf("\033[0;35m \033[1m\n NODE ENV; key = {%s}, var = {%s}\n\033[0m", (char *)tmp->key_var, tmp->var);
-		printf("\033[0;35m\033[1m%s=%s\n\033[0m", tmp->key_var, tmp->var);
-		// printf("230\n");
-		tmp = tmp->next;
-		i++;
-	}
-}
-
-char	**split_in_two(char *str, char c)
-{
-	char	**tab;
-	char	*var_delimiter;
-	size_t  key_len;
-
-	// printf("PROBLEME DEBUGGEUR N1\n");
-	tab = malloc(sizeof(char *) * 3);
-	if (!tab)
-		return (NULL);
-	// printf("PROBLEME DEBUGGEUR N2\n");
-	var_delimiter = ft_strchr(str, c);
-	if (!var_delimiter)
-		return (NULL);
-	// printf("PROBLEME DEBUGGEUR N3\n");
-	var_delimiter = &var_delimiter[+1]; // pour le petit '='
-	key_len = ft_strlen(str) - ft_strlen(var_delimiter);
-
-	// printf("PROBLEME DEBUGGEUR N4\n");
-	tab[0] = ft_substr(str, 0, (key_len - 1));
-	if (!tab[0])
-		return (NULL);
-	// printf("PROBLEME DEBUGGEUR N5\n");
-	tab[1] = ft_strdup(var_delimiter);
-	if (!tab[1])
-		return (NULL);
-	tab[2] = NULL;
-	// printf("PROBLEME DEBUGGEUR N10\n");
-	return (tab);
-}
-
-void	ft_envdelone(t_env *env, void (*del)(void *))
-{
-	if (env->key_var)
-		del(env->key_var);
-	if (env->var)
-		del(env->var);
-	if (env)
-		del(env);
-}
-
-void	ft_envclear(t_env **env, void (*del)(void *))
-{
-	t_env	*tmp;
-
-	while (*env)
-	{
-		tmp = (*env)->next;
-		ft_envdelone(*env, del);
-		*env = tmp;
-	}
-}
-
-t_env	*ft_envnew(char **tab)
-{
-	t_env	*element;
-
-	element = malloc(sizeof(t_env));
-	if (!element)
-		return (NULL);	
-	element->key_var = tab[0];
-	if (!element->key_var)
-		return (NULL);
-	element->var = tab[1];
-	if (!element->var)
-		return (NULL);
-	element->next = NULL;
-	return (element);
-}
-
-t_env	*ft_envlast(t_env *lst)
-{
-	if (!lst)
-		return (NULL);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
-}
-
-void	ft_envadd_back(t_env **lst, t_env *new)
-{
-	t_env	*last;
-
-	if (!lst || !new)
-		return ;
-	if (!*lst)
-	{
-		*lst = new;
-		return ;
-	}
-	last = ft_envlast(*lst);
-	last->next = new;
-}
-
-
 void	init_lst_env(t_list *lst, t_env **env)
 {
-	int		i;
 	char	**tab;
 	t_env	*new;
 
-	i = 0;
 	while (lst)
 	{
-		printf("YOUHOU CEST ICI QUE CA SEGMENTATION FAULT\n");
 		tab = split_in_two(lst->content, '=');
 		if (!tab)
 			return ;
-		printf("YOUHOU CEST MOI JAI TROUVER TAB[0] = {%s} et tab[1] = {%s}\n", tab[0], tab[1]); // mis en commentaire car leak
 		new = ft_envnew(tab);
 		ft_envadd_back(env, new);
 		lst = lst->next;
@@ -172,71 +33,22 @@ void	init_lst_env(t_list *lst, t_env **env)
 	}
 }
 
-void	split_tab_to_list(char **old_tab, t_list **lst)
-{
-	int		i;
-	t_list	*new;
-	char	*envi;
-
-	i = 0;
-	while (old_tab[i])
-	{
-		envi = ft_strdup(old_tab[i]);
-		new = ft_lstnew(envi);
-		if (!new)
-			break;
-		ft_lstadd_back(lst, new);
-		i++;
-	}
-}
-
-void	new_ft_lstclear(t_list **lst)
-{
-	t_list	*tmp;
-
-	while (*lst)
-	{
-		tmp = (*lst)->next;
-		free((*lst)->content);
-		free(lst);
-		*lst = tmp;
-	}
-}
-
-int	ft_envsize(t_env *env)
-{
-	int	i;
-
-	i = 0;
-	while (env)
-	{
-		i++;
-		env = env->next;
-	}
-	return (i);
-}
-
 char	**rebuild_env(t_env **env)
 {
 	t_env	*tmp;
 	char	*str_tmp;
-	// char	*str1;
-	// char	*str2;
-	char	**tab = NULL;
+	char	**tab;
 	int		i;
 
-	printf("\n\n\n\n\n\n\n\n\n====================test==============\n\n\n\n");
 	tmp = (*env);
 	tab = malloc(sizeof(char *) * (ft_envsize(tmp) + 1));
 	i = 0;
 	while (tmp)
 	{
-		// printf("\033[0;33m\036%s=%s\n\033[0m", tmp->key_var, tmp->var);
 		str_tmp = ft_strjoin(tmp->key_var, "=");
 		tab[i] = ft_strjoin_gnl(str_tmp, tmp->var);
 		if (!tab[i])
 			return (NULL);
-		// free(str_tmp);
 		i++;
 		tmp = tmp->next;
 	}
@@ -244,8 +56,50 @@ char	**rebuild_env(t_env **env)
 	return (tab);
 }
 
-int main(int ac, char **av, char **env)
+void	error_message(char *message)
 {
+	ft_putendl_fd(message, 2);
+	exit (1);
+}
+
+// A voir comment le mettre en place
+int	call_env(char **env)
+{
+	t_list	*lst = NULL;
+	t_env	*lst_env = NULL;
+	char	**tab_env;
+
+	split_tab_to_list(env, &lst);
+	if (lst == NULL)
+		error_message("proubleme lst pour split");
+	init_lst_env(lst, &lst_env);
+	if (lst_env == NULL)
+		error_message("proubleme lst_env");
+	printf_env(lst_env);
+	tab_env = rebuild_env(&lst_env);
+	if (!tab_env)
+		error_message("c'est la merde");
+	int	i = 0;
+	while (tab_env[i])
+		printf("\033[1m%s\n\033[0m", tab_env[i++]);
+	free_tab(tab_env);
+	ft_lstclear(&lst, free);
+	ft_envclear(&lst_env, free);
+	return (0);
+}
+
+int	main(int ac, char **av, char **env)
+{
+	(void)ac;
+	(void)av;
+	call_env(env);
+	return (0);
+}
+
+/* int main(int ac, char **av, char **env)
+{
+	(void)ac;
+	(void)av;
 	t_list  *lst = NULL;
 	t_env	*lst_env = NULL;
 	char	**tab_env;
@@ -269,22 +123,18 @@ int main(int ac, char **av, char **env)
 
 	printf_env(lst_env);
 
-	tab_env = rebuild_env(&lst_env);			// a voir lundi, commence a fatiguer
+	tab_env = rebuild_env(&lst_env);
 	if (!tab_env)
 	{
 		printf("c'est la merde\n");
 		exit (1);
 	}
-	// int	i = 0;
-	// while (tab_env[i])
-	// 	printf("\033[1m%s\n\033[0m", tab_env[i++]);
+	int	i = 0;
+	while (tab_env[i])
+		printf("\033[1m%s\n\033[0m", tab_env[i++]);
 
 	free_tab(tab_env);
 	ft_lstclear(&lst, free);
 	ft_envclear(&lst_env, free);
-/* 	printf("==============\nPRINT **TAB_ENV\n==============\n");
-	int i = 0;
-	while (tab_env[i])
-		printf("%s", tab_env[i++]); */
 	return (0);
-}
+} */
