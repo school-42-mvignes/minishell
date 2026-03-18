@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 16:46:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/17 19:54:06 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/18 03:51:10 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,28 +62,28 @@ char	**split_in_two(char *str, char c)
 	char	*var_delimiter;
 	size_t  key_len;
 
-	printf("PROBLEME DEBUGGEUR N1\n");
+	// printf("PROBLEME DEBUGGEUR N1\n");
 	tab = malloc(sizeof(char *) * 3);
 	if (!tab)
 		return (NULL);
-	printf("PROBLEME DEBUGGEUR N2\n");
+	// printf("PROBLEME DEBUGGEUR N2\n");
 	var_delimiter = ft_strchr(str, c);
 	if (!var_delimiter)
 		return (NULL);
-	printf("PROBLEME DEBUGGEUR N3\n");
+	// printf("PROBLEME DEBUGGEUR N3\n");
 	var_delimiter = &var_delimiter[+1]; // pour le petit '='
 	key_len = ft_strlen(str) - ft_strlen(var_delimiter);
 
-	printf("PROBLEME DEBUGGEUR N4\n");
+	// printf("PROBLEME DEBUGGEUR N4\n");
 	tab[0] = ft_substr(str, 0, (key_len - 1));
 	if (!tab[0])
 		return (NULL);
-	printf("PROBLEME DEBUGGEUR N5\n");
+	// printf("PROBLEME DEBUGGEUR N5\n");
 	tab[1] = ft_strdup(var_delimiter);
 	if (!tab[1])
 		return (NULL);
 	tab[2] = NULL;
-	printf("PROBLEME DEBUGGEUR N10\n");
+	// printf("PROBLEME DEBUGGEUR N10\n");
 	return (tab);
 }
 
@@ -190,25 +190,6 @@ void	split_tab_to_list(char **old_tab, t_list **lst)
 	}
 }
 
-/* char	**rebuild_env(t_env **env)
-{
-	t_env	*tmp;
-	char	*str_tmp;
-	char	**tab;
-	int		i;
-
-	tmp = (*env);
-	i = 0;
-	while (tmp)
-	{
-		str_tmp = ft_strjoin_gnl(tmp->key_var, "=");
-		tab[i] = ft_strjoin_gnl(str_tmp, tmp->var);
-		i++;
-		tmp = tmp->next;
-	}
-	return (tab);
-} */
-
 void	new_ft_lstclear(t_list **lst)
 {
 	t_list	*tmp;
@@ -222,11 +203,52 @@ void	new_ft_lstclear(t_list **lst)
 	}
 }
 
+int	ft_envsize(t_env *env)
+{
+	int	i;
+
+	i = 0;
+	while (env)
+	{
+		i++;
+		env = env->next;
+	}
+	return (i);
+}
+
+char	**rebuild_env(t_env **env)
+{
+	t_env	*tmp;
+	char	*str_tmp;
+	// char	*str1;
+	// char	*str2;
+	char	**tab = NULL;
+	int		i;
+
+	printf("\n\n\n\n\n\n\n\n\n====================test==============\n\n\n\n");
+	tmp = (*env);
+	tab = malloc(sizeof(char *) * (ft_envsize(tmp) + 1));
+	i = 0;
+	while (tmp)
+	{
+		// printf("\033[0;33m\036%s=%s\n\033[0m", tmp->key_var, tmp->var);
+		str_tmp = ft_strjoin(tmp->key_var, "=");
+		tab[i] = ft_strjoin_gnl(str_tmp, tmp->var);
+		if (!tab[i])
+			return (NULL);
+		// free(str_tmp);
+		i++;
+		tmp = tmp->next;
+	}
+	tab[i] = NULL;
+	return (tab);
+}
+
 int main(int ac, char **av, char **env)
 {
 	t_list  *lst = NULL;
 	t_env	*lst_env = NULL;
-	// char	**tab_env;
+	char	**tab_env;
 
 	split_tab_to_list(env, &lst);
 
@@ -247,10 +269,22 @@ int main(int ac, char **av, char **env)
 
 	printf_env(lst_env);
 
-	// tab_env = rebuild_env(&lst_env);			// a voir lundi, commence a fatiguer
+	tab_env = rebuild_env(&lst_env);			// a voir lundi, commence a fatiguer
+	if (!tab_env)
+	{
+		printf("c'est la merde\n");
+		exit (1);
+	}
+	// int	i = 0;
+	// while (tab_env[i])
+	// 	printf("\033[1m%s\n\033[0m", tab_env[i++]);
 
-
+	free_tab(tab_env);
 	ft_lstclear(&lst, free);
 	ft_envclear(&lst_env, free);
+/* 	printf("==============\nPRINT **TAB_ENV\n==============\n");
+	int i = 0;
+	while (tab_env[i])
+		printf("%s", tab_env[i++]); */
 	return (0);
 }

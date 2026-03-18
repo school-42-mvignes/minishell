@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 23:44:59 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/14 00:24:17 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/17 23:52:24 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "../../includes/minishell.h"
 
 
-int	main(int ac, char **av)
+/* int	main(int ac, char **av)
 {
 
 	if (!av[1] || !av[2])
@@ -40,4 +40,15 @@ int	main(int ac, char **av)
 	}
 	else
 		printf("\033[0;31mPROBLEME AVEC LES LEN MON ZINC:%d\n\033[0m", len_1 - len_2);
+} */
+
+int	main(int ac, char **av)
+{
+	char *str1 = ft_strdup(av[1]);
+	char *str2 = ft_strdup(av[2]);
+	
+	char *str = ft_strjoin_gnl(str1, "=");
+	str = ft_strjoin_gnl(str, str2);
+	printf("%s\n", str);
+	return (0);
 }
