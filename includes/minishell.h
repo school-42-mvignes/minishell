@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/19 11:49:23 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/03/19 14:10:46 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@
 
 # include "libft.h"
 # include "env.h"
+# include "lexer.h"
+# include "buildin.h"
 # include <X11/keysym.h>
 # include <math.h>
 # include <stdbool.h>
-# include "lexer.h"
 
 typedef struct s_redir
 {

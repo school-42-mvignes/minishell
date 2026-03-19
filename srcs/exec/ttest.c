@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 16:46:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/19 11:59:36 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/19 14:53:31 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,9 @@ void	error_message(char *message)
 	exit (1);
 }
 
-// A voir comment le mettre en place
-int	call_env(char **env)
+// A voir comment le mettre en place void	call_env(t_env *lst_env, char **env)
+
+t_env	*call_env(char **env)
 {
 	t_list	*lst = NULL;
 	t_env	*lst_env = NULL;
@@ -71,31 +72,31 @@ int	call_env(char **env)
 
 	split_tab_to_list(env, &lst);
 	if (lst == NULL)
-		error_message("proubleme lst pour split");
+		error_message("env : proubleme lst pour split");
 	init_lst_env(lst, &lst_env);
 	if (lst_env == NULL)
-		error_message("proubleme lst_env");
-	printf_env(lst_env);
-	tab_env = rebuild_env(&lst_env);
-	if (!tab_env)
-		error_message("c'est la merde");
-	printf("=*=*=*=*=*=*=*=*=*==*=*=*=*=*=*=*=*=*=*=*=*=\n");
-	int	i = 0;
-	while (tab_env[i])
-		printf("\033[1m%s\n\033[0m", tab_env[i++]);
-	free_tab(tab_env);
-	ft_lstclear(&lst, free);
-	ft_envclear(&lst_env, free);
-	return (0);
+		error_message("env : proubleme lst_env");
+	// printf_env(lst_env);
+	// tab_env = rebuild_env(&lst_env);
+	// if (!tab_env)
+	// 	error_message("env : c'est la merde");
+	// printf("=*=*=*=*=*=*=*=*=*==*=*=*=*=*=*=*=*=*=*=*=*=\n");
+	// int	i = 0;
+	// while (tab_env[i])
+	// 	printf("\033[1m%s\n\033[0m", tab_env[i++]);
+	// free_tab(tab_env);
+	// ft_lstclear(&lst, free);
+	// ft_envclear(&lst_env, free);
+	return (lst_env);
 }
 
-int	main(int ac, char **av, char **env)
+/* int	main(int ac, char **av, char **env)
 {
 	(void)ac;
 	(void)av;
 	call_env(env);
 	return (0);
-}
+} */
 
 /* int main(int ac, char **av, char **env)
 {
