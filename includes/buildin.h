@@ -1,40 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_struc.c                                      :+:      :+:    :+:   */
+/*   buildin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/18 04:14:38 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/19 12:07:08 by mvignes          ###   ########.fr       */
+/*   Created: 2026/03/19 14:09:56 by mvignes           #+#    #+#             */
+/*   Updated: 2026/03/19 14:10:27 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#ifndef BUILDIN_H
+# define BUILDIN_H
 
-void	printf_list(t_list *lst)
-{
-	t_list	*tmp;
+# include "minishell.h"
 
-	tmp = lst;
-	while (tmp)
-	{
-		printf("\n node lst ===  %s\n", (char *)tmp->content);
-		tmp = tmp->next;
-	}
-}
 
-void	printf_env(t_env *lst)
-{
-	t_env	*tmp;
-	int		i;
 
-	tmp = lst;
-	i = 0;
-	while (tmp)
-	{
-		printf("\033[0;35m\033[1m%s=%s\n\033[0m", tmp->key_var, tmp->var);
-		tmp = tmp->next;
-		i++;
-	}
-}
+#endif

@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/13 16:41:06 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/19 12:04:13 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	ft_decision_action(char *line)
 	write(1, "\n", 1);
 }
 
+
+
 int	main(void)
 {
 	char	*line;
@@ -33,7 +35,7 @@ int	main(void)
 	{
 		write(1, "mini-neuilles >", 16);
 		line = get_next_line(0);
-		if (!ft_strncmp("exit", line, 4))
+		if (!ft_strncmp("exit", line, 6))
 			break;
 		else
 			ft_decision_action(line);
