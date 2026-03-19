@@ -6,107 +6,80 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 14:52:18 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/03/16 17:57:58 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/03/18 17:15:14 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_token	*lastlst(t_token *lst)
+static int	lexer_while(t_token *token, char *str, int i, int j)
 {
-	if (!lst)
-		return (NULL);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
-}
-
-t_token	*create_token(t_type token, char *value)
-{
-	t_token	*new;
-	int		n;
-
-	n = ft_strlen(value);
-	if (!n)
-		return (NULL);
-	new = malloc(sizeof(t_token) * n);
-	if (!new)
-		return (NULL);
-	new->token = token;
-	new->value = value;
-	new->next = NULL;
-	return (new);
-}
-
-void	add_token(t_token **lst, t_token *new_nod)
-{
-	t_token	*last;
-
-	if (!lst || !new_nod)
-		return (NULL);
-	if (!*lst)
+	if (str[i] == '\'' || str[i] == '\"')
 	{
-		*lst = new_nod;
-		return ;
-	}
-	last = lastlst(*lst);
-	last->next = new_nod;
-}
-
-void	lexer(char *str)
-{
-	int type;
-	int i;
-	int j;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == ' ')
-			i++;
-		else if (str[i] == '|' || str[i] == '&' || str[i] == '>'
-				|| str[i] == '<' || str[i] == '(' || str[i] == ')')
+		i = lexer_quote(token, str, i, j);
+		if (i == -1)
 		{
-			if (str[i] == '|' && str[i + 1] == '|')
-			{
-				type = SP_OR;
-				i += 2;
-			}
-			if (str[i] == '&' && str[i + 1] == '&')
-			{
-				type = SP_AND;
-				i += 2;
-			}
-			if (str[i] == '|' && str[i + 1] != '|')
-			{
-				type = SP_PIPE;
-				i++;
-			}
-			if (str[i] == '<' && str[i + 1] == '<')
-			{
-				type = REDIR_HERE;
-				i += 2;
-			}
-			if (str[i] == '>' && str[i + 1] == '>')
-			{
-				type = REDIR_APP;
-				i += 2;
-			}
-			if (str[i] == '<' && str[i + 1] != '<')
-			{
-				type = REDIR_OUT;
-				i++;
-			}
-			if (str[i] == '>' && str[i + 1] != '>')
-			{
-				type = REDIR_IN;
-				i++;
-			}
-			if (str[i] == '(' && str[i + 1] == '>')
-			{
-				type = REDIR_APP;
-				i += 2;
-			}
+			write(2, "Error syntax\n", 13);
+			return (-1);
 		}
 	}
+	else if (str[i] == '|' || str[i] == '&' || str[i] == '>' || str[i] == '<'
+		|| str[i] == '(' || str[i] == ')')
+	{
+		i = lexer_sep1(token, str, i);
+	}
+	else
+		i = lexer_word(token, str, i);
+	return (i);
+}
+
+t_token	*lexer(char *str, t_token *token)
+{
+	t_token	*t_lst;
+	int		i;
+	int		j;
+
+	i = 0;
+	t_lst = NULL;
+	while (str[i])
+	{
+		j = i;
+		if (str[i] == ' ')
+		{
+			i++;
+			continue ;
+		}
+		i = lexer_while(token, str, i, j);
+		if (i == -1)
+			return (NULL);
+		add_token(&t_lst, create_token(token->type, str + j, i - j));
+	}
+	if (str[i] == '\0')
+	{
+		token->type = NONE;
+		add_token(&t_lst, create_token(token->type, str + i, 1));
+	}
+	return (t_lst);
+}
+
+int	main(void)
+{
+	char	buf[4096];
+	t_token	*cur;
+	t_token	token;
+
+	while (1)
+	{
+		printf("minishell> ");
+		fgets(buf, sizeof(buf), stdin);
+		buf[strlen(buf) - 1] = '\0';
+		cur = lexer(buf, &token);
+		while (cur)
+		{
+			printf("token->type=%d  value=%s\n", cur->token, cur->value);
+			cur = cur->next;
+		}
+		free_token_lst(cur);
+	}
+	
 }
