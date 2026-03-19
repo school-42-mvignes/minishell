@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/19 11:41:09 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/03/19 11:49:23 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_command
 {
 	int					ac;
 	char				**av;
-	// bool				is_subshell;	// ()		// a gerer plutard
+	bool				is_subshell;
 	t_redir				*redir;
 	t_type				sep;
 	t_shell				*shell;
