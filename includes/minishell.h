@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/17 16:05:23 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/03/19 11:09:14 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,7 @@
 # include <X11/keysym.h>
 # include <math.h>
 # include <stdbool.h>
-
-typedef enum e_type
-{
-	WORD,       // mot
-	SP_AND,     // &&
-	SP_OR,      // ||
-	SP_PIPE,    // |
-	REDIR_IN,   // <
-	REDIR_OUT,  // >
-	REDIR_APP,  // >>
-	REDIR_HERE, // <<
-	S_QUOTE,	// ''
-	D_QUOTE,	// ""
-	L_BRACKET,  // (
-	R_BRACKET,  // )
-	NONE,       // y'a R
-}						t_type;
+# include "lexer.h"
 
 typedef struct s_redir
 {
@@ -74,12 +58,5 @@ typedef struct s_command
 	t_shell				*shell;
 	struct s_command	*next;
 }						t_command;
-
-typedef struct s_token
-{
-	t_type				token;
-	char				*value;
-	struct s_token		*next;
-}						t_token;
 
 #endif
