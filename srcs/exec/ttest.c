@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 16:46:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/18 05:59:00 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/19 11:59:36 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int	call_env(char **env)
 	tab_env = rebuild_env(&lst_env);
 	if (!tab_env)
 		error_message("c'est la merde");
+	printf("=*=*=*=*=*=*=*=*=*==*=*=*=*=*=*=*=*=*=*=*=*=\n");
 	int	i = 0;
 	while (tab_env[i])
 		printf("\033[1m%s\n\033[0m", tab_env[i++]);
