@@ -1,27 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   print_struc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/14 13:05:33 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/17 17:50:13 by mvignes          ###   ########.fr       */
+/*   Created: 2026/03/18 04:14:38 by mvignes           #+#    #+#             */
+/*   Updated: 2026/03/18 05:58:17 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
+#include "../../includes/minishell.h"
 
-t_list	*ft_lstnew(void *content)
+void	printf_list(t_list *lst)
 {
-	t_list	*element;
+	t_list	*tmp;
 
-	if (!content)
-		return (NULL);
-	element = malloc(sizeof(t_list));
-	if (!element)
-		return (0);
-	element->content = content;
-	element->next = 0;
-	return (element);
+	tmp = lst;
+	while (tmp)
+	{
+		printf("\n node lst ===  %s\n", (char *)tmp->content);
+		tmp = tmp->next;
+	}
+}
+
+void	printf_env(t_env *lst)
+{
+	t_env	*tmp;
+	int		i;
+
+	tmp = lst;
+	i = 0;
+	while (tmp)
+	{
+		printf("\033[0;35m\033[1m%s=%s\n\033[0m", tmp->key_var, tmp->var);
+		tmp = tmp->next;
+		i++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/19 11:09:14 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/03/19 11:41:09 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 // <unistd.h>
 
 # include "libft.h"
+# include "env.h"
 # include <X11/keysym.h>
 # include <math.h>
 # include <stdbool.h>
@@ -34,13 +35,6 @@ typedef struct s_redir
 	t_type				token;
 	struct s_redir		*next;
 }						t_redir;
-
-typedef struct s_env
-{
-	char				*key_var;
-	char				*var;
-	struct s_env		*next;
-}						t_env;
 
 typedef struct s_shell
 {

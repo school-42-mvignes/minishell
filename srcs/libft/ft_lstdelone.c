@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 15:22:07 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/14 01:53:56 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/17 13:43:17 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	del(lst->content);
-	free(lst);
+	if (lst->content)
+		del(lst->content);
+	if (lst)
+		del(lst);
 }

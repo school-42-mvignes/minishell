@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 22:03:09 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/14 02:11:22 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/17 15:33:32 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,11 @@ char	*ft_strdup(char *src)
 	char	*new;
 	size_t	size;
 
+	if (!src)
+		return (NULL);
 	size = ft_strlen(src);
-	// if (size == 0)
-	// {
-	// 	new = malloc(1);
-	// 	new[0] = '\0';
-	// }
+	if (size == 0)
+		return (NULL);
 	new = malloc(sizeof(char) * (size + 1));
 	if (!new)
 		return (NULL);
