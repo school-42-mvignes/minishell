@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/19 14:10:46 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/19 17:25:18 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_shell
 {
 	t_env				*env;
 	int					*exit_status;
+	int					i;
 }						t_shell;
 
 typedef struct s_command
