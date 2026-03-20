@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 04:14:38 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/19 12:07:08 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/19 23:46:25 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ void	printf_env(t_env *lst)
 	i = 0;
 	while (tmp)
 	{
-		printf("\033[0;35m\033[1m%s=%s\n\033[0m", tmp->key_var, tmp->var);
+		if (tmp->var[0] == '\0')
+			printf("\033[0;35m\033[1m%s=%s\n\033[0m", tmp->key_var, "");
+		else
+			printf("\033[0;35m\033[1m%s=%s\n\033[0m", tmp->key_var, tmp->var);
 		tmp = tmp->next;
 		i++;
 	}

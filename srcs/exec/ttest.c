@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 16:46:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/19 14:53:31 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/20 01:12:15 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	error_message(char *message)
 
 // A voir comment le mettre en place void	call_env(t_env *lst_env, char **env)
 
+// void	call_env(t_env **lst_env, char **env)
 t_env	*call_env(char **env)
 {
 	t_list	*lst = NULL;

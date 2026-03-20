@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 04:09:19 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/19 12:07:10 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/20 00:35:12 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ char	**split_in_two(char *str, char c)
 {
 	char	**tab;
 	char	*var_delimiter;
-	size_t	key_len;
+	int		key_len;
+	int		len;
 
+	len = ft_strlen(str);
 	tab = malloc(sizeof(char *) * 3);
 	if (!tab)
 		return (NULL);
