@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 14:52:18 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/03/18 17:15:14 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/03/25 16:48:30 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,26 +60,4 @@ t_token	*lexer(char *str, t_token *token)
 		add_token(&t_lst, create_token(token->type, str + i, 1));
 	}
 	return (t_lst);
-}
-
-int	main(void)
-{
-	char	buf[4096];
-	t_token	*cur;
-	t_token	token;
-
-	while (1)
-	{
-		printf("minishell> ");
-		fgets(buf, sizeof(buf), stdin);
-		buf[strlen(buf) - 1] = '\0';
-		cur = lexer(buf, &token);
-		while (cur)
-		{
-			printf("token->type=%d  value=%s\n", cur->token, cur->value);
-			cur = cur->next;
-		}
-		free_token_lst(cur);
-	}
-	
 }
