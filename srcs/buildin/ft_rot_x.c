@@ -1,24 +1,41 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   orchestrator.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/20 01:24:01 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/25 14:37:37 by mvignes          ###   ########.fr       */
+/*   Created: 2026/03/20 01:25:03 by mvignes           #+#    #+#             */
+/*   Updated: 2026/03/20 01:25:11 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	buildin_pwd(t_command *cmd) // 4
+char	ft_rotate_char(char c, int n)
 {
-	t_env	*tmp;
+	int	base;
 
-	tmp = cmd->shell->env;
-	while (ft_strncmp("PWD", tmp->key_var, 4))
-		tmp = tmp->next;
-	if (!ft_strncmp("PWD", tmp->key_var, 4))
-		ft_putendl_fd(tmp->var, 1);				// mettre dans un buffer
+	if (c >= 'a' && c <= 'z')
+		base = 'a';
+	else if (c >= 'A' && c <= 'Z')
+		base = 'A';
+	else
+		return (c);
+	return ((c - base + n) % 26 + base);
+}
+
+void	ft_rot_x(char *str, int n)
+{
+	int	i;
+
+	i = 0;
+	if (!str)
+		return ;
+	while (str[i])
+	{
+		str[i] = ft_rotate_char(str[i], n);
+		i++;
+	}
 }
