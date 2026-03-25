@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/10 21:02:43 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/19 22:04:39 by mvignes          ###   ########.fr       */
+/*   Created: 2026/03/20 01:23:49 by mvignes           #+#    #+#             */
+/*   Updated: 2026/03/25 14:36:48 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
+#include "../../includes/minishell.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+void	buildin_echo(t_command *cmd) // 1
 {
-	size_t	i;
+	int	i;
 
-	i = 0;
-	if (!s1 && !s2)
-		return (-1);
-	else if (!s1)
-		return (0 - (unsigned char)s2[i]);
-	else if (!s2)
-		return ((unsigned char)s1[i]);
-	else if (n == 0)
-		return (0);
-	while (s1[i] == s2[i] && s1[i] && s2[i] && i < n - 1)
+	i = 1;
+	if (!ft_strncmp("-n", cmd->av[1], 3))
 		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	while (cmd->av[i])
+	{
+		if (i != 1)
+			ft_putchar_fd(' ', 1);
+		ft_putstr_fd(cmd->av[i++], 1);
+	}
+	if (ft_strncmp("-n", cmd->av[1], 3))
+		ft_putchar_fd('\n', 1);
+	return ;
 }

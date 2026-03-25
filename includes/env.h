@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 04:03:34 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/19 11:58:53 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/19 23:50:30 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,18 @@
 # define ENV_H
 
 # include "minishell.h"
-# include "libft.h"
+# include <stdbool.h>
 
 typedef struct s_env
 {
 	char				*key_var;
+	bool				var_null;
 	char				*var;
 	struct s_env		*next;
 }						t_env;
+
+// void				call_env(t_env	**lst_env, char **env);
+t_env			*call_env(char **env);
 
 // srcs/utils/
 void			printf_env(t_env *lst);
