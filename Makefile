@@ -6,7 +6,7 @@
 #    By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/22 14:39:19 by mvignes           #+#    #+#              #
-#    Updated: 2026/03/18 04:07:28 by mvignes          ###   ########.fr        #
+#    Updated: 2026/03/25 14:54:41 by mvignes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror
 RM			= rm -f
 
-MAKEFLAGS	+= --no-print-directory
+#MAKEFLAGS	+= --no-print-directory
 
 RED			= \033[0;31m
 GREEN		= \033[0;32m
@@ -92,6 +92,22 @@ SRCS	= srcs/libft/ft_isalpha.c\
 		srcs/libft/get_next_line_utils.c\
 		\
 		srcs/main.c\
+		\
+		srcs/utils/lstenv.c\
+		srcs/utils/other_split.c\
+		srcs/utils/print_struc.c\
+		\
+		srcs/buildin/cd.c\
+		srcs/buildin/echo.c\
+		srcs/buildin/env.c\
+		srcs/buildin/exit.c\
+		srcs/buildin/export.c\
+		srcs/buildin/orchestrator.c\
+		srcs/buildin/pwd.c\
+		srcs/buildin/unset.c\
+		\
+		srcs/exec/env.c\
+		\
 		
 
 SRCS_BONUS	= \
@@ -99,6 +115,12 @@ SRCS_BONUS	= \
 OBJS		= $(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS))
 OBJS_BONUS	= $(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS_BONUS))
 
+
+INCLUDES	= includes/minishell.h\
+				includes/buildin.h\
+				includes/env.h\
+				includes/lexer.h\
+				includes/libft.h\
 
 
 #================================#
@@ -116,11 +138,11 @@ OBJS_BONUS	= $(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS_BONUS))
 TOTAL = $(words $(OBJS), $(OBJS_BONUS))
 
 all:
-	@$(MAKE) -j12 $(NAME) 
+	@$(MAKE) -j12 $(NAME)
 
-$(NAME): $(OBJS) $(MLX_LIB)
+$(NAME): $(OBJS)
 	@printf "\n"
-	@if $(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) -o $(NAME); then \
+	@if $(CC) $(CFLAGS) $(OBJS) -o $(NAME); then \
 		$(MAKE) name_ascii; \
 		$(MAKE) user42; \
 		printf "$(GREEN)$(GRAS)👌 Compilation terminée !$(RESET)\n\n"; \
