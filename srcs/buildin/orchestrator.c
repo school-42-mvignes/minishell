@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:25:03 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/25 14:53:17 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/25 19:05:19 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int	main(int ac, char **av, char **env)
 		cmd.av[i] = ft_strdup(av[i + 1]);
 		i++;
 	}
-	// if (ac > 1)
 	what_the_buildin(&cmd);
 	return (0);
 }
