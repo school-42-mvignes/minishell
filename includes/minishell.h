@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/24 19:17:29 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/26 16:42:41 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # include <X11/keysym.h>
 # include <math.h>
 # include <stdbool.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 typedef struct s_redir
 {
