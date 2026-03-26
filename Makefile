@@ -6,7 +6,7 @@
 #    By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/22 14:39:19 by mvignes           #+#    #+#              #
-#    Updated: 2026/03/25 14:54:41 by mvignes          ###   ########.fr        #
+#    Updated: 2026/03/26 16:51:38 by mvignes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror
 RM			= rm -f
 
-#MAKEFLAGS	+= --no-print-directory
+MAKEFLAGS	+= --no-print-directory
 
 RED			= \033[0;31m
 GREEN		= \033[0;32m
@@ -116,11 +116,7 @@ OBJS		= $(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS))
 OBJS_BONUS	= $(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS_BONUS))
 
 
-INCLUDES	= includes/minishell.h\
-				includes/buildin.h\
-				includes/env.h\
-				includes/lexer.h\
-				includes/libft.h\
+INCLUDES	= -I ./includes
 
 
 #================================#
@@ -142,7 +138,7 @@ all:
 
 $(NAME): $(OBJS)
 	@printf "\n"
-	@if $(CC) $(CFLAGS) $(OBJS) -o $(NAME); then \
+	@if $(CC) $(CFLAGS) $(OBJS) -lreadline -o $(NAME); then \
 		$(MAKE) name_ascii; \
 		$(MAKE) user42; \
 		printf "$(GREEN)$(GRAS)👌 Compilation terminée !$(RESET)\n\n"; \
