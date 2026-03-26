@@ -6,21 +6,12 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/19 11:49:23 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/03/26 18:14:18 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-// Deja dans libft.h
-// <fcntl.h>
-// <limits.h>
-// <stdarg.h>
-// <stdint.h>
-// <stdio.h>
-// <stdlib.h>
-// <unistd.h>
 
 # include "libft.h"
 # include "env.h"
@@ -28,11 +19,12 @@
 # include <math.h>
 # include <stdbool.h>
 # include "lexer.h"
+# include "parser.h"
 
 typedef struct s_redir
 {
 	char				*file;
-	t_type				token;
+	t_type				type;
 	struct s_redir		*next;
 }						t_redir;
 
@@ -44,13 +36,19 @@ typedef struct s_shell
 
 typedef struct s_command
 {
-	int					ac;
-	char				**av;
-	bool				is_subshell;
-	t_redir				*redir;
-	t_type				sep;
-	t_shell				*shell;
-	struct s_command	*next;
-}						t_command;
+	char			**av;
+	bool			is_subshell;
+	t_redir			*redir;
+	t_shell			*shell;
+}					t_command;
+
+typedef struct s_node
+{
+	t_node_type		type;
+	t_command		*cmd;
+	int				count;
+	struct s_node	*left;
+	struct s_node	*right;
+}					t_node;
 
 #endif
