@@ -6,11 +6,11 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 13:20:34 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/03/18 17:09:05 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/03/26 18:25:41 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 static t_token	*lastlst(t_token *lst)
 {
@@ -37,7 +37,7 @@ t_token	*create_token(t_type token, char *value, int n)
 	if (!tmp)
 		return (free(new), NULL);
 	tmp[n] = '\0';
-	new->token = token;
+	new->type = token;
 	while (i < n)
 	{
 		tmp[i] = value[i];
@@ -64,10 +64,10 @@ t_token	*add_token(t_token **lst, t_token *new_nod)
 	return (*lst);
 }
 
-void free_token_lst(t_token *lst)
+void	free_token_lst(t_token *lst)
 {
-	t_token *next;
-	
+	t_token	*next;
+
 	while (lst)
 	{
 		next = lst->next;

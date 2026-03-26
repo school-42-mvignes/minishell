@@ -6,11 +6,11 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 16:11:45 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/03/18 17:15:31 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/03/26 18:07:26 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 int	lexer_quote(t_token *token, char *str, int i, int j)
 {
