@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/19 11:09:30 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/03/25 18:54:34 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ typedef enum e_type
 
 typedef struct s_token
 {
-	t_type				token;
-	int					type;
+	t_type				type;
 	char				*value; 
 	struct s_token		*next;
 }						t_token;
