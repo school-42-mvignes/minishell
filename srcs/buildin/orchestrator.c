@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:25:03 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/25 19:05:19 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/26 16:45:54 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	what_the_buildin(t_command *cmd)
 	return ;
 }
 
-t_shell	*ft_shellnew(void)
+/* t_shell	*ft_shellnew(void)
 {
 	t_shell	*element;
 	
@@ -84,4 +84,4 @@ int	main(int ac, char **av, char **env)
 	what_the_buildin(&cmd);
 	return (0);
 }
-
+ */
