@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 void print_tree(t_node *node)
 {
@@ -35,15 +35,16 @@ int	main(void)
 	{
 		printf("minishell> ");
 		fgets(buf, sizeof(buf), stdin);
-		buf[strlen(buf) - 1] = '\0';
+		buf[ft_strlen(buf) - 1] = '\0';
 		cur = lexer(buf, &token);
 		node = parse_and_or(&cur);
 		print_tree(node);
-			// while (cur)
-			// {
-			// 	printf("token->type=%d  value=%s\n", cur->token, cur->value);
-			// 	cur = cur->next;
-			// }
+		while (node->cmd->redir)
+		{
+			printf("redir file = %s\n redir type = %d\n", node->cmd->redir->file, node->cmd->redir->type);
+			node->cmd->redir = node->cmd->redir->next;
+		}
 		free_token_lst(cur);
 	}
+	return (0);
 }

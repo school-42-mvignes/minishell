@@ -1,38 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*   parser_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/23 15:16:29 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/03/25 20:30:27 by mmusquer         ###   ########.fr       */
+/*   Created: 2026/03/26 16:41:56 by mmusquer          #+#    #+#             */
+/*   Updated: 2026/03/26 18:26:24 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
-t_token *use_token(t_token **token)
+void	free_node(t_node *node)
 {
-	t_token *tmp;
+	int		i;
+	t_redir	*tmp;
 
-	tmp = *token;
-	*token = (*token)->next;
-	return (tmp);
-}
-
-t_redir	*add_token(t_token **lst, t_token *new_nod)
-{
-	t_token	*last;
-
-	if (!lst || !new_nod)
-		return (NULL);
-	if (!*lst)
+	i = 0;
+	if (!node)
+		return ;
+	if (node->type == NODE_CMD)
 	{
-		*lst = new_nod;
-		return (NULL);
+		free(node->cmd->av);
+		while (node->cmd->redir)
+		{
+			tmp = node->cmd->redir;
+			node->cmd->redir = node->cmd->redir->next;
+			free(tmp);
+		}
+		free(node->cmd);
 	}
-	last = lastlst(*lst);
-	last->next = new_nod;
-	return (*lst);
+	else
+	{
+		free_node(node->left);
+		free_node(node->right);
+	}
+	free(node);
 }
