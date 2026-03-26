@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 16:11:45 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/03/26 18:07:26 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/03/26 18:37:43 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	lexer_quote(t_token *token, char *str, int i, int j)
 	return (i);
 }
 
-int	lexer_sep1(t_token *token, char *str, int i)
+int	lexer_sep(t_token *token, char *str, int i)
 {
 	if (str[i] == '|' && str[i + 1] == '|')
 	{
@@ -52,16 +52,16 @@ int	lexer_sep1(t_token *token, char *str, int i)
 		token->type = SP_PIPE;
 		return (i + 1);
 	}
+	return (lexer_sep_redir(token, str, i));
+}
+
+int	lexer_sep_redir(t_token *token, char *str, int i)
+{
 	if (str[i] == '<' && str[i + 1] == '<')
 	{
 		token->type = REDIR_HERE;
 		return (i + 2);
 	}
-	return (lexer_sep2(token, str, i));
-}
-
-int	lexer_sep2(t_token *token, char *str, int i)
-{
 	if (str[i] == '>' && str[i + 1] == '>')
 	{
 		token->type = REDIR_APP;
@@ -77,10 +77,10 @@ int	lexer_sep2(t_token *token, char *str, int i)
 		token->type = REDIR_OUT;
 		return (i + 1);
 	}
-	return (lexer_sep3(token, str, i));
+	return (lexer_sep_bracket(token, str, i));
 }
 
-int	lexer_sep3(t_token *token, char *str, int i)
+int	lexer_sep_bracket(t_token *token, char *str, int i)
 {
 	int	g;
 
