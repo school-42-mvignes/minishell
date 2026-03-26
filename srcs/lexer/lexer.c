@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 14:52:18 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/03/26 18:07:18 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/03/26 18:39:53 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	lexer_while(t_token *token, char *str, int i, int j)
 	else if (str[i] == '|' || str[i] == '&' || str[i] == '>' || str[i] == '<'
 		|| str[i] == '(' || str[i] == ')')
 	{
-		i = lexer_sep1(token, str, i);
+		i = lexer_sep(token, str, i);
 	}
 	else
 		i = lexer_word(token, str, i);

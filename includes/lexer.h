@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/25 18:54:34 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/03/26 18:38:28 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ t_token					*lexer(char *str, t_token *token);
 
 /*LEXER UTILS*/
 int						lexer_quote(t_token *token, char *str, int i, int j);
-int						lexer_sep1(t_token *token, char *str, int i);
-int						lexer_sep2(t_token *token, char *str, int i);
-int						lexer_sep3(t_token *token, char *str, int i);
+int						lexer_sep(t_token *token, char *str, int i);
+int						lexer_sep_redir(t_token *token, char *str, int i);
+int						lexer_sep_bracket(t_token *token, char *str, int i);
 int						lexer_word(t_token *token, char *str, int i);
 void					free_token_lst(t_token *lst);
 

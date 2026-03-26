@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/26 16:41:56 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/03/26 18:26:24 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/03/26 18:40:51 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 void	free_node(t_node *node)
 {
-	int		i;
 	t_redir	*tmp;
 
-	i = 0;
 	if (!node)
 		return ;
 	if (node->type == NODE_CMD)
