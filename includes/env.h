@@ -6,16 +6,15 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 04:03:34 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/18 05:34:34 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/26 11:32:10 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENV_H
 # define ENV_H
 
-
 # include "minishell.h"
-# include "libft.h"
+# include <stdbool.h>
 
 typedef struct s_env
 {
@@ -24,13 +23,16 @@ typedef struct s_env
 	struct s_env		*next;
 }						t_env;
 
+// void				call_env(t_env	**lst_env, char **env);
+t_env			*call_env(char **env);
 
+// srcs/utils/
 void			printf_env(t_env *lst);
 void			printf_list(t_list *lst);
 char			**split_in_two(char *str, char c);
 void			split_tab_to_list(char **old_tab, t_list **lst);
 
-// srcs/utils/
+// liste_chainer
 t_env			*ft_envnew(char **tab);
 int				ft_envsize(t_env *env);
 t_env			*ft_envlast(t_env *lst);

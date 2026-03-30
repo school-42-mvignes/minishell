@@ -1,43 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_struc.c                                      :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/18 04:14:38 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/19 23:46:25 by mvignes          ###   ########.fr       */
+/*   Created: 2026/03/20 01:23:57 by mvignes           #+#    #+#             */
+/*   Updated: 2026/03/25 14:37:49 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	printf_list(t_list *lst)
+void	buildin_export(t_command *cmd) // 5 // a tester quand on aura un minishell avec readline
 {
-	t_list	*tmp;
+	t_env	*node;
+	char	**tab;
 
-	tmp = lst;
-	while (tmp)
+	tab = split_in_two(cmd->av[1], '=');
+	if (!tab)
+		return ;
+	node = search_key_var(cmd->shell->env, tab[0]);
+	if (!node)
 	{
-		printf("\n node lst ===  %s\n", (char *)tmp->content);
-		tmp = tmp->next;
+		node = ft_envnew(tab);
+		ft_envadd_back(&cmd->shell->env, node);
+		free(tab);
 	}
-}
-
-void	printf_env(t_env *lst)
-{
-	t_env	*tmp;
-	int		i;
-
-	tmp = lst;
-	i = 0;
-	while (tmp)
+	else
 	{
-		if (tmp->var[0] == '\0')
-			printf("\033[0;35m\033[1m%s=%s\n\033[0m", tmp->key_var, "");
-		else
-			printf("\033[0;35m\033[1m%s=%s\n\033[0m", tmp->key_var, tmp->var);
-		tmp = tmp->next;
-		i++;
+		free(tab[0]);
+		free(node->var);
+		node->var = NULL;
+		node->var = tab[1];
+		free(tab);
 	}
+	printf_env(cmd->shell->env);
 }

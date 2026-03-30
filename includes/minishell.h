@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/26 18:14:18 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/03/30 16:31:57 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,15 @@
 
 # include "libft.h"
 # include "env.h"
+# include "lexer.h"
+# include "buildin.h"
 # include <X11/keysym.h>
 # include <math.h>
 # include <stdbool.h>
 # include "lexer.h"
 # include "parser.h"
+#include <readline/readline.h>
+#include <readline/history.h>
 
 typedef struct s_redir
 {
@@ -49,6 +53,7 @@ typedef struct s_node
 	int				count;
 	struct s_node	*left;
 	struct s_node	*right;
+	pid_t			last_pid;
 }					t_node;
 
 #endif
