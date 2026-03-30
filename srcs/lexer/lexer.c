@@ -6,11 +6,11 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 14:52:18 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/03/18 17:15:14 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/03/30 16:11:37 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 static int	lexer_while(t_token *token, char *str, int i, int j)
 {
@@ -26,7 +26,7 @@ static int	lexer_while(t_token *token, char *str, int i, int j)
 	else if (str[i] == '|' || str[i] == '&' || str[i] == '>' || str[i] == '<'
 		|| str[i] == '(' || str[i] == ')')
 	{
-		i = lexer_sep1(token, str, i);
+		i = lexer_sep(token, str, i);
 	}
 	else
 		i = lexer_word(token, str, i);
@@ -36,10 +36,12 @@ static int	lexer_while(t_token *token, char *str, int i, int j)
 t_token	*lexer(char *str, t_token *token)
 {
 	t_token	*t_lst;
+	int 	status;
 	int		i;
 	int		j;
 
 	i = 0;
+	status = 0;
 	t_lst = NULL;
 	while (str[i])
 	{
@@ -52,34 +54,14 @@ t_token	*lexer(char *str, t_token *token)
 		i = lexer_while(token, str, i, j);
 		if (i == -1)
 			return (NULL);
-		add_token(&t_lst, create_token(token->type, str + j, i - j));
+		add_token(&t_lst, create_token(token->type, str + j, i - j), &status);
+		if (status == 1)
+			return (NULL);
 	}
 	if (str[i] == '\0')
 	{
 		token->type = NONE;
-		add_token(&t_lst, create_token(token->type, str + i, 1));
+		add_token(&t_lst, create_token(token->type, str + i, 1), &status);
 	}
 	return (t_lst);
-}
-
-int	main(void)
-{
-	char	buf[4096];
-	t_token	*cur;
-	t_token	token;
-
-	while (1)
-	{
-		printf("minishell> ");
-		fgets(buf, sizeof(buf), stdin);
-		buf[strlen(buf) - 1] = '\0';
-		cur = lexer(buf, &token);
-		while (cur)
-		{
-			printf("token->type=%d  value=%s\n", cur->token, cur->value);
-			cur = cur->next;
-		}
-		free_token_lst(cur);
-	}
-	
 }
