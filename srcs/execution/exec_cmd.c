@@ -1,43 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_struc.c                                      :+:      :+:    :+:   */
+/*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/18 04:14:38 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/19 23:46:25 by mvignes          ###   ########.fr       */
+/*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
+/*   Updated: 2026/03/25 18:12:16 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	printf_list(t_list *lst)
+void	exec_cmd(char **args, char **envp)
 {
-	t_list	*tmp;
+	char	*cmd_path;
+	char	*tmp;
 
-	tmp = lst;
-	while (tmp)
+	tmp = args[0];
+	if (!args || !args[0])
 	{
-		printf("\n node lst ===  %s\n", (char *)tmp->content);
-		tmp = tmp->next;
+		ft_putendl_fd(": command not found", 2);
+		exit(127);
 	}
-}
-
-void	printf_env(t_env *lst)
-{
-	t_env	*tmp;
-	int		i;
-
-	tmp = lst;
-	i = 0;
-	while (tmp)
+	cmd_path = find_path(args[0], envp);
+	if (!cmd_path)
 	{
-		if (tmp->var[0] == '\0')
-			printf("\033[0;35m\033[1m%s=%s\n\033[0m", tmp->key_var, "");
-		else
-			printf("\033[0;35m\033[1m%s=%s\n\033[0m", tmp->key_var, tmp->var);
-		tmp = tmp->next;
-		i++;
+		ft_putstr_fd(tmp, 2);
+		ft_putendl_fd(": command not found", 2);
+		exit(127);
 	}
+	execve(cmd_path, args, envp);
+	perror(cmd_path);
+	free(cmd_path);
+	exit(EXIT_FAILURE);
 }
