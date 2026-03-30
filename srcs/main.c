@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/30 16:36:11 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/30 19:28:34 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,14 @@ void print_tree(t_node *node)
 t_shell	*ft_shellnew(void)
 {
 	t_shell	*element;
+	int		status;
 
+	status = 0;
 	element = malloc(sizeof(t_shell));
 	if (!element)
 		return (NULL);
 	element->env = NULL;
-	element->exit_status = NULL;
+	element->exit_status = &status;
 	return (element);
 }
 
@@ -96,6 +98,7 @@ int	main(int ac, char **av, char **env)
 		if (cur == NULL)
 			continue ;
 		node = parse_and_or(&cur);
+		what_the_separator(node, &shell);
 		// print_tree(node);
 		// while (node->cmd->redir)
 		// {

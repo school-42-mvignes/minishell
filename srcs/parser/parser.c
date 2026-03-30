@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 11:51:04 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/03/26 18:26:35 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/03/30 17:40:10 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_redir	*parse_redir(t_token **token)
 	{
 		redir->type = (*token)->type;
 		use_token(token);
-		redir->file = (*token)->value;
+		redir->outfile = (*token)->value;
 		use_token(token);
 	}
 	return (redir);

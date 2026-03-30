@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:18:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/30 16:32:50 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/30 19:33:33 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,28 +38,20 @@ int	open_file_app(char *outfile)
 	return (fd);
 }
 
-void	redirect_fd(int old_fd, int new_fd)
-{
-	if (dup2(old_fd, new_fd) == -1)
-	{
-		perror("dup2");
-		exit(1);
-	}
-	close(old_fd);
-}
-
-void	what_the_outfile(t_command *cmd)
+int	what_the_outfile(t_redir *redir)
 {
 	int	fd;
 
-	if (cmd->redir->type == REDIR_IN) // action redir in
-		fd = open_file_in(cmd->redir->file);
-	else if (cmd->redir->type == REDIR_OUT) // action redir out
-		fd = open_file_in(cmd->redir->file);
-	else if (cmd->redir->type == REDIR_APP) // action redir app
-		fd = open_file_app(cmd->redir->file);
+	if (redir->type == REDIR_IN) // action redir in
+		fd = open_file_in(redir->outfile);
+	else if (redir->type == REDIR_OUT) // action redir out
+		fd = open_file_in(redir->outfile);
+	else if (redir->type == REDIR_APP) // action redir app
+		fd = open_file_app(redir->outfile);
 	// else if (cmd->redir->type == REDIR_HERE) // action redir here doc
 		// Relancer un minishell (donc avoir un minishell dans le main)
 
-	redirect_fd(NULL, fd);
+	// redirect_fd(NULL, fd);
+	printf("%i", fd);
+	return (fd);
 }

@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 22:30:42 by mvignes           #+#    #+#             */
-/*   Updated: 2026/01/30 13:51:58 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/30 21:45:00 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ char	*ft_strtrim(char const *s1, char const *set)
 	int		end;
 
 	if (!s1)
-		return (malloc(0));
+	{
+		cpy = ft_strdup("");
+		return (cpy);
+	}
 	else if (ft_strlen(set) == 0)
 		cpy = ft_strdup((char *)s1);
 	else

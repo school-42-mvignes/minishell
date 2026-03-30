@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/30 16:31:57 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/30 21:43:41 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,15 @@
 # include <stdbool.h>
 # include "lexer.h"
 # include "parser.h"
+# include "execution.h"
+#include <sys/wait.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 
 typedef struct s_redir
 {
-	char				*file;
+	char				*outfile;
+	int					outfile_fd;
 	t_type				type;
 	struct s_redir		*next;
 }						t_redir;
@@ -41,6 +44,8 @@ typedef struct s_shell
 typedef struct s_command
 {
 	char			**av;
+	char			*infile;
+	int				infile_fd;
 	bool			is_subshell;
 	t_redir			*redir;
 	t_shell			*shell;

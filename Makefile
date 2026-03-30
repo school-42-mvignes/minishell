@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+         #
+#    By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/22 14:39:19 by mvignes           #+#    #+#              #
-#    Updated: 2026/03/30 14:42:50 by mmusquer         ###   ########.fr        #
+#    Updated: 2026/03/30 21:41:12 by mvignes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,6 +107,11 @@ SRCS	= srcs/libft/ft_isalpha.c\
 		srcs/buildin/unset.c\
 		\
 		srcs/execution/env.c\
+		srcs/execution/exec_cmd.c\
+		srcs/execution/path.c\
+		srcs/execution/pipe.c\
+		srcs/execution/redir.c\
+		srcs/execution/sep.c\
 		\
 		srcs/lexer/lexer.c\
 		srcs/lexer/lexer_utils.c\
@@ -115,6 +120,7 @@ SRCS	= srcs/libft/ft_isalpha.c\
 		srcs/parser/parser.c\
 		srcs/parser/parser_utils.c\
 		srcs/parser/parser_free.c\
+		\
 		
 
 SRCS_BONUS	= \
