@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/26 16:42:41 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/30 16:31:57 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_node
 	int				count;
 	struct s_node	*left;
 	struct s_node	*right;
+	pid_t			last_pid;
 }					t_node;
 
 #endif

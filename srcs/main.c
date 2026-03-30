@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/30 16:24:21 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/03/30 16:36:11 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	(void)env;
+	(void)node;
 	ft_memset(&shell, 0, (sizeof(t_shell)));
 	init_minishell(&shell, env);
 	while (1)
@@ -95,12 +96,12 @@ int	main(int ac, char **av, char **env)
 		if (cur == NULL)
 			continue ;
 		node = parse_and_or(&cur);
-		print_tree(node);
+		// print_tree(node);
 		// while (node->cmd->redir)
 		// {
 		// 	printf("redir file = %s\n redir type = %d\n", node->cmd->redir->file, node->cmd->redir->type);
 		// 	node->cmd->redir = node->cmd->redir->next;
 		// }
-		free_token_lst(cur);
+		// free_token_lst(cur);
 	}
 }
