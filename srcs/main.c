@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/26 18:57:54 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/03/30 16:24:21 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ int	main(int ac, char **av, char **env)
 		// printf("testest");
 		buf = readline("Minishell>");
 		cur = lexer(buf, &token);
+		if (cur == NULL)
+			continue ;
 		node = parse_and_or(&cur);
 		print_tree(node);
 		// while (node->cmd->redir)

@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 13:20:34 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/03/26 18:25:41 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/03/30 16:15:13 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_token	*create_token(t_type token, char *value, int n)
 	return (new);
 }
 
-t_token	*add_token(t_token **lst, t_token *new_nod)
+t_token	*add_token(t_token **lst, t_token *new_nod, int *status)
 {
 	t_token	*last;
 
@@ -60,7 +60,20 @@ t_token	*add_token(t_token **lst, t_token *new_nod)
 		return (NULL);
 	}
 	last = lastlst(*lst);
+	if ((last->type == SP_AND || last->type == SP_OR || last->type == SP_PIPE
+			|| last->type == REDIR_APP || last->type == REDIR_HERE
+			|| last->type == REDIR_IN || last->type == REDIR_OUT)
+		&& (new_nod->type == SP_AND || new_nod->type == SP_OR
+			|| new_nod->type == SP_PIPE || new_nod->type == REDIR_APP
+			|| new_nod->type == REDIR_HERE || new_nod->type == REDIR_IN
+			|| new_nod->type == REDIR_OUT))
+	{
+		write(2, "Error sytaxe\n", 13);
+		*status = 1;
+		return (NULL);
+	}
 	last->next = new_nod;
+	status = 0;
 	return (*lst);
 }
 

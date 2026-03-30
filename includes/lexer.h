@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/26 18:38:28 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/03/30 16:11:49 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_token
 /*LEXER*/
 
 t_token					*create_token(t_type token, char *value, int n);
-t_token					*add_token(t_token **lst, t_token *new_nod);
+t_token					*add_token(t_token **lst, t_token *new_nod, int *status);
 t_token					*lexer(char *str, t_token *token);
 
 /*LEXER UTILS*/
