@@ -6,7 +6,7 @@
 #    By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/22 14:39:19 by mvignes           #+#    #+#              #
-#    Updated: 2026/03/26 18:39:18 by mmusquer         ###   ########.fr        #
+#    Updated: 2026/03/30 14:42:50 by mmusquer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -106,7 +106,7 @@ SRCS	= srcs/libft/ft_isalpha.c\
 		srcs/buildin/pwd.c\
 		srcs/buildin/unset.c\
 		\
-		srcs/exec/env.c\
+		srcs/execution/env.c\
 		\
 		srcs/lexer/lexer.c\
 		srcs/lexer/lexer_utils.c\
