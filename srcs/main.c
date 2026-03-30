@@ -6,11 +6,35 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/26 17:04:10 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/30 16:36:11 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void print_tree(t_node *node)
+{
+	int i;
+
+	i = 0;
+	if (!node)
+		return ;
+	if (node->type == NODE_CMD)
+	{
+		while (node->cmd->av[i])
+		{
+			printf("type = %d\n", node->type);
+			printf("av[%d] = %s\n", i, node->cmd->av[i]);
+			i++;
+		}
+	}
+	else
+	{
+		print_tree(node->left);
+		print_tree(node->right);
+		printf("type = %d\n", node->type);
+	}
+}
 
 t_shell	*ft_shellnew(void)
 {
@@ -24,13 +48,13 @@ t_shell	*ft_shellnew(void)
 	return (element);
 }
 
-static void	init_minishell(t_command *cmd, char **env)
+static void	init_minishell(t_shell *shell, char **env)
 {
 	t_env	*lst_env;
 
 	lst_env = call_env(env);
-	cmd->shell = ft_shellnew();
-	cmd->shell->env = lst_env;
+	shell = ft_shellnew();
+	shell->env = lst_env;
 }
 //c'est pas senser etre ici mais dans le parsing, main pour tester les buldins//////
 void	parsing(t_command *cmd, char *line)
@@ -51,19 +75,33 @@ void	parsing(t_command *cmd, char *line)
 
 int	main(int ac, char **av, char **env)
 {
-	char		*line;
-	t_command	cmd;
+	char	*buf;
+	t_token	*cur;
+	t_token	token;
+	t_node *node;
+	t_shell	shell;
 
 	(void)ac;
 	(void)av;
 	(void)env;
-	ft_memset(&cmd, 0, (sizeof(t_command)));
-	init_minishell(&cmd, env);
+	(void)node;
+	ft_memset(&shell, 0, (sizeof(t_shell)));
+	init_minishell(&shell, env);
 	while (1)
 	{
 		// ft_memset(&cmd, 0, (sizeof(t_command))); // clear all sauf l'env et peut etre la sortie {$?}
 		// printf("testest");
-		line = readline("Mini-shell>");
-		parsing(&cmd, line);
+		buf = readline("Minishell>");
+		cur = lexer(buf, &token);
+		if (cur == NULL)
+			continue ;
+		node = parse_and_or(&cur);
+		// print_tree(node);
+		// while (node->cmd->redir)
+		// {
+		// 	printf("redir file = %s\n redir type = %d\n", node->cmd->redir->file, node->cmd->redir->type);
+		// 	node->cmd->redir = node->cmd->redir->next;
+		// }
+		// free_token_lst(cur);
 	}
 }
