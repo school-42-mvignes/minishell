@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/30 16:31:57 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/30 19:26:59 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdbool.h>
 # include "lexer.h"
 # include "parser.h"
+# include "expand.h"
 #include <readline/readline.h>
 #include <readline/history.h>
 
