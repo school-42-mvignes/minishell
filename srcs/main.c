@@ -6,11 +6,12 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/30 19:28:34 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/31 14:19:49 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+// < Makefile ls -l | wc -l > outfile
 
 void print_tree(t_node *node)
 {
@@ -25,6 +26,8 @@ void print_tree(t_node *node)
 		{
 			printf("type = %d\n", node->type);
 			printf("av[%d] = %s\n", i, node->cmd->av[i]);
+			// printf("file = %s\n", node->cmd->redir->file);
+			// printf("file = %i\n", node->cmd->redir->file_fd);
 			i++;
 		}
 	}
@@ -98,13 +101,15 @@ int	main(int ac, char **av, char **env)
 		if (cur == NULL)
 			continue ;
 		node = parse_and_or(&cur);
-		what_the_separator(node, &shell);
-		// print_tree(node);
+		printf("type node = %i\n\n", node->type);
+		print_tree(node);
 		// while (node->cmd->redir)
 		// {
-		// 	printf("redir file = %s\n redir type = %d\n", node->cmd->redir->file, node->cmd->redir->type);
+		// 	printf("redir file = %s\n redir type = %d\n", node->cmd->redir->outfile, node->cmd->redir->type);
 		// 	node->cmd->redir = node->cmd->redir->next;
 		// }
+		// what_the_buildin(node->cmd); // fait l'init dans la creation de cmd
+		what_the_separator(node, &shell);
 		// free_token_lst(cur);
 	}
 }

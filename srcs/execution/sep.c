@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 18:40:34 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/30 21:40:52 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/31 13:50:29 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,17 @@ static int	exec_pip(t_node *node, t_command *cmd1, t_command *cmd2)
 	return (1);
 }
 
-void	what_the_separator(t_node *node, t_shell *shell)
+void	what_the_separator(t_node *node, t_shell *shell) // revoir la fonction car s il y a un pipe apres un separateur cela peut faire bugger
 {
 	(void)shell;
 	int		exit;	//shell->exit_status
 
-	if (node->type == NODE_AND)
+	if (node->type == NODE_PIPE)
+		exit = exec_pip(node, node->left->cmd, node->right->cmd);
+	else if (node->type == NODE_AND)
 		exit = exec_and(node, node->left->cmd, node->right->cmd);
 	else if (node->type == NODE_OR)
 		exit = exec_or(node, node->left->cmd, node->right->cmd);
-	else if (node->type == NODE_PIPE)
-		exit = exec_pip(node, node->left->cmd, node->right->cmd);
 	(void)exit;
 }
+
