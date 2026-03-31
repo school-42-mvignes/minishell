@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 11:51:04 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/03/30 17:40:10 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/31 14:01:18 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_redir	*parse_redir(t_token **token)
 	{
 		redir->type = (*token)->type;
 		use_token(token);
-		redir->outfile = (*token)->value;
+		redir->file = (*token)->value;
 		use_token(token);
 	}
 	return (redir);

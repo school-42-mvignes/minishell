@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/30 21:43:41 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/31 14:00:27 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 
 typedef struct s_redir
 {
-	char				*outfile;
-	int					outfile_fd;
+	char				*file;
+	int					file_fd;
 	t_type				type;
 	struct s_redir		*next;
 }						t_redir;
@@ -44,8 +44,6 @@ typedef struct s_shell
 typedef struct s_command
 {
 	char			**av;
-	char			*infile;
-	int				infile_fd;
 	bool			is_subshell;
 	t_redir			*redir;
 	t_shell			*shell;

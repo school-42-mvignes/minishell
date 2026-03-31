@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:18:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/30 19:33:33 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/31 14:02:11 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ int	what_the_outfile(t_redir *redir)
 	int	fd;
 
 	if (redir->type == REDIR_IN) // action redir in
-		fd = open_file_in(redir->outfile);
+		fd = open_file_in(redir->file);
 	else if (redir->type == REDIR_OUT) // action redir out
-		fd = open_file_in(redir->outfile);
+		fd = open_file_in(redir->file);
 	else if (redir->type == REDIR_APP) // action redir app
-		fd = open_file_app(redir->outfile);
+		fd = open_file_app(redir->file);
 	// else if (cmd->redir->type == REDIR_HERE) // action redir here doc
 		// Relancer un minishell (donc avoir un minishell dans le main)
 
