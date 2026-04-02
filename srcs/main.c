@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/31 14:19:49 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/31 17:22:36 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	init_minishell(t_shell *shell, char **env)
 	t_env	*lst_env;
 
 	lst_env = call_env(env);
-	shell = ft_shellnew();
+	// shell = ft_shellnew();
 	shell->env = lst_env;
 }
 //c'est pas senser etre ici mais dans le parsing, main pour tester les buldins//////
@@ -100,15 +100,15 @@ int	main(int ac, char **av, char **env)
 		cur = lexer(buf, &token);
 		if (cur == NULL)
 			continue ;
-		node = parse_and_or(&cur);
-		printf("type node = %i\n\n", node->type);
-		print_tree(node);
+		node = parse_and_or(&cur, &shell);
+		// printf("type node = %i\n\n", node->type);
+		// print_tree(node);
 		// while (node->cmd->redir)
 		// {
 		// 	printf("redir file = %s\n redir type = %d\n", node->cmd->redir->outfile, node->cmd->redir->type);
 		// 	node->cmd->redir = node->cmd->redir->next;
 		// }
-		// what_the_buildin(node->cmd); // fait l'init dans la creation de cmd
+		what_the_buildin(node->cmd); // fait l'init dans la creation de cmd
 		what_the_separator(node, &shell);
 		// free_token_lst(cur);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 16:54:22 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/31 14:17:54 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/31 14:43:42 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,12 @@ void	redirect_fd(int old_fd, int new_fd)
 	close(old_fd);
 }
 
-
-
-
-
 t_redir	*search_last_fd_redir(t_redir *redir)
 {
 	t_redir	*tmp;
 
 	tmp = redir;
-	while (tmp)
+	while (tmp->next)
 		tmp = tmp->next;
 	return (tmp);
 }

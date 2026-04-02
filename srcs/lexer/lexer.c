@@ -6,17 +6,30 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 14:52:18 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/03/30 16:11:37 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/02 18:17:49 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	lexer_while(t_token *token, char *str, int i, int j)
+static int lexer_space(t_token **t_lst, char *str, int *i, int *status)
+{
+	int j;
+
+	j = *i;
+	if (str[*i] != ' ')
+		return (0);
+	while (str[*i] == ' ')
+		(*i)++;
+	add_token(t_lst, create_token(SPACE, str + j, 1), status);
+	return (1);
+}
+
+static int	lexer_while(t_token *token, char *str, int i)
 {
 	if (str[i] == '\'' || str[i] == '\"')
 	{
-		i = lexer_quote(token, str, i, j);
+		i = lexer_quote(token, str, i);
 		if (i == -1)
 		{
 			write(2, "Error syntax\n", 13);
@@ -36,7 +49,7 @@ static int	lexer_while(t_token *token, char *str, int i, int j)
 t_token	*lexer(char *str, t_token *token)
 {
 	t_token	*t_lst;
-	int 	status;
+	int		status;
 	int		i;
 	int		j;
 
@@ -46,22 +59,17 @@ t_token	*lexer(char *str, t_token *token)
 	while (str[i])
 	{
 		j = i;
-		if (str[i] == ' ')
-		{
-			i++;
+		if (lexer_space(&t_lst, str, &i, &status))
 			continue ;
-		}
-		i = lexer_while(token, str, i, j);
+		i = lexer_while(token, str, i);
 		if (i == -1)
 			return (NULL);
 		add_token(&t_lst, create_token(token->type, str + j, i - j), &status);
 		if (status == 1)
 			return (NULL);
 	}
-	if (str[i] == '\0')
-	{
-		token->type = NONE;
-		add_token(&t_lst, create_token(token->type, str + i, 1), &status);
-	}
+	add_token(&t_lst, create_token(NONE, str + i, 1), &status);
+	if (lexer_checker(t_lst) == 1)
+		return (NULL);
 	return (t_lst);
 }
