@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+         #
+#    By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/22 14:39:19 by mvignes           #+#    #+#              #
-#    Updated: 2026/03/31 13:28:20 by mvignes          ###   ########.fr        #
+#    Updated: 2026/04/02 16:19:23 by mmusquer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -116,6 +116,9 @@ SRCS	= srcs/libft/ft_isalpha.c\
 		srcs/lexer/lexer.c\
 		srcs/lexer/lexer_utils.c\
 		srcs/lexer/lexer_cut.c\
+		srcs/lexer/lexer_checker_main.c\
+		srcs/lexer/lexer_checker_sep_redir.c\
+		srcs/lexer/lexer_checker_bracket.c\
 		\
 		srcs/parser/parser.c\
 		srcs/parser/parser_utils.c\

@@ -6,16 +6,18 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 16:11:45 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/03/30 14:44:57 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/02 17:52:17 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	lexer_quote(t_token *token, char *str, int i, int j)
+int	lexer_quote(t_token *token, char *str, int i)
 {
-	int	g;
+	int		g;
+	char	quote;
 
+	quote = str[i];
 	g = i + 1;
 	if (str[i] == '\'' || str[i] == '\"')
 	{
@@ -24,12 +26,12 @@ int	lexer_quote(t_token *token, char *str, int i, int j)
 		if (str[g] == '\0')
 			return (-1);
 	}
-	if (str[i] == '\'')
+	if (quote == '\'')
 		token->type = S_QUOTE;
-	if (str[i] == '\"')
+	if (quote == '\"')
 		token->type = D_QUOTE;
 	i++;
-	while (str[i] && str[i] != str[j])
+	while (str[i] && str[i] != quote)
 		i++;
 	i++;
 	return (i);
@@ -82,19 +84,6 @@ int	lexer_sep_redir(t_token *token, char *str, int i)
 
 int	lexer_sep_bracket(t_token *token, char *str, int i)
 {
-	int	g;
-
-	g = i + 1;
-	if (str[i] == '(')
-	{
-		while (str[g] && str[g] != ')')
-			g++;
-		if (str[g] == '\0')
-		{
-			write(2, "Error syntax\n", 13);
-			return (-1);
-		}
-	}
 	if (str[i] == '(')
 	{
 		token->type = L_BRACKET;
@@ -112,7 +101,8 @@ int	lexer_word(t_token *token, char *str, int i)
 {
 	token->type = WORD;
 	while (str[i] && str[i] != '|' && str[i] != '&' && str[i] != '>'
-		&& str[i] != '<' && str[i] != '(' && str[i] != ')' && str[i] != ' ')
+		&& str[i] != '<' && str[i] != '(' && str[i] != ')' && str[i] != ' '
+		&& str[i] != '\'' && str[i] != '\"')
 		i++;
 	return (i);
 }
