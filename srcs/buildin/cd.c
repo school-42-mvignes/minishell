@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:44 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/25 19:03:48 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/31 13:05:58 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	buildin_cd(t_command *cmd)
 	{
 		printf("OUI OUI BAGUETTE NOT A DIRECTORY\n");
 		pwd = NULL;
-		exit(1); // dire pas bon sans quitter
+		// exit(1); // dire pas bon sans quitter
 	}
 	last_pwd = search_key_var(cmd->shell->env, "OLDPWD");
 	if (!last_pwd)
