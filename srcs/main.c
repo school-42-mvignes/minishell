@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/30 16:36:11 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/31 17:22:36 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+// < Makefile ls -l | wc -l > outfile
 
 void print_tree(t_node *node)
 {
@@ -25,6 +26,8 @@ void print_tree(t_node *node)
 		{
 			printf("type = %d\n", node->type);
 			printf("av[%d] = %s\n", i, node->cmd->av[i]);
+			// printf("file = %s\n", node->cmd->redir->file);
+			// printf("file = %i\n", node->cmd->redir->file_fd);
 			i++;
 		}
 	}
@@ -39,12 +42,14 @@ void print_tree(t_node *node)
 t_shell	*ft_shellnew(void)
 {
 	t_shell	*element;
+	int		status;
 
+	status = 0;
 	element = malloc(sizeof(t_shell));
 	if (!element)
 		return (NULL);
 	element->env = NULL;
-	element->exit_status = NULL;
+	element->exit_status = &status;
 	return (element);
 }
 
@@ -53,7 +58,7 @@ static void	init_minishell(t_shell *shell, char **env)
 	t_env	*lst_env;
 
 	lst_env = call_env(env);
-	shell = ft_shellnew();
+	// shell = ft_shellnew();
 	shell->env = lst_env;
 }
 //c'est pas senser etre ici mais dans le parsing, main pour tester les buldins//////
@@ -95,13 +100,16 @@ int	main(int ac, char **av, char **env)
 		cur = lexer(buf, &token);
 		if (cur == NULL)
 			continue ;
-		node = parse_and_or(&cur);
+		node = parse_and_or(&cur, &shell);
+		// printf("type node = %i\n\n", node->type);
 		// print_tree(node);
 		// while (node->cmd->redir)
 		// {
-		// 	printf("redir file = %s\n redir type = %d\n", node->cmd->redir->file, node->cmd->redir->type);
+		// 	printf("redir file = %s\n redir type = %d\n", node->cmd->redir->outfile, node->cmd->redir->type);
 		// 	node->cmd->redir = node->cmd->redir->next;
 		// }
+		what_the_buildin(node->cmd); // fait l'init dans la creation de cmd
+		what_the_separator(node, &shell);
 		// free_token_lst(cur);
 	}
 }

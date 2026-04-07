@@ -22,13 +22,15 @@
 # include <stdbool.h>
 # include "lexer.h"
 # include "parser.h"
-# include "expand.h"
+# include "execution.h"
+#include <sys/wait.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 
 typedef struct s_redir
 {
 	char				*file;
+	int					file_fd;
 	t_type				type;
 	struct s_redir		*next;
 }						t_redir;

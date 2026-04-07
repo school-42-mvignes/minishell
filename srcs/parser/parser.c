@@ -12,12 +12,12 @@
 
 #include "../../includes/minishell.h"
 
-t_node	*parse_and_or(t_token **token)
+t_node	*parse_and_or(t_token **token, t_shell *shell)
 {
 	t_node	*node;
 	t_node	*left;
 
-	left = parse_pipe(token);
+	left = parse_pipe(token, shell);
 	while (*token && (((*token)->type == SP_AND) || ((*token)->type == SP_OR)))
 	{
 		node = malloc(sizeof(t_node));
@@ -31,18 +31,18 @@ t_node	*parse_and_or(t_token **token)
 			node->type = NODE_OR;
 		use_token(token);
 		node->cmd = NULL;
-		node->right = parse_pipe(token);
+		node->right = parse_pipe(token, shell);
 		left = node;
 	}
 	return (left);
 }
 
-t_node	*parse_pipe(t_token **token)
+t_node	*parse_pipe(t_token **token, t_shell *shell)
 {
 	t_node	*node;
 	t_node	*left;
 
-	left = parse_cmd(token);
+	left = parse_cmd(token, shell);
 	while (*token && ((*token)->type == SP_PIPE))
 	{
 		node = malloc(sizeof(t_node));
@@ -53,7 +53,7 @@ t_node	*parse_pipe(t_token **token)
 		node->type = NODE_PIPE;
 		use_token(token);
 		node->cmd = NULL;
-		node->right = parse_cmd(token);
+		node->right = parse_cmd(token, shell);
 		left = node;
 	}
 	return (left);
@@ -79,19 +79,20 @@ t_redir	*parse_redir(t_token **token)
 	return (redir);
 }
 
-t_node	*parse_bracket(t_token **token, t_node *node, t_token *tmp)
+t_node	*parse_bracket(t_token **token, t_node *node, t_token *tmp,
+	t_shell *shell)
 {
 	if (tmp->type == L_BRACKET)
 	{
 		use_token(token);
-		node = parse_and_or(token);
+		node = parse_and_or(token, shell);
 		use_token(token);
 		return (node);
 	}
 	return (node);
 }
 
-t_node	*parse_cmd(t_token **token)
+t_node	*parse_cmd(t_token **token, t_shell *shell)
 {
 	t_node		*node;
 	t_token		*tmp;
@@ -103,7 +104,7 @@ t_node	*parse_cmd(t_token **token)
 		return (NULL);
 	ft_memset(node, 0, sizeof(t_node));
 	node->type = NODE_CMD;
-	parse_bracket(token, node, tmp);
+	parse_bracket(token, node, tmp, shell);
 	if (tmp->type == L_BRACKET)
 		return (node);
 	node->count = count_word(tmp);
@@ -116,5 +117,6 @@ t_node	*parse_cmd(t_token **token)
 		return (NULL);
 	while_redir(token, cmd);
 	node->cmd = cmd;
+	cmd->shell = shell;
 	return (node);
 }

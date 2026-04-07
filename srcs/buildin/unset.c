@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:24:04 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/25 14:38:13 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/30 17:44:17 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,5 @@ void	buildin_unset(t_command *cmd) // 6
 		preview = tmp;
 		tmp = tmp->next;
 	}
-	printf_env(cmd->shell->env);
+	// printf_env(cmd->shell->env);
 }
