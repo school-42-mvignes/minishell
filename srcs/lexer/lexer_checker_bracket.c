@@ -6,11 +6,11 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 16:19:51 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/02 17:55:44 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/07 11:28:38 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 int	is_bracket_balance(t_token *token)
 {
