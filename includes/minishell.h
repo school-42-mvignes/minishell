@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/30 16:31:57 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/07 17:57:29 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,15 @@
 # include <stdbool.h>
 # include "lexer.h"
 # include "parser.h"
+# include "execution.h"
+#include <sys/wait.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 
 typedef struct s_redir
 {
 	char				*file;
+	int					file_fd;
 	t_type				type;
 	struct s_redir		*next;
 }						t_redir;
@@ -35,7 +38,7 @@ typedef struct s_redir
 typedef struct s_shell
 {
 	t_env				*env;
-	int					*exit_status;
+	int					exit_status;
 }						t_shell;
 
 typedef struct s_command
