@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/08 13:58:42 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/08 17:16:48 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,14 +107,7 @@ int	main(int ac, char **av, char **env)
 		if (cur == NULL)
 			continue ;
 		node = parse_and_or(&cur, &shell);
-		if (node->type == NODE_CMD)
-		{
+		if (node)
 			what_the_separator(node, &shell);
-			// if (what_the_buildin(node)) // fait l'init dans la creation de cmd
-			// 	exit_free_all(cur, node, &shell, buf);
-			// else
-			// 	exec_cmd(node, node->cmd->av, rebuild_env(&node->cmd->shell->env));
-		}
-		// what_the_separator(node, &shell);
 	}
 }

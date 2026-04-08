@@ -6,13 +6,13 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/08 13:26:33 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/08 14:21:31 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	exec_cmd(t_node *node, char **args, char **envp)
+void	exec_cmd(t_node *node, char **args, char **envp) // quitte pas bien quand error 127
 {
 	(void)node;
 	char	*cmd_path;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 11:51:04 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/07 18:24:10 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/08 15:07:23 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ t_redir	*parse_redir(t_token **token)
 		redir = malloc(sizeof(t_redir));
 		if (!redir)
 			return (NULL);
+		ft_memset(redir, 0, sizeof(t_redir));
 		redir->type = (*token)->type;
 		use_token(token);
 		skip_spaces(token);
