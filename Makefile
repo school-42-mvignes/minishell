@@ -1,4 +1,4 @@
-# **************************************************************************** #
+#**************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
@@ -6,7 +6,7 @@
 #    By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/22 14:39:19 by mvignes           #+#    #+#              #
-#    Updated: 2026/04/08 11:06:21 by mvignes          ###   ########.fr        #
+#    Updated: 2026/04/08 20:30:14 by mvignes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -112,6 +112,7 @@ SRCS	= srcs/libft/ft_isalpha.c\
 		srcs/execution/pipe.c\
 		srcs/execution/redir.c\
 		srcs/execution/sep.c\
+		srcs/execution/utils.c\
 		\
 		srcs/lexer/lexer.c\
 		srcs/lexer/lexer_utils.c\
@@ -126,6 +127,8 @@ SRCS	= srcs/libft/ft_isalpha.c\
 		srcs/parser/parser_free.c\
 		\
 		
+#srcs/execution/and.c
+#srcs/execution/or.c
 
 SRCS_BONUS	= \
 
