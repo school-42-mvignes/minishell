@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 15:16:29 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/03/26 18:27:06 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/07 18:31:06 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,49 +46,18 @@ t_redir	*add_redir(t_redir **redir, t_redir *new_redir)
 	return (*redir);
 }
 
-int	count_word(t_token *tmp)
+void skip_spaces(t_token **token)
 {
-	int	i;
-
-	i = 0;
-	while (tmp && ((tmp->type == WORD) || (tmp->type == S_QUOTE)
-			|| (tmp->type == D_QUOTE) || (tmp->type == REDIR_APP)
-			|| (tmp->type == REDIR_HERE) || (tmp->type == REDIR_IN)
-			|| (tmp->type == REDIR_OUT)))
-	{
-		if ((tmp->type == REDIR_APP) || (tmp->type == REDIR_HERE)
-			|| (tmp->type == REDIR_IN) || (tmp->type == REDIR_OUT))
-		{
-			tmp = tmp->next;
-			tmp = tmp->next;
-		}
-		else
-		{
-			i++;
-			tmp = tmp->next;
-		}
-	}
-	return (i);
+	while ((*token)->type == SPACES)
+		use_token(token);
 }
 
-void	while_redir(t_token **token, t_command *cmd)
+int	is_word_quote_redir(t_token *token)
 {
-	int	i;
-
-	i = 0;
-	while (*token && (((*token)->type == WORD) || ((*token)->type == D_QUOTE)
-			|| ((*token)->type == S_QUOTE) || ((*token)->type == REDIR_APP)
-			|| ((*token)->type == REDIR_HERE) || ((*token)->type == REDIR_IN)
-			|| ((*token)->type == REDIR_OUT)))
-	{
-		if (((*token)->type == REDIR_APP) || ((*token)->type == REDIR_HERE)
-			|| ((*token)->type == REDIR_IN) || ((*token)->type == REDIR_OUT))
-			add_redir(&cmd->redir, parse_redir(token));
-		else
-		{
-			cmd->av[i] = (*token)->value;
-			use_token(token);
-			i++;
-		}
-	}
+	if ((token->type == WORD) || (token->type == D_QUOTE)
+			|| (token->type == S_QUOTE) || (token->type == REDIR_APP)
+			|| (token->type == REDIR_HERE) || (token->type == REDIR_IN)
+			|| (token->type == REDIR_OUT))
+			return (1);
+	return (0);
 }
