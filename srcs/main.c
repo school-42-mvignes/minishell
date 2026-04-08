@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/07 18:16:20 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/08 10:35:53 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+// valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell
 
 #include "../includes/minishell.h"
 // < Makefile ls -l | wc -l > outfile
