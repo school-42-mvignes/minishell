@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/08 11:58:35 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/08 13:26:33 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	exec_cmd(t_node *node, char **args, char **envp)
 		// free node
 		ft_putendl_fd(": command not found", 2);
 		node->cmd->shell->exit_status = 127;
+		return ;
 	}
 	cmd_path = find_path(args[0], envp);
 	if (!cmd_path)
@@ -32,6 +33,7 @@ void	exec_cmd(t_node *node, char **args, char **envp)
 		// free node
 		ft_putendl_fd(": command not found", 2);
 		node->cmd->shell->exit_status = 127;
+		return ;
 	}
 	execve(cmd_path, args, envp);
 	perror(cmd_path);
