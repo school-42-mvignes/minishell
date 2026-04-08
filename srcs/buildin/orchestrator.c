@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   orchestrator.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:25:03 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/07 18:18:01 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/08 11:47:54 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,27 +31,31 @@ t_env	*search_key_var(t_env *env, char *key)
 }
 
 // Pour la fonction du dessous, envoyé la redirection pour savoir ou l'écrire // ou faire en sorte que cela retourne quelque chose de cette fonctions
-int	what_the_buildin(t_command *cmd)
+int	what_the_buildin(t_node *node)
 {
-	if (cmd->av[0] == NULL)
+	if (node->cmd->av[0] == NULL)
 		return (0);
-	if (!ft_strncmp(ECHO, cmd->av[0], 5)) // 1
-		buildin_echo(cmd);
-	if (!ft_strncmp(CD, cmd->av[0], 3)) // 2
-		buildin_cd(cmd);
-	if (!ft_strncmp(PWD, cmd->av[0], 4)) // 3
-		buildin_pwd(cmd);
-	if (!ft_strncmp(ENV, cmd->av[0], 4)) // 4
-		buildin_env(cmd);
-	if (!ft_strncmp(EXPORT, cmd->av[0], 7)) // 5
-		buildin_export(cmd);
-	if (!ft_strncmp(UNSET, cmd->av[0], 6)) // 6
-		buildin_unset(cmd);
-	if (!ft_strncmp(EXIT, cmd->av[0], 5)) // 7
+	else if (!ft_strncmp(ECHO, node->cmd->av[0], 5)) // 1
+		buildin_echo(node->cmd);
+	else if (!ft_strncmp(CD, node->cmd->av[0], 3)) // 2
+		buildin_cd(node->cmd);
+	else if (!ft_strncmp(PWD, node->cmd->av[0], 4)) // 3
+		buildin_pwd(node->cmd);
+	else if (!ft_strncmp(ENV, node->cmd->av[0], 4)) // 4
+		buildin_env(node->cmd);
+	else if (!ft_strncmp(EXPORT, node->cmd->av[0], 7)) // 5
+		buildin_export(node->cmd);
+	else if (!ft_strncmp(UNSET, node->cmd->av[0], 6)) // 6
+		buildin_unset(node->cmd);
+	else if (!ft_strncmp(EXIT, node->cmd->av[0], 5)) // 7
 	{
-		if (buildin_exit(cmd))
+		if (buildin_exit(node->cmd))
 			return (1);
 	}
+	else
+		what_the_separator(node, node->cmd->shell);
+	// else
+	// 	exec_cmd(node, node->cmd->av, rebuild_env(&node->cmd->shell->env));
 	return (0);
 }
 
