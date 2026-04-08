@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/02 17:49:33 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/07 11:56:01 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef enum e_type
 	D_QUOTE,    // ""
 	L_BRACKET,  // (
 	R_BRACKET,  // )
-	SPACE,      // ' '
+	SPACES,      // ' '
 	NONE,       // y'a R
 }					t_type;
 

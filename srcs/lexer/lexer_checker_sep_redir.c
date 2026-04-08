@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 16:17:52 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/07 11:28:32 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/07 13:44:50 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	first_sep(t_token *token)
 {
-	while (token->type == SPACE && token->next)
+	while (token->type == SPACES && token->next)
 		token = token->next;
 	if (token->type == SP_AND || token->type == SP_OR || token->type == SP_PIPE)
 		return (1);
@@ -45,7 +45,7 @@ int	double_sep(t_token *token)
 
 	while (token->next)
 	{
-		if (token->type == SPACE)
+		if (token->type == SPACES)
 		{
 			token = token->next;
 			continue ;
@@ -62,10 +62,12 @@ int	redir_file(t_token *token)
 {
 	t_token *next;
 
-	while (token->next)
+	while (token && token->next)
 	{
-		while (!is_redir(token))
+		while (!is_redir(token) && token->next)
 			token = token->next;
+		if (token->type == NONE)
+			return (0);
 		next = next_token(token);
 		if (next->type != WORD && next->type != S_QUOTE
 			&& next->type != D_QUOTE)

@@ -6,13 +6,13 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 14:52:18 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/02 18:17:49 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/07 15:32:30 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int lexer_space(t_token **t_lst, char *str, int *i, int *status)
+static int lexer_spaces(t_token **t_lst, char *str, int *i, int *status)
 {
 	int j;
 
@@ -21,7 +21,7 @@ static int lexer_space(t_token **t_lst, char *str, int *i, int *status)
 		return (0);
 	while (str[*i] == ' ')
 		(*i)++;
-	add_token(t_lst, create_token(SPACE, str + j, 1), status);
+	add_token(t_lst, create_token(SPACES, str + j, 1), status);
 	return (1);
 }
 
@@ -59,7 +59,7 @@ t_token	*lexer(char *str, t_token *token)
 	while (str[i])
 	{
 		j = i;
-		if (lexer_space(&t_lst, str, &i, &status))
+		if (lexer_spaces(&t_lst, str, &i, &status))
 			continue ;
 		i = lexer_while(token, str, i);
 		if (i == -1)

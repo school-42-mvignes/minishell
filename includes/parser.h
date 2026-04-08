@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/31 16:43:23 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/07 18:32:09 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,14 @@ t_node						*parse_and_or(t_token **token, t_shell *shell);
 t_node						*parse_pipe(t_token **token, t_shell *shell);
 t_node						*parse_cmd(t_token **token, t_shell *shell);
 t_redir						*parse_redir(t_token **token);
-t_node						*parse_bracket(t_token **token, t_node *node,
-								t_token *tmp, t_shell *shell);
+t_node						*parse_bracket(t_token **token, t_shell *shell);
 
 t_token						*use_token(t_token **token);
 t_redir						*add_redir(t_redir **redir, t_redir *new_redir);
 int							count_word(t_token *tmp);
 void						while_redir(t_token **token, t_command *cmd);
+void						skip_spaces(t_token **token);
+void						free_node(t_node *node);
+int							is_word_quote_redir(t_token *token);
 
 #endif

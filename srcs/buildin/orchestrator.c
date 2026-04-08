@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:25:03 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/31 17:00:08 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/07 18:18:01 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ t_env	*search_key_var(t_env *env, char *key)
 }
 
 // Pour la fonction du dessous, envoyé la redirection pour savoir ou l'écrire // ou faire en sorte que cela retourne quelque chose de cette fonctions
-void	what_the_buildin(t_command *cmd)
+int	what_the_buildin(t_command *cmd)
 {
+	if (cmd->av[0] == NULL)
+		return (0);
 	if (!ft_strncmp(ECHO, cmd->av[0], 5)) // 1
 		buildin_echo(cmd);
 	if (!ft_strncmp(CD, cmd->av[0], 3)) // 2
@@ -46,8 +48,11 @@ void	what_the_buildin(t_command *cmd)
 	if (!ft_strncmp(UNSET, cmd->av[0], 6)) // 6
 		buildin_unset(cmd);
 	if (!ft_strncmp(EXIT, cmd->av[0], 5)) // 7
-		buildin_exit(cmd);
-	return ;
+	{
+		if (buildin_exit(cmd))
+			return (1);
+	}
+	return (0);
 }
 
 /* t_shell	*ft_shellnew(void)
