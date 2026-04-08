@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 04:03:34 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/26 11:32:10 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/03/30 21:29:31 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_env
 
 // void				call_env(t_env	**lst_env, char **env);
 t_env			*call_env(char **env);
+char			**rebuild_env(t_env **env);
 
 // srcs/utils/
 void			printf_env(t_env *lst);
