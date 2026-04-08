@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ttest.c                                            :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 16:46:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/25 14:36:17 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/08 13:55:25 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ t_env	*call_env(char **env)
 	init_lst_env(lst, &lst_env);
 	if (lst_env == NULL)
 		error_message("env : proubleme lst_env");
+	
+	ft_lstclear(&lst, free);
 	// printf_env(lst_env);
 	// tab_env = rebuild_env(&lst_env);
 	// if (!tab_env)

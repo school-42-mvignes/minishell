@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:44 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/07 16:11:57 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/08 14:01:26 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	buildin_cd_cut(t_command *cmd, t_env *home)
 	home = search_key_var(cmd->shell->env, "HOME");
 	if (home == NULL)
 	{
-		write(2, "HOME not set\n", 12);
+		write(2, "HOME not set\n", 13);
 		return ;
 	}
 	chdir(home->var);

@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 18:40:34 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/08 12:06:13 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/08 13:41:21 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,24 @@ static int	exec_or(t_node *node, t_command *cmd1, t_command *cmd2)
 	return (1);
 }
 
-static int	exec_simple_cmd(t_node *node)
+static void	exec_simple_cmd(t_node *node) // les forks sorte mal
 {
 	int		status;
-	int		last_status;
-	pid_t	finished_pid;
+	// int		last_status;
+	// pid_t	finished_pid;
 	pid_t	pid;
 
 	pid = create_fork();
 	if (pid == 0)
 		exec_cmd(node, node->cmd->av, rebuild_env(&node->cmd->shell->env));
-	finished_pid = wait(&status);
-	if (finished_pid == node->last_pid)
-		last_status = status;
-	if (WIFEXITED(last_status))
-		return (WEXITSTATUS(last_status));
-	return (1);
+	wait(&status);
+	// finished_pid = wait(&status);
+	// if (finished_pid == node->last_pid)
+	// 	last_status = status;
+	// if (WIFEXITED(last_status))
+	// 	node->cmd->shell->exit_status = last_status;
+		// return (WEXITSTATUS(last_status));
+	// return ;
 }
 
 static int	exec_pip(t_node *node, t_command *cmd1, t_command *cmd2)
@@ -71,7 +73,7 @@ void	what_the_separator(t_node *node, t_shell *shell) // revoir la fonction car 
 
 	if (node->type == NODE_CMD)
 		// exit = what_the_buildin(node);
-		exit = exec_simple_cmd(node);
+		exec_simple_cmd(node);
 	if (node->type == NODE_PIPE)
 		exit = exec_pip(node, node->left->cmd, node->right->cmd);
 	else if (node->type == NODE_AND)

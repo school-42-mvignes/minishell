@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/08 11:41:09 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/08 13:58:42 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,9 @@ static void	exit_free_all(t_token *lst, t_node *node, t_shell *shell, char *buf)
 	free_token_lst(lst);
 	free_node(node);
 	// free shell
+	rl_clear_history();
+	// ft_envclear(node->cmd->shell->env, free);
+	
 	free(buf);
 	exit(status);
 	
@@ -87,6 +90,8 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
+	cur = NULL;
+	node = NULL;
 	ft_memset(&shell, 0, (sizeof(t_shell)));
 	init_minishell(&shell, env);
 	while (1)
@@ -97,6 +102,7 @@ int	main(int ac, char **av, char **env)
 			write(2, "exit\n", 5);
 			exit_free_all(cur, node, &shell, buf);
 		}
+		add_history(buf);
 		cur = lexer(buf, &token);
 		if (cur == NULL)
 			continue ;
