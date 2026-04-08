@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   buildin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 14:09:56 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/07 17:04:03 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/08 11:05:03 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,11 @@
 # endif
 
 typedef struct s_command	t_command;
+typedef struct s_node		t_node;
 
 t_env						*search_key_var(t_env *env, char *key);
 
-int							what_the_buildin(t_command *cmd);
+int							what_the_buildin(t_node *node);
 void						buildin_unset(t_command *cmd);
 void						buildin_export(t_command *cmd);
 void						buildin_pwd(t_command *cmd);

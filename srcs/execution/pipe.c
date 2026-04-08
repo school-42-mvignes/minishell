@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 16:54:22 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/31 14:43:42 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/08 11:48:42 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	open_file_read(char *infile)
 	return (fd);
 }
 
-static int	create_pipe(int pipefd[2])
+int	create_pipe(int pipefd[2])
 {
 	if (pipe(pipefd) == -1)
 	{
