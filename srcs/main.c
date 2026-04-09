@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/09 11:40:50 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/09 17:20:11 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		node = parse_and_or(&cur, &shell);
 		if (node)
-			what_the_separator(node, &shell);
+			shell.exit_status = exec_line(node);
+			// what_the_separator(node);
 	}
 }

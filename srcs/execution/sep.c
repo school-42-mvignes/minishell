@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 18:40:34 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/09 11:58:07 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/09 17:20:34 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,24 +29,22 @@ static int	exec_or(t_node *node, t_command *cmd1, t_command *cmd2)
 	return (1);
 }
 
-static void	exec_pipe(t_node *node)
+static void	exec_pipe(t_node *node, int *pipe)
 {
-	int	pipe[2];
-
 	if (node->left->type == NODE_CMD)
 		exec_first_cmd(node, node->left->cmd, pipe);
 	else
-		what_the_separator(node->left, node->cmd->shell);
+		what_the_separator(node->left, pipe);
 	if (node->right)
 	{
 		if (node->right->type == NODE_CMD)
 			exec_sec_cmd(node, node->right->cmd, pipe);
 		else
-			what_the_separator(node->right, node->cmd->shell);
+			what_the_separator(node->right, pipe);
 	}
 }
 
-static void	wait_decision(t_node *node)
+/* static void	wait_decision(t_node *node)
 {
 	pid_t	pid;
 	int		status;
@@ -79,25 +77,31 @@ static void	wait_decision(t_node *node)
 	// }
 	// return (1);
 	// printf("exit_status === %i", node->cmd->shell->exit_status);
-}
+} */
 
-void	what_the_separator(t_node *node, t_shell *shell) // revoir la fonction car s il y a un pipe apres un separateur cela peut faire bugger
+void	what_the_separator(t_node *node, int *pipe) // revoir la fonction car s il y a un pipe apres un separateur cela peut faire bugger
 {
-	if (node->type == NODE_CMD)
+	pid_t	pid;
+	// int		status;
+	// int		last_status;
+	// pid_t	finished_pid;
+
+	pid = create_fork();
+	if (pid == 0)
 	{
-		if (!ft_strncmp(ECHO, node->cmd->av[0], 5)
-		|| !ft_strncmp(CD, node->cmd->av[0], 3)
-		|| !ft_strncmp(PWD, node->cmd->av[0], 4)
-		|| !ft_strncmp(ENV, node->cmd->av[0], 4)
-		|| !ft_strncmp(EXPORT, node->cmd->av[0], 7)
-		|| !ft_strncmp(UNSET, node->cmd->av[0], 6)
-		|| !ft_strncmp(EXIT, node->cmd->av[0], 5))
-			what_the_buildin(node);
-		else
-			exec_simple_cmd(node);
+		if (node->type == NODE_PIPE)
+			exec_pipe(node, pipe);
+		else if (node->type == NODE_AND)
+			exec_and(node, node->left->cmd, node->right->cmd);
+		else if (node->type == NODE_OR)
+			exec_or(node, node->left->cmd, node->right->cmd);
 	}
-	else
-		wait_decision(node);
-	printf("exit_status = %i\n", shell->exit_status);
+	// if (WIFEXITED(last_status))
+	// {
+	// 	return (WEXITSTATUS(last_status));
+	// 	printf("last_status = %i\n\n", WEXITSTATUS(last_status));
+	// }
+	// return (1);
+	// printf("exit_status === %i", node->cmd->shell->exit_status);
 }
 // cat -e > Makefile | cat -e | cat -e | grep printf > test

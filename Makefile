@@ -108,6 +108,7 @@ SRCS	= srcs/libft/ft_isalpha.c\
 		\
 		srcs/execution/env.c\
 		srcs/execution/exec_cmd.c\
+		srcs/execution/exec_line.c\
 		srcs/execution/path.c\
 		srcs/execution/pipe.c\
 		srcs/execution/redir.c\
