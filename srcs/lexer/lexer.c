@@ -6,15 +6,15 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 14:52:18 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/07 15:32:30 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/08 14:34:23 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int lexer_spaces(t_token **t_lst, char *str, int *i, int *status)
+static int	lexer_spaces(t_token **t_lst, char *str, int *i, int *status)
 {
-	int j;
+	int	j;
 
 	j = *i;
 	if (str[*i] != ' ')

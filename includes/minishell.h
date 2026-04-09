@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/07 17:57:29 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/09 10:32:34 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include "lexer.h"
 # include "parser.h"
 # include "execution.h"
+# include "expand.h"
 #include <sys/wait.h>
 #include <readline/readline.h>
 #include <readline/history.h>

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:24:01 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/30 17:44:07 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/08 14:54:06 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	buildin_pwd(t_command *cmd) // 4
+void	buildin_pwd(t_command *cmd)
 {
 	t_env	*tmp;
 
@@ -20,5 +20,5 @@ void	buildin_pwd(t_command *cmd) // 4
 	while (ft_strncmp("PWD", tmp->key_var, 4))
 		tmp = tmp->next;
 	if (!ft_strncmp("PWD", tmp->key_var, 4))
-		ft_putendl_fd(tmp->var, 1);				// mettre dans un buffer
+		ft_putendl_fd(tmp->var, 1);
 }

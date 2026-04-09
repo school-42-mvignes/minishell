@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:22:03 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/25 14:37:30 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/08 14:38:46 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	buildin_env(t_command *cmd) // 3
+void	buildin_env(t_command *cmd)
 {
-	printf_env(cmd->shell->env);				// mettre dans un buffer
+	printf_env(cmd->shell->env);
 }
