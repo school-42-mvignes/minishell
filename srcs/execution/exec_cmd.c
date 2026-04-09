@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/09 11:24:34 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/09 18:36:39 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,30 @@ void	exec_cmd(t_node *node, char **args, char **envp) // quitte pas bien quand e
 	exit(126);
 }
 
-void	exec_simple_cmd(t_node *node)
+void	only_child(t_node *node, int pipefd[2])
 {
-	int		status;
-	// int		last_status;
-	// pid_t	finished_pid;
+	int	fd;
+
+	(void)pipefd;
+	if (node->cmd->redir)
+	{
+		fd = what_the_outfile(node->cmd->redir);
+		redirect_fd(fd, STDOUT_FILENO);
+	}
+	// pk ca fonction po
+	if (is_one_buildin(node))
+		what_the_buildin(node);
+	else
+		exec_cmd(node, node->cmd->av, rebuild_env(&node->cmd->shell->env));
+}
+
+void	exec_simple_cmd(t_node *node, int *pipe)
+{
 	pid_t	pid;
 
+	create_pipe(pipe);
 	pid = create_fork();
 	if (pid == 0)
-		exec_cmd(node, node->cmd->av, rebuild_env(&node->cmd->shell->env));
-	wait(&status);
-	// finished_pid = wait(&status);
-	// if (finished_pid == node->last_pid)
-	// 	last_status = status;
-	// if (WIFEXITED(last_status))
-	// 	node->cmd->shell->exit_status = last_status;
-		// return (WEXITSTATUS(last_status));
-	// return ;
+		only_child(node, pipe);
+	node->last_pid = pid;
 }
