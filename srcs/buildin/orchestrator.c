@@ -3,14 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   orchestrator.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:25:03 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/08 11:47:54 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/08 15:04:31 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-// la sainte commande ::: cc cd.c echo.c env.c exit.c export.c orchestrator.c pwd.c unset.c ../libft/ft_strncmp.c ../libft/ft_strdup.c ../libft/ft_strlen.c ../libft/ft_putchar_fd.c ../libft/ft_putendl_fd.c ../libft/ft_putstr_fd.c ../utils/print_struc.c ../execution/env.c ../libft/ft_lstnew.c ../libft/ft_lstadd_back.c ../libft/ft_lstlast.c ../libft/ft_memset.c ../libft/ft_strchr.c ../libft/ft_strlcpy.c ../libft/ft_free_tab.c ../libft/ft_lstclear.c ../libft/ft_lstdelone.c ../libft/ft_substr.c ../libft/get_next_line_utils.c ../libft/ft_strjoin.c ../utils/lstenv.c ../utils/other_split.c -g3
 
 #include "../../includes/minishell.h"
 
@@ -30,7 +28,6 @@ t_env	*search_key_var(t_env *env, char *key)
 	return (NULL);
 }
 
-// Pour la fonction du dessous, envoyé la redirection pour savoir ou l'écrire // ou faire en sorte que cela retourne quelque chose de cette fonctions
 int	what_the_buildin(t_node *node)
 {
 	if (node->cmd->av[0] == NULL)

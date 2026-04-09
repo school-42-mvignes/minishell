@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:44 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/08 14:01:26 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/08 15:02:47 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	buildin_cd(t_command *cmd)
 		return ;
 	free(last_pwd->var);
 	last_pwd->var = pwd->var;
-	new_localisation =  getcwd(NULL, 0);
-	pwd->var = new_localisation;	
+	new_localisation = getcwd(NULL, 0);
+	pwd->var = new_localisation;
 }
 
 void	buildin_cd_cut(t_command *cmd, t_env *home)

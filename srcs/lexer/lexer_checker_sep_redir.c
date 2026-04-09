@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 16:17:52 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/07 13:44:50 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/08 14:34:36 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	double_sep(t_token *token)
 
 int	redir_file(t_token *token)
 {
-	t_token *next;
+	t_token	*next;
 
 	while (token && token->next)
 	{

@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 11:51:04 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/07 18:24:10 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/08 16:22:25 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ t_node	*parse_and_or(t_token **token, t_shell *shell)
 	skip_spaces(token);
 	while (*token && (((*token)->type == SP_AND) || ((*token)->type == SP_OR)))
 	{
-		skip_spaces(token);
 		node = malloc(sizeof(t_node));
 		if (!node)
 			return (NULL);
@@ -49,7 +48,6 @@ t_node	*parse_pipe(t_token **token, t_shell *shell)
 	skip_spaces(token);
 	while (*token && ((*token)->type == SP_PIPE))
 	{
-		skip_spaces(token);
 		node = malloc(sizeof(t_node));
 		if (!node)
 			return (NULL);
@@ -88,8 +86,8 @@ t_redir	*parse_redir(t_token **token)
 
 t_node	*parse_bracket(t_token **token, t_shell *shell)
 {
-	t_node *node;
-	
+	t_node	*node;
+
 	if ((*token)->type == L_BRACKET)
 	{
 		use_token(token);
