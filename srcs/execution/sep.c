@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 18:40:34 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/08 20:40:58 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/09 11:58:07 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,17 +78,24 @@ static void	wait_decision(t_node *node)
 	// 	printf("last_status = %i\n\n", WEXITSTATUS(last_status));
 	// }
 	// return (1);
+	// printf("exit_status === %i", node->cmd->shell->exit_status);
 }
 
 void	what_the_separator(t_node *node, t_shell *shell) // revoir la fonction car s il y a un pipe apres un separateur cela peut faire bugger
 {
-	// printf("node->type = %i\n", node->type);
-	// printf("node->left->type = %i\n", node->left->type);
-	// printf("node->right->type = %i\n", node->right->type);
-	// printf("node->left->left->type = %i\n", node->left->left->type);
-
 	if (node->type == NODE_CMD)
-		exec_simple_cmd(node);
+	{
+		if (!ft_strncmp(ECHO, node->cmd->av[0], 5)
+		|| !ft_strncmp(CD, node->cmd->av[0], 3)
+		|| !ft_strncmp(PWD, node->cmd->av[0], 4)
+		|| !ft_strncmp(ENV, node->cmd->av[0], 4)
+		|| !ft_strncmp(EXPORT, node->cmd->av[0], 7)
+		|| !ft_strncmp(UNSET, node->cmd->av[0], 6)
+		|| !ft_strncmp(EXIT, node->cmd->av[0], 5))
+			what_the_buildin(node);
+		else
+			exec_simple_cmd(node);
+	}
 	else
 		wait_decision(node);
 	printf("exit_status = %i\n", shell->exit_status);

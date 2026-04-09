@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 14:09:56 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/08 11:05:03 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/09 11:37:39 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ typedef struct s_command	t_command;
 typedef struct s_node		t_node;
 
 t_env						*search_key_var(t_env *env, char *key);
-
 int							what_the_buildin(t_node *node);
+
 void						buildin_unset(t_command *cmd);
 void						buildin_export(t_command *cmd);
 void						buildin_pwd(t_command *cmd);

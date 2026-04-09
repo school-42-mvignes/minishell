@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/08 20:07:37 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/09 11:24:34 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	exec_cmd(t_node *node, char **args, char **envp) // quitte pas bien quand e
 		// free node
 		ft_putendl_fd(": command not found", 2);
 		node->cmd->shell->exit_status = 127;
-		return ;
+		exit (127);
 	}
 	cmd_path = find_path(args[0], envp);
 	if (!cmd_path)
@@ -33,16 +33,17 @@ void	exec_cmd(t_node *node, char **args, char **envp) // quitte pas bien quand e
 		// free node
 		ft_putendl_fd(": command not found", 2);
 		node->cmd->shell->exit_status = 127;
-		return ;
+		exit (127);
 	}
 	execve(cmd_path, args, envp);
 	perror(cmd_path);
 	free(cmd_path);
 	// free node
-	node->cmd->shell->exit_status = EXIT_FAILURE;
+	node->cmd->shell->exit_status = 126;
+	exit(126);
 }
 
-void	exec_simple_cmd(t_node *node) // les forks sorte mal
+void	exec_simple_cmd(t_node *node)
 {
 	int		status;
 	// int		last_status;
