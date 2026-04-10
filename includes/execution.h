@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:14:18 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/09 17:20:08 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/09 19:18:30 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ int				create_pipe(int pipefd[2]);
 int				open_file_read(char *infile);
 
 int				what_the_outfile(t_redir *redir);
-void			what_the_separator(t_node *node, int *pipe);
+int				what_the_separator(t_node *node, int *pipe);
+void			what_the_first_separator(t_node *node, int *pipe);
+
+
 void			exec_sec_cmd(t_node *node, t_command *cmd, int pipe[2]);
 void			exec_first_cmd(t_node *node, t_command *cmd, int pipe[2]);
 

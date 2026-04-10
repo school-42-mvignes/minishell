@@ -6,11 +6,13 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 18:40:34 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/09 17:20:34 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/09 19:25:42 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	i = 0;
 
 static int	exec_and(t_node *node, t_command *cmd1, t_command *cmd2)
 {
@@ -31,6 +33,18 @@ static int	exec_or(t_node *node, t_command *cmd1, t_command *cmd2)
 
 static void	exec_pipe(t_node *node, int *pipe)
 {
+	printf("i = %i", i++);
+	if (node)
+		printf("count = %d\n", node->count);
+	if (node->left)
+		printf("count left= %d\n", node->left->count);
+	if (node->right)
+		printf("count right = %d\n", node->right->count);
+
+
+
+
+		
 	if (node->left->type == NODE_CMD)
 		exec_first_cmd(node, node->left->cmd, pipe);
 	else
@@ -79,7 +93,35 @@ static void	exec_pipe(t_node *node, int *pipe)
 	// printf("exit_status === %i", node->cmd->shell->exit_status);
 } */
 
-void	what_the_separator(t_node *node, int *pipe) // revoir la fonction car s il y a un pipe apres un separateur cela peut faire bugger
+int	what_the_separator(t_node *node, int *pipe) // revoir la fonction car s il y a un pipe apres un separateur cela peut faire bugger
+{
+	pid_t	pid;
+	int		status;
+	int		last_status;
+	pid_t	finished_pid;
+
+	pid = create_fork();
+	if (pid == 0)
+	{
+		if (node->type == NODE_PIPE)
+			exec_pipe(node, pipe);
+		else if (node->type == NODE_AND)
+			exec_and(node, node->left->cmd, node->right->cmd);
+		else if (node->type == NODE_OR)
+			exec_or(node, node->left->cmd, node->right->cmd);
+	}
+	while (finished_pid != node->last_pid)
+	{
+		finished_pid = wait(&status);
+		if (finished_pid == node->last_pid)
+			last_status = status;
+	}
+	if (WIFEXITED(last_status))
+		return (WEXITSTATUS(last_status));
+	return (1);
+}
+
+void	what_the_first_separator(t_node *node, int *pipe) // revoir la fonction car s il y a un pipe apres un separateur cela peut faire bugger
 {
 	pid_t	pid;
 	// int		status;
