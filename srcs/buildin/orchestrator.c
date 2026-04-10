@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:25:03 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/09 15:48:00 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/10 11:19:15 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	what_the_buildin(t_node *node)
 		if (buildin_exit(node->cmd))
 			return (1);
 	}
+	exit(node->cmd->shell->exit_status);
 	// else
 	// 	exec_cmd(node, node->cmd->av, rebuild_env(&node->cmd->shell->env));
 	return (0);

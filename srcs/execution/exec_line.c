@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:27:15 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/09 17:19:52 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/09 19:22:00 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	exec_line(t_node *node)
 	}
 	else
 	{
-		what_the_separator(node, pipe);
+		what_the_first_separator(node, pipe);
 	}
 	while (finished_pid != node->last_pid)
 	{
