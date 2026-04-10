@@ -6,40 +6,13 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/09 11:28:40 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/10 16:51:22 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell
 
 #include "../includes/minishell.h"
-// < Makefile ls -l | wc -l > outfile
-
-// void print_tree(t_node *node)
-// {
-// 	int i;
-
-// 	i = 0;
-// 	if (!node)
-// 		return ;
-// 	if (node->type == NODE_CMD)
-// 	{
-// 		while (node->cmd->av[i])
-// 		{
-// 			printf("type = %d\n", node->type);
-// 			printf("av[%d] = %s\n", i, node->cmd->av[i]);
-// 			// printf("file = %s\n", node->cmd->redir->file);
-// 			// printf("file = %i\n", node->cmd->redir->file_fd);
-// 			i++;
-// 		}
-// 	}
-// 	else
-// 	{
-// 		print_tree(node->left);
-// 		print_tree(node->right);
-// 		printf("type = %d\n", node->type);
-// 	}
-// }
 
 // t_shell	*ft_shellnew(void)
 // {
@@ -80,6 +53,18 @@ static void	exit_free_all(t_token *lst, t_node *node, t_shell *shell, char *buf)
 	
 }
 
+static int do_node(t_node *node)
+{
+	int res;
+
+	res = what_the_buildin(node);
+	if (res == 1)
+		return (1);
+	if (res == -1)
+		exec_cmd(node, node->cmd->av, rebuild_env(&node->cmd->shell->env));
+	return (0);
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char	*buf;
@@ -106,15 +91,14 @@ int	main(int ac, char **av, char **env)
 		cur = lexer(buf, &token);
 		if (cur == NULL)
 			continue ;
+		expand(cur, &shell);
 		node = parse_and_or(&cur, &shell);
-		if (node)
+		if (node && node->type == NODE_CMD)
 		{
-			what_the_separator(node, &shell);
-			if (what_the_buildin(node)) // fait l'init dans la creation de cmd
-			 	exit_free_all(cur, node, &shell, buf);
-			 else
-			 	exec_cmd(node, node->cmd->av, rebuild_env(&node->cmd->shell->env));
+			if (do_node(node))
+				exit_free_all(cur, node, &shell, buf);
 		}
-		// what_the_separator(node, &shell);
+		else
+			what_the_separator(node, &shell);
 	}
 }
