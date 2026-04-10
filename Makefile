@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+         #
+#    By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/22 14:39:19 by mvignes           #+#    #+#              #
-#    Updated: 2026/04/08 11:06:21 by mvignes          ###   ########.fr        #
+#    Updated: 2026/04/10 16:05:55 by mmusquer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -124,6 +124,11 @@ SRCS	= srcs/libft/ft_isalpha.c\
 		srcs/parser/parser_cut.c\
 		srcs/parser/parser_utils.c\
 		srcs/parser/parser_free.c\
+		\
+		srcs/expand/expand.c\
+		srcs/expand/expand_dollards.c\
+		srcs/expand/expand_quotes.c\
+		srcs/expand/expand_concatenate.c\
 		\
 		
 

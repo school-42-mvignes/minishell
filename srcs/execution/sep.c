@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sep.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 18:40:34 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/08 13:41:21 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/09 13:50:59 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	what_the_separator(t_node *node, t_shell *shell) // revoir la fonction car 
 		exit = exec_and(node, node->left->cmd, node->right->cmd);
 	else if (node->type == NODE_OR)
 		exit = exec_or(node, node->left->cmd, node->right->cmd);
-	printf("exit = %i\n", shell->exit_status);
+	// printf("exit = %i\n", shell->exit_status);
 	(void)exit;
 }
 

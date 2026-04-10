@@ -1,0 +1,92 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand_dollards.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/09 17:41:51 by mmusquer          #+#    #+#             */
+/*   Updated: 2026/04/10 16:30:57 by mmusquer         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+static int create_new_value(t_token *token, int start, int i, char *value)
+{
+	char *before;
+	char *after;
+	char *new_str;
+	int l;
+	
+	l = ft_strlen(token->value + i);
+	before = ft_substr(token->value, 0, start);
+	after = ft_substr(token->value, i, l);
+	new_str = ft_strjoin(before, value);
+	before = new_str;
+	new_str = ft_strjoin(new_str, after);
+	free(before);
+	free(after);
+	free(token->value);
+	token->value = new_str;
+	i = start + ft_strlen(value);
+	return (i);
+}
+
+static void interrogation_mark(t_token *token, int j, int i, t_shell *shell)
+{
+	char *m;
+
+	m = ft_itoa(shell->exit_status);
+	create_new_value(token, j - 1, i, m);
+	free(m);
+}
+
+static void replace_dollards(t_token *token, int *i, t_shell *shell)
+{
+	int j;
+	char *tmp;
+	t_env *t_value;
+	
+	tmp = NULL;
+	(*i)++;
+	j = (*i);
+	if (token->value[(*i)] == '?')
+	{
+		(*i)++;
+		interrogation_mark(token, j, *i, shell);
+		return ;
+	}		
+	while (ft_isalnum(token->value[*i]) || token->value[*i] == '_')
+		(*i)++;
+	tmp = ft_substr(token->value, j, *i - j);
+	t_value = search_key_var(shell->env, tmp);
+	free(tmp);
+	if (t_value)
+		tmp = t_value->var;
+	else
+		tmp = "";
+	*i = create_new_value(token, j - 1, *i, tmp);
+}
+
+void	search_dollards(t_token *token, t_shell *shell)
+{
+	int i;
+
+	while (token->next)
+	{
+		i = 0;
+		if (token->type != WORD && token->type != D_QUOTE)
+		{
+			token = token->next;
+			continue ;
+		}
+		while (token->value[i])
+		{
+			if (token->value[i] == '$')
+				replace_dollards(token, &i, shell);
+			i++;
+		}
+		token = token->next;
+	}
+}
