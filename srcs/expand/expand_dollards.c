@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 17:41:51 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/10 16:30:57 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/13 11:57:45 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ static int create_new_value(t_token *token, int start, int i, char *value)
 	before = ft_substr(token->value, 0, start);
 	after = ft_substr(token->value, i, l);
 	new_str = ft_strjoin(before, value);
+	free(before);
 	before = new_str;
-	new_str = ft_strjoin(new_str, after);
+	before = ft_strjoin(new_str, after);
 	free(before);
 	free(after);
 	free(token->value);
@@ -46,7 +47,7 @@ static void replace_dollards(t_token *token, int *i, t_shell *shell)
 {
 	int j;
 	char *tmp;
-	t_env *t_value;
+	t_env *true_value;
 	
 	tmp = NULL;
 	(*i)++;
@@ -60,10 +61,10 @@ static void replace_dollards(t_token *token, int *i, t_shell *shell)
 	while (ft_isalnum(token->value[*i]) || token->value[*i] == '_')
 		(*i)++;
 	tmp = ft_substr(token->value, j, *i - j);
-	t_value = search_key_var(shell->env, tmp);
+	true_value = search_key_var(shell->env, tmp);
 	free(tmp);
-	if (t_value)
-		tmp = t_value->var;
+	if (true_value)
+		tmp = true_value->var;
 	else
 		tmp = "";
 	*i = create_new_value(token, j - 1, *i, tmp);
