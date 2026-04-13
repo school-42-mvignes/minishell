@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/09 18:36:39 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/13 19:06:07 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	exec_cmd(t_node *node, char **args, char **envp) // quitte pas bien quand e
 	tmp = args[0];
 	if (!args || !args[0])
 	{
+		// printf("qweqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
+
 		// free node
 		ft_putendl_fd(": command not found", 2);
 		node->cmd->shell->exit_status = 127;
@@ -29,13 +31,18 @@ void	exec_cmd(t_node *node, char **args, char **envp) // quitte pas bien quand e
 	cmd_path = find_path(args[0], envp);
 	if (!cmd_path)
 	{
+		// printf("qweqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
+
 		ft_putstr_fd(tmp, 2);
 		// free node
 		ft_putendl_fd(": command not found", 2);
 		node->cmd->shell->exit_status = 127;
 		exit (127);
 	}
+	// printf("%s\n\n\n\n", args[0]);
 	execve(cmd_path, args, envp);
+	// printf("qweqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
+
 	perror(cmd_path);
 	free(cmd_path);
 	// free node
@@ -43,13 +50,14 @@ void	exec_cmd(t_node *node, char **args, char **envp) // quitte pas bien quand e
 	exit(126);
 }
 
-void	only_child(t_node *node, int pipefd[2])
+void	only_child(t_node *node)
 {
 	int	fd;
 
-	(void)pipefd;
+	fd = STDIN_FILENO;
 	if (node->cmd->redir)
 	{
+		// printf("qweqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
 		fd = what_the_outfile(node->cmd->redir);
 		redirect_fd(fd, STDOUT_FILENO);
 	}
@@ -60,13 +68,14 @@ void	only_child(t_node *node, int pipefd[2])
 		exec_cmd(node, node->cmd->av, rebuild_env(&node->cmd->shell->env));
 }
 
-void	exec_simple_cmd(t_node *node, int *pipe)
+void	exec_node_cmd(t_node *node) // exec node cmd
 {
 	pid_t	pid;
+	int		status;
 
-	create_pipe(pipe);
 	pid = create_fork();
 	if (pid == 0)
-		only_child(node, pipe);
-	node->last_pid = pid;
+		only_child(node);
+	waitpid(pid, &status, 0);
+	// node->last_pid = pid;
 }
