@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/13 19:06:07 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/13 23:31:53 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	only_child(t_node *node)
 	{
 		// printf("qweqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
 		fd = what_the_outfile(node->cmd->redir);
-		redirect_fd(fd, STDOUT_FILENO);
+		redirect_fd(STDOUT_FILENO, fd);
 	}
 	// pk ca fonction po
 	if (is_one_buildin(node))
