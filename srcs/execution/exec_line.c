@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:27:15 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/13 20:06:45 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/13 23:07:42 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,46 +16,52 @@ void	exec_node(t_node *node);
 
 static void	exec_redir_in(t_redir *redir, int *pipe)
 {
-	int		fd;
+	// int		fd;
 
-	if (redir)
-	{
-		while (redir)
-		{
-			fd = what_the_outfile(redir);
-			if (fd == -1)
-			{
-				close(pipe[0]);
-				exit(EXIT_FAILURE);
-			}
-			redir = redir->next;
-		}
-		redirect_fd(STDIN_FILENO, fd);
-	}
-	redirect_fd(pipe[0], STDOUT_FILENO);
+	(void)redir;
+	close(pipe[0]);
+	// fd = STDIN_FILENO;
+	// if (redir)
+	// {
+	// 	while (redir)
+	// 	{
+	// 		fd = what_the_outfile(redir);
+	// 		if (fd == -1)
+	// 		{
+	// 			close(pipe[0]);
+	// 			exit(EXIT_FAILURE);
+	// 		}
+	// 		redir = redir->next;
+	// 	}
+	// 	redirect_fd(STDIN_FILENO, fd);
+	// }
+	redirect_fd(STDOUT_FILENO, pipe[1]);
+	close(pipe[1]);
 }
 
 void	exec_redir_out(t_redir *redir, int *pipe)
 {
-	(void)redir;
-	int fd;
+	// int fd;
 
+	(void)redir;
 	close(pipe[1]);
-	redirect_fd(pipe[1], STDIN_FILENO);
-	if (redir)
-	{
-		while (redir)
-		{
-			fd = what_the_outfile(redir);
-			if (fd == -1)
-			{
-				close(pipe[0]);
-				exit(EXIT_FAILURE);
-			}
-			redir = redir->next;
-		}
-		redirect_fd(STDOUT_FILENO, fd);
-	}
+	redirect_fd(STDIN_FILENO, pipe[0]);
+	// if (redir)
+	// {
+	// 	while (redir)
+	// 	{
+	// 		fd = what_the_outfile(redir);
+	// 		if (fd == -1)
+	// 		{
+	// 			close(pipe[0]);
+	// 			exit(EXIT_FAILURE);
+	// 		}
+	// 		redir = redir->next;
+	// 	}
+	// 	redirect_fd(STDIN_FILENO, fd);
+	// close(fd);
+	// }
+	close(pipe[0]);
 }
 
 static int	exec_pipe(t_node *node)
@@ -72,15 +78,15 @@ static int	exec_pipe(t_node *node)
 	{
 		exec_redir_in(node->left->cmd->redir, pipe);
 		exec_node(node->left);
-		close(pipe[1]);
+		// close(pipe[1]);
 	}
 	pid_right = create_fork();
 	if (pid_right == 0)
 	{
 		exec_redir_out(node->right->cmd->redir, pipe);
 		exec_node(node->right);
-		close(pipe[0]);
-		close(pipe[1]);
+		// close(pipe[0]);
+		// close(pipe[1]);
 	}
 	waitpid(pid_left, NULL, 0);
 	waitpid(pid_right, &status, 0);
