@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vignesmattheu <vignesmattheu@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/09 19:43:59 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/10 13:41:03 by vignesmatth      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "env.h"
 # include "lexer.h"
 # include "buildin.h"
-# include <X11/keysym.h>
+//# include <X11/keysym.h>
 # include <math.h>
 # include <stdbool.h>
 # include "lexer.h"
