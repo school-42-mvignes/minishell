@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:27:15 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/14 09:40:59 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/14 11:05:40 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,39 +126,53 @@ static int	exec_and(t_node *node)
 	pid_left = create_fork();
 	if (pid_left == 0)
 	{
-		// close(pipe[0]);
-		// redirect_fd(STDOUT_FILENO, pipe[1]);
-		// close(pipe[1]);
-		// exec_redir_in(node->left->cmd->redir, pipe);
 		exec_node(node->left);
 		exit(0);
 	}
-	waitpid(pid_left, NULL, 0);
-	if (!node->cmd->shell->exit_status)
+	waitpid(pid_left, &status, 0);
+	if (node->cmd->shell->exit_status)
 	{
 		pid_right = create_fork();
 		if (pid_right == 0)
 		{
-			// close(pipe[1]);
-			// redirect_fd(STDIN_FILENO, pipe[0]);
-			// close(pipe[0]);
-			// exec_redir_out(node->right->cmd->redir, pipe);
 			exec_node(node->right);
 			exit(0);
-			// close(pipe[0]);
-			// close(pipe[1]);
 		}
 		waitpid(pid_right, &status, 0);
 	}
-	// close(pipe[0]);
-	// close(pipe[1]);
 	WEXITSTATUS(status);
 	return(status);
 }
 
-
+// avant de partir en couille
+// void	exec_left(t_node *node, t_redir *redir, int *pipe)
+// {
+// 	close(pipe[0]);
+// 	redirect_fd(STDOUT_FILENO, pipe[1]);
+// 	close(pipe[1]);
+// 	exec_node(node->left);
+// 	exit(0);
+// }
 
 /* ============================FAIT=============================== */
+void	exec_left(t_node *node, int *pipe)
+{
+	close(pipe[0]);
+	redirect_fd(STDOUT_FILENO, pipe[1]);
+	close(pipe[1]);
+	exec_node(node->left);
+	exit(0);
+}
+
+void	exec_right(t_node *node, int *pipe)
+{
+	close(pipe[1]);
+	redirect_fd(STDIN_FILENO, pipe[0]);
+	close(pipe[0]);
+	exec_node(node->right);
+	exit(0);
+}
+
 /// @brief execute the "|" and do a recursive if there are other separators after
 /// @param node 
 /// @return exit_status
@@ -174,24 +188,12 @@ static int	exec_pipe(t_node *node)
 	pid_left = create_fork();
 	if (pid_left == 0)
 	{
-		close(pipe[0]);
-		redirect_fd(STDOUT_FILENO, pipe[1]);
-		close(pipe[1]);
-		// exec_redir_in(node->left->cmd->redir, pipe);
-		exec_node(node->left);
-		exit(0);
+		exec_left(node, pipe);
 	}
 	pid_right = create_fork();
 	if (pid_right == 0)
 	{
-		close(pipe[1]);
-		redirect_fd(STDIN_FILENO, pipe[0]);
-		close(pipe[0]);
-		// exec_redir_out(node->right->cmd->redir, pipe);
-		exec_node(node->right);
-		exit(0);
-		// close(pipe[0]);
-		// close(pipe[1]);
+		exec_right(node, pipe);
 	}
 	close(pipe[0]);
 	close(pipe[1]);
