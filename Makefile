@@ -1,4 +1,4 @@
-# **************************************************************************** #
+#**************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
@@ -21,7 +21,7 @@
 
 NAME		= minishell
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -g3
 RM			= rm -f
 
 MAKEFLAGS	+= --no-print-directory
@@ -108,10 +108,14 @@ SRCS	= srcs/libft/ft_isalpha.c\
 		\
 		srcs/execution/env.c\
 		srcs/execution/exec_cmd.c\
+		srcs/execution/exec_line.c\
 		srcs/execution/path.c\
 		srcs/execution/pipe.c\
+		srcs/execution/and.c\
+		srcs/execution/or.c\
 		srcs/execution/redir.c\
 		srcs/execution/sep.c\
+		srcs/execution/utils.c\
 		\
 		srcs/lexer/lexer.c\
 		srcs/lexer/lexer_utils.c\
@@ -131,6 +135,8 @@ SRCS	= srcs/libft/ft_isalpha.c\
 		srcs/expand/expand_concatenate.c\
 		\
 		
+#srcs/execution/and.c
+#srcs/execution/or.c
 
 SRCS_BONUS	= \
 

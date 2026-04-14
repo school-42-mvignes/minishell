@@ -6,13 +6,9 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 16:46:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/08 13:55:25 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/14 13:04:37 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
-// LA SAINTE COMMANDE DU SEIGNEUR : cc ttest.c ../libft/ft_lstnew.c ../libft/ft_lstadd_back.c ../libft/ft_lstlast.c ../libft/ft_memset.c ../libft/ft_strlen.c ../libft/ft_strchr.c ../libft/ft_strlcpy.c ../libft/ft_strdup.c ../libft/ft_free_tab.c ../libft/ft_lstclear.c ../libft/ft_lstdelone.c ../libft/ft_substr.c ../libft/get_next_line_utils.c ../libft/ft_strjoin.c ../utils/lstenv.c ../utils/other_split.c ../utils/print_struc.c ../libft/ft_putendl_fd.c ../libft/ft_putstr_fd.c ../libft/ft_putchar_fd.c -g3
-// pour la suite surement des fonctions dans ../libft/get_next_line_utils.c ou les recoder
 
 #include "../../includes/minishell.h"
 
