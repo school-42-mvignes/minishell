@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 20:05:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/14 13:03:20 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/14 14:48:08 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	exec_and(t_node *node)
 	}
 	waitpid(pid_left, &status, 0);
 	WEXITSTATUS(status);
-	if (!status) // node->cmd->shell->exit_status
+	if (status % 255) // node->cmd->shell->exit_status
 	{
 		pid_right = create_fork();
 		if (pid_right == 0)

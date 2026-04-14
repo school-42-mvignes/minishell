@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/14 13:06:31 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/14 14:49:55 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,6 @@ void	exec_node_cmd(t_node *node)
 			exec_cmd(node, node->cmd->av, rebuild_env(&node->cmd->shell->env));
 	}
 	waitpid(pid, &status, 0);
+	WEXITSTATUS(status);
+	node->cmd->shell->exit_status = status;
 }

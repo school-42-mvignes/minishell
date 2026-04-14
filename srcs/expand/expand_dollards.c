@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_dollards.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 17:41:51 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/13 11:57:45 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/14 14:50:13 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void interrogation_mark(t_token *token, int j, int i, t_shell *shell)
 {
 	char *m;
 
-	m = ft_itoa(shell->exit_status);
+	m = ft_itoa(shell->exit_status % 255);
 	create_new_value(token, j - 1, i, m);
 	free(m);
 }
