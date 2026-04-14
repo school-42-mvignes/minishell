@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:24:04 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/30 17:44:17 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/08 15:02:15 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,12 @@ static void	ft_delete_envnode(t_env *preview_node, t_env *node)
 	node->var = NULL;
 }
 
-// ca fonction mais peut etre faire quelques chose de plus propre, mais en vrai flemme cest deja pas mal
-void	buildin_unset(t_command *cmd) // 6
+void	buildin_unset(t_command *cmd)
 {
 	t_env	*tmp;
 	t_env	*preview;
 	int		len;
-	
+
 	len = (ft_strlen(cmd->av[1]) + 1);
 	tmp = cmd->shell->env;
 	while (tmp)
@@ -35,11 +34,13 @@ void	buildin_unset(t_command *cmd) // 6
 		if (!ft_strncmp(cmd->av[1], tmp->key_var, len))
 		{
 			ft_delete_envnode(preview, tmp);
-			break;
+			break ;
 		}
-		// printf("\033[0;35m\033[1mcmd av[0] = {%s}, tmp keyvar = {%s}, tmp var = {%s}, strlen = {%d}\n\033[0m", cmd->av[1], tmp->key_var, tmp->var, i);
 		preview = tmp;
 		tmp = tmp->next;
 	}
-	// printf_env(cmd->shell->env);
 }
+
+		// printf("\033[0;35m\033[1mcmd av[0] = {%s}, tmp keyvar = {%s}, 
+		// tmp var = {%s}, strlen = {%d}\n\033[0m", cmd->av[1],
+		// tmp->key_var, tmp->var, i);
