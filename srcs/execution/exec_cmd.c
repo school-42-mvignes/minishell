@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/14 14:49:55 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/14 16:34:40 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	create_and_redir_file(t_redir *redir)
 
 /// @brief executes the command found or buildin in the node command
 /// @param node 
-void	exec_node_cmd(t_node *node)
+int	exec_node_cmd(t_node *node)
 {
 	pid_t	pid;
 	int		status;
@@ -93,4 +93,5 @@ void	exec_node_cmd(t_node *node)
 	waitpid(pid, &status, 0);
 	WEXITSTATUS(status);
 	node->cmd->shell->exit_status = status;
+	return (status);
 }

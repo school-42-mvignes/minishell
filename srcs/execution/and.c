@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 20:05:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/14 14:48:08 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/14 16:38:59 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,28 +17,10 @@
 /// @return exit_status
 int	exec_and(t_node *node)
 {
-	int		status;
-	pid_t	pid_left;
-	pid_t	pid_right;
-
-	pid_left = create_fork();
-	if (pid_left == 0)
-	{
-		exec_node(node->left);
-		exit(0);
-	}
-	waitpid(pid_left, &status, 0);
-	WEXITSTATUS(status);
-	if (status % 255) // node->cmd->shell->exit_status
-	{
-		pid_right = create_fork();
-		if (pid_right == 0)
-		{
-			exec_node(node->right);
-			exit(0);
-		}
-		waitpid(pid_right, &status, 0);
-	}
-	WEXITSTATUS(status);
-	return(status);
+	int res;
+	
+	res = exec_node(node->left);
+	if (res == 0)
+		res = exec_node(node->right);
+	return (res);
 }
