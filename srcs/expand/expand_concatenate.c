@@ -1,18 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   expand_concatenate.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/20 01:22:03 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/08 14:38:46 by mmusquer         ###   ########.fr       */
+/*   Created: 2026/04/10 16:06:17 by mmusquer          #+#    #+#             */
+/*   Updated: 2026/04/10 16:26:56 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	buildin_env(t_command *cmd)
+void concatenate(t_token *token)
 {
-	printf_env(cmd->shell->env);
+	char *new_str;
+	t_token *tmp;
+	while (token->next)
+	{
+		if (token->type == WORD && token->next->type == WORD)
+		{
+			new_str = ft_strjoin(token->value, token->next->value);
+			free(token->value);
+			token->value = new_str;
+			tmp = token->next;
+			token->next = tmp->next;
+			free(tmp->value);
+			free(tmp);
+			continue ;
+		}
+		else
+			token = token->next;
+	}
 }

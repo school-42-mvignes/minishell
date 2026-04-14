@@ -21,7 +21,6 @@ t_node	*parse_and_or(t_token **token, t_shell *shell)
 	skip_spaces(token);
 	while (*token && (((*token)->type == SP_AND) || ((*token)->type == SP_OR)))
 	{
-		skip_spaces(token);
 		node = malloc(sizeof(t_node));
 		if (!node)
 			return (NULL);
@@ -49,7 +48,6 @@ t_node	*parse_pipe(t_token **token, t_shell *shell)
 	skip_spaces(token);
 	while (*token && ((*token)->type == SP_PIPE))
 	{
-		skip_spaces(token);
 		node = malloc(sizeof(t_node));
 		if (!node)
 			return (NULL);
@@ -89,8 +87,8 @@ t_redir	*parse_redir(t_token **token)
 
 t_node	*parse_bracket(t_token **token, t_shell *shell)
 {
-	t_node *node;
-	
+	t_node	*node;
+
 	if ((*token)->type == L_BRACKET)
 	{
 		use_token(token);

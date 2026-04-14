@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   redir_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/20 01:22:03 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/08 14:38:46 by mmusquer         ###   ########.fr       */
+/*   Created: 2026/04/13 17:21:21 by mmusquer          #+#    #+#             */
+/*   Updated: 2026/04/14 11:25:30 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	buildin_env(t_command *cmd)
+void do_heredoc(t_node *node)
 {
-	printf_env(cmd->shell->env);
+	readline()
 }
