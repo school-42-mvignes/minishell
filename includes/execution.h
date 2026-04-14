@@ -3,20 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:14:18 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/14 16:40:19 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/14 16:42:47 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef EXECUTION_H
 # define EXECUTION_H
 
 # include "minishell.h"
-
-
 
 typedef struct s_command	t_command;
 

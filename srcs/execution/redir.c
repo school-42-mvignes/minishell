@@ -3,16 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:18:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/14 16:38:28 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/14 16:46:19 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	open_file_in(char *outfile)
+// static int do_heredoc(char *lim)
+// {
+// 	int fd[2];
+// 	char *line;
+
+// 	pipe(fd);
+// 	while (1)
+// 	{
+// 		line = readline("> ");
+// 		// printf("lim=[%s] line=[%s]\n", lim, line);
+// 		if (!line || ft_strncmp(line, lim, ft_strlen(lim) + 1) == 0)
+// 		{
+// 			free(line);
+// 			break ;
+// 		}
+// 		write(fd[1], line, ft_strlen(line));
+// 		write(fd[1], "\n", 1);
+// 		free(line);
+// 	}
+// 	close(fd[1]);
+// 	return (fd[0]);
+// }
+
+static int	open_file_in(char *outfile)
 {
 	int	fd;
 
@@ -25,7 +48,7 @@ int	open_file_in(char *outfile)
 	return (fd);
 }
 
-int	open_file_app(char *outfile)
+static int	open_file_app(char *outfile)
 {
 	int	fd;
 
