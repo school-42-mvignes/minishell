@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vignesmattheu <vignesmattheu@student.42    +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/10 13:42:22 by vignesmatth      ###   ########.fr       */
+/*   Updated: 2026/04/14 12:59:55 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		node = parse_and_or(&cur, &shell);
 		if (node)
-			shell.exit_status = exec_line(node);
-			// what_the_separator(node);
+			exec_node(node);
 	}
 }
