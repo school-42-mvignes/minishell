@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/10 16:51:22 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/14 12:59:55 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,12 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		expand(cur, &shell);
 		node = parse_and_or(&cur, &shell);
+		if (node)
+			exec_node(node);
 		if (node && node->type == NODE_CMD)
 		{
 			if (do_node(node))
 				exit_free_all(cur, node, &shell, buf);
 		}
-		else
-			what_the_separator(node, &shell);
 	}
 }

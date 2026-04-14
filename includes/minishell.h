@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vignesmattheu <vignesmattheu@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
 /*   Updated: 2026/04/09 10:32:34 by mmusquer         ###   ########.fr       */
@@ -17,7 +17,7 @@
 # include "env.h"
 # include "lexer.h"
 # include "buildin.h"
-# include <X11/keysym.h>
+//# include <X11/keysym.h>
 # include <math.h>
 # include <stdbool.h>
 # include "lexer.h"
@@ -35,6 +35,7 @@ typedef struct s_redir
 	t_type				type;
 	struct s_redir		*next;
 }						t_redir;
+
 
 typedef struct s_shell
 {
