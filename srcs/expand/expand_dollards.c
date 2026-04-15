@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_dollards.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 17:41:51 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/14 14:50:13 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/15 14:48:19 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	search_dollards(t_token *token, t_shell *shell)
 {
 	int i;
 
-	while (token->next)
+	while (token)
 	{
 		i = 0;
 		if (token->type != WORD && token->type != D_QUOTE)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/14 14:21:55 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/15 15:47:00 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		expand(cur, shell);
 		node = parse_and_or(&cur, shell);
+		avenger_assemble(node, shell);
 		if (node)
 			exec_node(node);
 		// printf("exit_status = %i\n", node->cmd->shell->exit_status);
