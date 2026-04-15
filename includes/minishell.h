@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vignesmattheu <vignesmattheu@student.42    +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/09 10:32:34 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/15 15:48:59 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_node
 {
 	t_node_type		type;
 	t_command		*cmd;
+	bool			in_pipe;
 	int				count;
 	struct s_node	*left;
 	struct s_node	*right;

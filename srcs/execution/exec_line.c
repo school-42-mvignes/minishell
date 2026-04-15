@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:27:15 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/14 16:36:03 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/15 15:54:54 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 /// @brief dispatches in the correct execution following the node
 /// @param node 
+/// @return exit_status
 int	exec_node(t_node *node)
 {
 	int ret;
