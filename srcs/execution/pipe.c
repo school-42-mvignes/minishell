@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 16:54:22 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/14 12:57:45 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/15 15:55:53 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/* ============================FAIT=============================== */
+/// @brief execute the node left
+/// @param node 
+/// @param pipe 
 void	exec_left(t_node *node, int *pipe)
 {
 	close(pipe[0]);
@@ -22,6 +24,9 @@ void	exec_left(t_node *node, int *pipe)
 	exit(0);
 }
 
+/// @brief execute the node right
+/// @param node 
+/// @param pipe 
 void	exec_right(t_node *node, int *pipe)
 {
 	close(pipe[1]);

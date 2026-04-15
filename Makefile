@@ -105,6 +105,7 @@ SRCS	= srcs/libft/ft_isalpha.c\
 		srcs/buildin/orchestrator.c\
 		srcs/buildin/pwd.c\
 		srcs/buildin/unset.c\
+		srcs/buildin/utils.c\
 		\
 		srcs/execution/env.c\
 		srcs/execution/exec_cmd.c\

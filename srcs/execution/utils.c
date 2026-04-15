@@ -6,27 +6,11 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 20:04:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/13 20:35:14 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/15 15:46:34 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-/// @brief check if he’s a buildin
-/// @param node 
-/// @return true or false
-bool	is_one_buildin(t_node *node)
-{
-	if (!ft_strncmp(ECHO, node->cmd->av[0], 5)
-		|| !ft_strncmp(CD, node->cmd->av[0], 3)
-		|| !ft_strncmp(PWD, node->cmd->av[0], 4)
-		|| !ft_strncmp(ENV, node->cmd->av[0], 4)
-		|| !ft_strncmp(EXPORT, node->cmd->av[0], 7)
-		|| !ft_strncmp(UNSET, node->cmd->av[0], 6)
-		|| !ft_strncmp(EXIT, node->cmd->av[0], 5))
-		return (true);
-	return (false);
-}
 
 /// @brief create new pipe and exit in case of a problem
 /// @param pipefd 
