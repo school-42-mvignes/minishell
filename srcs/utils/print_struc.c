@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_struc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 04:14:38 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/31 16:58:28 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/15 18:36:30 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,29 @@ void	printf_env(t_env *lst)
 	tmp = lst;
 	while (tmp)
 	{
-		if (tmp->var[0] == '\0')
-			printf("\033[0;35m\033[1m%s=%s\n\033[0m", tmp->key_var, "");
-		else
-			printf("\033[0;35m\033[1m%s=%s\n\033[0m", tmp->key_var, tmp->var);
+		ft_putstr_fd(tmp->key_var, 1);
+		ft_putchar_fd('=', 1);
+		if (tmp->var[0])
+			ft_putstr_fd(tmp->var, 1);
+		ft_putchar_fd('\n', 1);
+		tmp = tmp->next;
+	}
+}
+
+void	printf_export(t_env *lst)
+{
+	t_env	*tmp;
+
+	tmp = lst;
+	while (tmp)
+	{
+
+		ft_putstr_fd("export ", 1);
+		ft_putstr_fd(tmp->key_var, 1);
+		ft_putchar_fd('=', 1);
+		if (tmp->var[0])
+			ft_putstr_fd(tmp->var, 1);
+		ft_putchar_fd('\n', 1);
 		tmp = tmp->next;
 	}
 }

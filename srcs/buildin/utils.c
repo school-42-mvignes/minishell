@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 15:46:03 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/15 16:50:11 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/15 18:07:57 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,13 @@ bool	is_one_buildin(t_node *node)
 	return (false);
 }
 
-/// @brief Check if he is in a trap and whether to launch a fork or not on the buildin cd, pwd, env, export, unset
+/// @brief Check if he is in a trap and whether to launch a fork or not on the buildin cd, export, unset
 /// @param node 
 /// @return true = exec_without_fork, false exec_with_fork
 bool	exec_without_fork(t_node *node)
 {
 	if (!node->in_pipe &&
 		(!ft_strncmp(CD, node->cmd->av[0], 3)
-		|| !ft_strncmp(PWD, node->cmd->av[0], 4)
-		|| !ft_strncmp(ENV, node->cmd->av[0], 4)
 		|| !ft_strncmp(EXPORT, node->cmd->av[0], 7)
 		|| !ft_strncmp(UNSET, node->cmd->av[0], 6)))
 		return (true);

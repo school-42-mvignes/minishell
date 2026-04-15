@@ -3,20 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:57 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/08 14:37:57 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/15 18:47:01 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	buildin_export(t_command *cmd)
+void	error_export(t_command *cmd)
+{
+	ft_putstr_fd("minishell: export:", 1);
+	ft_putchar_fd('`', 1);
+	ft_putstr_fd(cmd->av[1], 1);
+	ft_putendl_fd("': not a valid identifier", 1);
+}
+
+void	create_or_edit_var(t_command *cmd)
 {
 	t_env	*node;
 	char	**tab;
-
+	
 	tab = split_in_two(cmd->av[1], '=');
 	if (!tab)
 		return ;
@@ -35,5 +43,20 @@ void	buildin_export(t_command *cmd)
 		node->var = tab[1];
 		free(tab);
 	}
-	printf_env(cmd->shell->env);
+}
+
+void	buildin_export(t_command *cmd)
+{
+
+	if (!cmd->av[1])
+	{
+		printf_export(cmd->shell->env);
+	}
+	else
+	{
+		if (!ft_isalnum(cmd->av[1][0]) || cmd->av[1][0] == '_')
+			create_or_edit_var(cmd);
+		else
+			error_export(cmd);
+	}
 }
