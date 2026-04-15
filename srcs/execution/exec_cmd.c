@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/14 16:34:40 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/15 14:18:54 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	create_and_redir_file(t_redir *redir)
 			{
 				exit(EXIT_FAILURE);
 			}
-			if (redir->type == REDIR_IN)
+			if (redir->type == REDIR_IN || redir->type == REDIR_HERE)
 				redirect_fd(STDIN_FILENO, fd);
 			else
 				redirect_fd(STDOUT_FILENO, fd);

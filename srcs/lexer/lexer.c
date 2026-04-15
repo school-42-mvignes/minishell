@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 14:52:18 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/08 14:34:23 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/15 15:56:24 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ t_token	*lexer(char *str, t_token *token)
 	add_token(&t_lst, create_token(NONE, str + i, 1), &status);
 	if (lexer_checker(t_lst) == 1)
 		return (NULL);
+	check_quote_heredoc(t_lst);
 	return (t_lst);
 }
