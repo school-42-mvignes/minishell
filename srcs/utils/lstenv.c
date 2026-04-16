@@ -6,12 +6,15 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 01:26:50 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/20 01:04:28 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/16 21:41:11 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/// @brief count node in the list linkend t_env
+/// @param env 
+/// @return size list t_env
 int	ft_envsize(t_env *env)
 {
 	int	i;
@@ -25,6 +28,9 @@ int	ft_envsize(t_env *env)
 	return (i);
 }
 
+/// @brief clear the list linkend t_env
+/// @param env 
+/// @param del 
 void	ft_envclear(t_env **env, void (*del)(void *))
 {
 	t_env	*tmp;
@@ -42,6 +48,9 @@ void	ft_envclear(t_env **env, void (*del)(void *))
 	}
 }
 
+/// @brief create new node for the list linkend t_env
+/// @param tab 
+/// @return new node in t_env
 t_env	*ft_envnew(char **tab)
 {
 	t_env	*element;
@@ -59,6 +68,9 @@ t_env	*ft_envnew(char **tab)
 	return (element);
 }
 
+/// @brief search the last node in the list linkend t_env
+/// @param lst 
+/// @return last node
 t_env	*ft_envlast(t_env *lst)
 {
 	if (!lst)
@@ -68,6 +80,9 @@ t_env	*ft_envlast(t_env *lst)
 	return (lst);
 }
 
+/// @brief add the node in the last linkend list t_env
+/// @param lst 
+/// @param new 
 void	ft_envadd_back(t_env **lst, t_env *new)
 {
 	t_env	*last;

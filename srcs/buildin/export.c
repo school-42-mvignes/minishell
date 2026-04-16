@@ -6,12 +6,14 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:57 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 20:21:39 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/16 21:30:18 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/// @brief write error export
+/// @param cmd 
 void	error_export(t_command *cmd)
 {
 	ft_putstr_fd("minishell: export:", 1);
@@ -20,6 +22,8 @@ void	error_export(t_command *cmd)
 	ft_putendl_fd("': not a valid identifier", 1);
 }
 
+/// @brief create or edit the var in list t_env
+/// @param cmd 
 void	create_or_edit_var(t_command *cmd)
 {
 	t_env	*node;
@@ -45,6 +49,8 @@ void	create_or_edit_var(t_command *cmd)
 	}
 }
 
+/// @brief check write env export or create / edit var or error
+/// @param cmd 
 void	buildin_export(t_command *cmd)
 {
 	if (!cmd->av[1])
