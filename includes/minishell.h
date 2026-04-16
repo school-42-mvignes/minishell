@@ -58,6 +58,7 @@ typedef struct s_node
 {
 	t_node_type		type;
 	t_command		*cmd;
+	bool			in_pipe;
 	int				count;
 	struct s_node	*left;
 	struct s_node	*right;

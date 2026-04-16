@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   orchestrator.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:25:03 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/08 15:04:31 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/16 14:48:06 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,28 @@
 /// @brief searches for the called variable
 /// @param env 
 /// @param key 
-/// @return 
+/// @return return the node search or returns NULL
 t_env	*search_key_var(t_env *env, char *key)
 {
 	t_env	*tmp;
 	int		len;
-	
+
 	len = (ft_strlen(key) + 1);
 	tmp = env;
 	while (tmp)
 	{
 		if (!ft_strncmp(key, tmp->key_var, len))
-			return(tmp);
+			return (tmp);
 		tmp = tmp->next;
 	}
 	return (NULL);
 }
 
+/*
+==============================================================================
+FAUT REVOIR CA PARCE QUE CA VA PAS, ON RETURN L EXIT STATUS ET 1 EN CAS D'EXIT
+==============================================================================
+*/
 /// @brief perform the correct buildin
 /// @param node 
 /// @return 

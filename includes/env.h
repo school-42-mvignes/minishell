@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 04:03:34 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/30 21:29:31 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/15 18:30:00 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char			**rebuild_env(t_env **env);
 // srcs/utils/
 void			printf_env(t_env *lst);
 void			printf_list(t_list *lst);
+void			printf_export(t_env *lst);
 char			**split_in_two(char *str, char c);
 void			split_tab_to_list(char **old_tab, t_list **lst);
 

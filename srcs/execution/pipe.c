@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 16:54:22 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/14 12:57:45 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/16 14:53:18 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/* ============================FAIT=============================== */
+/// @brief execute the node left
+/// @param node 
+/// @param pipe 
 void	exec_left(t_node *node, int *pipe)
 {
 	close(pipe[0]);
@@ -22,6 +24,9 @@ void	exec_left(t_node *node, int *pipe)
 	exit(0);
 }
 
+/// @brief execute the node right
+/// @param node 
+/// @param pipe 
 void	exec_right(t_node *node, int *pipe)
 {
 	close(pipe[1]);
@@ -31,7 +36,8 @@ void	exec_right(t_node *node, int *pipe)
 	exit(0);
 }
 
-/// @brief execute the "|" and do a recursive if there are other separators after
+/// @brief execute the "|" and do a recursive if there are other
+/// separators after
 /// @param node 
 /// @return exit_status
 int	exec_pipe(t_node *node)
@@ -40,7 +46,7 @@ int	exec_pipe(t_node *node)
 	int		status;
 	pid_t	pid_left;
 	pid_t	pid_right;
-	
+
 	if (create_pipe(pipe))
 		printf("Probleme pendant la creation du pipe\n");
 	pid_left = create_fork();
@@ -58,5 +64,5 @@ int	exec_pipe(t_node *node)
 	waitpid(pid_left, NULL, 0);
 	waitpid(pid_right, &status, 0);
 	WEXITSTATUS(status);
-	return(status);
+	return (status);
 }

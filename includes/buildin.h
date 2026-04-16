@@ -46,6 +46,8 @@ typedef struct s_env		t_env;
 t_env				*search_key_var(t_env *env, char *key);
 int					exec_the_buildin(t_node *node);
 bool				is_one_buildin(t_node *node);
+bool				exec_without_fork(t_node *node);
+void				exec_buildin_without_fork(t_node *node);
 
 void				buildin_unset(t_command *cmd);
 void				buildin_export(t_command *cmd);
