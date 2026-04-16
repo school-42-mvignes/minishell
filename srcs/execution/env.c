@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 16:46:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 20:08:47 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/16 20:20:46 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,15 @@ t_env	*call_env(char **env)
 	{
 		tab = build_env_since_then_nothing();
 		if (!tab)
-			printf("ca na pas marcher frero\n\n");
+			error_message("error when separating the key and var\n");
 		env_build = true;
 		split_tab_to_list(tab, &lst);
 	}
 	if (lst == NULL)
-		error_message("env : proubleme lst pour split");
+		error_message("error when separating the environment\n");
 	init_lst_env(lst, &lst_env);
 	if (lst_env == NULL)
-		error_message("env : proubleme lst_env");
+		error_message("error during the linking of the environment\n");
 	ft_lstclear(&lst, free);
 	if (env_build)
 		free_tab(tab);
