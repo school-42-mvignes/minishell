@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 16:54:22 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 20:23:09 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/16 21:16:09 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	exec_left(t_node *node, int *pipe)
 	close(pipe[0]);
 	redirect_fd(STDOUT_FILENO, pipe[1]);
 	close(pipe[1]);
+	node->left->in_pipe = true;
 	exec_node(node->left);
 	exit(0);
 }
