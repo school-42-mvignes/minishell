@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/15 15:48:59 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/16 14:45:53 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include "env.h"
 # include "lexer.h"
 # include "buildin.h"
-//# include <X11/keysym.h>
 # include <math.h>
 # include <stdbool.h>
 # include "lexer.h"
@@ -35,7 +34,6 @@ typedef struct s_redir
 	t_type				type;
 	struct s_redir		*next;
 }						t_redir;
-
 
 typedef struct s_shell
 {

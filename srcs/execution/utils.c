@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 20:04:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/15 15:46:34 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/16 14:54:12 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ pid_t	create_fork(void)
 	return (pid);
 }
 
-/// @brief Use dup2 = Duplicate new_fd to old_fd and close old_fd and exit in case of a problem
+/// @brief Use dup2 = Duplicate new_fd to old_fd and close old_fd and exit
+/// in case of a problem
 /// @param old_fd
 /// @param new_fd 
 void	redirect_fd(int old_fd, int new_fd)

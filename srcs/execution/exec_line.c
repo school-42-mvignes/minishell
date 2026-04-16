@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:27:15 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/15 15:54:54 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/16 14:52:16 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 /// @return exit_status
 int	exec_node(t_node *node)
 {
-	int ret;
-	
+	int	ret;
+
 	if (node->type == NODE_CMD)
 		ret = exec_node_cmd(node);
 	else if (node->type == NODE_PIPE)
