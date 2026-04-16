@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:18:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/15 15:57:42 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/16 14:25:22 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	open_file_in(char *outfile)
 	int	fd;
 
 	printf("file = %s\n", outfile);
-	fd = open(outfile, O_WRONLY, 0644);
+	fd = open(outfile, O_RDONLY, 0644);
 	if (fd == -1)
 	{
 		perror("outfile");
