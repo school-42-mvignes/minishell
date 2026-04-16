@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/15 14:18:54 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/16 15:35:22 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,9 @@ int	exec_node_cmd(t_node *node)
 			exec_cmd(node, node->cmd->av, rebuild_env(&node->cmd->shell->env));
 	}
 	waitpid(pid, &status, 0);
-	WEXITSTATUS(status);
-	node->cmd->shell->exit_status = status;
+	if (WIFEXITED(status))
+		node->cmd->shell->exit_status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		node->cmd->shell->exit_status = 128 + WEXITSTATUS(status);
 	return (status);
 }
