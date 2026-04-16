@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:22:03 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 19:19:09 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/16 20:21:34 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	print_error_env(t_command *cmd)
 void	buildin_env(t_command *cmd)
 {
 	if (!cmd->av[1])
-		printf_env(cmd->shell->env);
+		print_env(cmd->shell->env);
 	else
 		print_error_env(cmd);
 }

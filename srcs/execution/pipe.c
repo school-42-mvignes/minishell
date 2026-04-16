@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 16:54:22 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 16:03:17 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/16 20:23:09 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	exec_pipe(t_node *node)
 	pid_t	pid_right;
 
 	if (create_pipe(pipe))
-		printf("Probleme pendant la creation du pipe\n");
+		error_message("error : during the creation of the pipe\n");
 	pid_left = create_fork();
 	if (pid_left == 0)
 	{
