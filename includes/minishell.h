@@ -6,18 +6,19 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/15 16:09:11 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/16 14:58:53 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <stdbool.h>
-# include "buildin.h"
 # include "libft.h"
+# include "buildin.h"
 # include "env.h"
 # include "lexer.h"
+# include <signal.h>
+# include <stdbool.h>
 //# include <X11/keysym.h>
 # include "execution.h"
 # include "expand.h"
@@ -28,6 +29,7 @@
 # include <readline/readline.h>
 # include <sys/wait.h>
 
+extern int			g_status;
 typedef struct s_redir
 {
 	char			*file;
@@ -61,5 +63,7 @@ typedef struct s_node
 	struct s_node	*right;
 	pid_t			last_pid;
 }					t_node;
+
+void				init_signal(void);
 
 #endif

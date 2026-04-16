@@ -134,6 +134,7 @@ SRCS	= srcs/libft/ft_isalpha.c\
 		srcs/expand/expand_quotes.c\
 		srcs/expand/expand_concatenate.c\
 		\
+		srcs/signal/signal.c\
 		
 #srcs/execution/and.c
 #srcs/execution/or.c
