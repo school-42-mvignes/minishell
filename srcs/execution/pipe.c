@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 16:54:22 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/15 15:55:53 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/16 14:53:18 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void	exec_right(t_node *node, int *pipe)
 	exit(0);
 }
 
-/// @brief execute the "|" and do a recursive if there are other separators after
+/// @brief execute the "|" and do a recursive if there are other
+/// separators after
 /// @param node 
 /// @return exit_status
 int	exec_pipe(t_node *node)
@@ -45,7 +46,7 @@ int	exec_pipe(t_node *node)
 	int		status;
 	pid_t	pid_left;
 	pid_t	pid_right;
-	
+
 	if (create_pipe(pipe))
 		printf("Probleme pendant la creation du pipe\n");
 	pid_left = create_fork();
@@ -63,5 +64,5 @@ int	exec_pipe(t_node *node)
 	waitpid(pid_left, NULL, 0);
 	waitpid(pid_right, &status, 0);
 	WEXITSTATUS(status);
-	return(status);
+	return (status);
 }
