@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:57 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/15 18:47:01 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/16 14:46:35 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	create_or_edit_var(t_command *cmd)
 {
 	t_env	*node;
 	char	**tab;
-	
+
 	tab = split_in_two(cmd->av[1], '=');
 	if (!tab)
 		return ;
@@ -47,7 +47,6 @@ void	create_or_edit_var(t_command *cmd)
 
 void	buildin_export(t_command *cmd)
 {
-
 	if (!cmd->av[1])
 	{
 		printf_export(cmd->shell->env);

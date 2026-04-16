@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:25:03 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/15 16:43:48 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/16 14:48:06 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,17 @@ t_env	*search_key_var(t_env *env, char *key)
 {
 	t_env	*tmp;
 	int		len;
-	
+
 	len = (ft_strlen(key) + 1);
 	tmp = env;
 	while (tmp)
 	{
 		if (!ft_strncmp(key, tmp->key_var, len))
-			return(tmp);
+			return (tmp);
 		tmp = tmp->next;
 	}
 	return (NULL);
 }
-
 
 /*
 ==============================================================================

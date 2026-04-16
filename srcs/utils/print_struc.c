@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 04:14:38 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 14:31:36 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/16 14:55:01 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	printf_export(t_env *lst)
 	tmp = lst;
 	while (tmp)
 	{
-
 		ft_putstr_fd("export ", 1);
 		ft_putstr_fd(tmp->key_var, 1);
 		ft_putchar_fd('=', 1);

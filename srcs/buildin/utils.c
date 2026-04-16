@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 15:46:03 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/15 18:07:57 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/16 14:48:38 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ bool	is_one_buildin(t_node *node)
 bool	exec_without_fork(t_node *node)
 {
 	if (!node->in_pipe &&
-		(!ft_strncmp(CD, node->cmd->av[0], 3)
-		|| !ft_strncmp(EXPORT, node->cmd->av[0], 7)
-		|| !ft_strncmp(UNSET, node->cmd->av[0], 6)))
+	(!ft_strncmp(CD, node->cmd->av[0], 3)
+	|| !ft_strncmp(EXPORT, node->cmd->av[0], 7)
+	|| !ft_strncmp(UNSET, node->cmd->av[0], 6)))
 		return (true);
 	return (false);
 }
