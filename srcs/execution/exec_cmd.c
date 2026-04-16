@@ -6,13 +6,14 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/15 15:52:01 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/16 14:51:57 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/// @brief writes the correct error message in case of a failure to execute the command
+/// @brief writes the correct error message in case of a failure to execute
+/// the command
 /// @param node 
 /// @param str 
 void	error_exec_cmd(t_node *node, char *str)
@@ -32,8 +33,8 @@ void	error_exec_cmd(t_node *node, char *str)
 void	exec_cmd(t_node *node, char **args, char **envp)
 {
 	(void)node;
-	char	*cmd_path;
-	char	*tmp;
+	char		*cmd_path;
+	char		*tmp;
 
 	tmp = args[0];
 	if (!args || !args[0])
@@ -44,7 +45,6 @@ void	exec_cmd(t_node *node, char **args, char **envp)
 	execve(cmd_path, args, envp);
 	perror(cmd_path);
 	free(cmd_path);
-	// free node
 	node->cmd->shell->exit_status = 126;
 	exit(126);
 }
