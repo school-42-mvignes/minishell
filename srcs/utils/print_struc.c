@@ -6,12 +6,14 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 04:14:38 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/15 18:36:30 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/16 14:31:36 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/// @brief writes the entire linked list "t_list"
+/// @param lst 
 void	printf_list(t_list *lst)
 {
 	t_list	*tmp;
@@ -24,6 +26,8 @@ void	printf_list(t_list *lst)
 	}
 }
 
+/// @brief writes the entire linked list "t_env"
+/// @param lst 
 void	printf_env(t_env *lst)
 {
 	t_env	*tmp;
@@ -40,6 +44,8 @@ void	printf_env(t_env *lst)
 	}
 }
 
+/// @brief writes the entire linked list "t_env"  for thebuildin export
+/// @param lst 
 void	printf_export(t_env *lst)
 {
 	t_env	*tmp;
@@ -51,8 +57,10 @@ void	printf_export(t_env *lst)
 		ft_putstr_fd("export ", 1);
 		ft_putstr_fd(tmp->key_var, 1);
 		ft_putchar_fd('=', 1);
+		ft_putchar_fd('\"', 1);
 		if (tmp->var[0])
 			ft_putstr_fd(tmp->var, 1);
+		ft_putchar_fd('\"', 1);
 		ft_putchar_fd('\n', 1);
 		tmp = tmp->next;
 	}
