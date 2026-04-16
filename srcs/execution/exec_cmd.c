@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 14:51:57 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/16 15:35:22 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	create_and_redir_file(t_redir *redir)
 			{
 				exit(EXIT_FAILURE);
 			}
-			if (redir->type == REDIR_IN)
+			if (redir->type == REDIR_IN || redir->type == REDIR_HERE)
 				redirect_fd(STDIN_FILENO, fd);
 			else
 				redirect_fd(STDOUT_FILENO, fd);
@@ -96,7 +96,9 @@ int	exec_node_cmd(t_node *node)
 			exec_cmd(node, node->cmd->av, rebuild_env(&node->cmd->shell->env));
 	}
 	waitpid(pid, &status, 0);
-	WEXITSTATUS(status);
-	node->cmd->shell->exit_status = status;
+	if (WIFEXITED(status))
+		node->cmd->shell->exit_status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		node->cmd->shell->exit_status = 128 + WEXITSTATUS(status);
 	return (status);
 }

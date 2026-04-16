@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 14:45:53 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/16 14:58:53 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,37 @@
 # define MINISHELL_H
 
 # include "libft.h"
+# include "buildin.h"
 # include "env.h"
 # include "lexer.h"
-# include "buildin.h"
-# include <math.h>
+# include <signal.h>
 # include <stdbool.h>
-# include "lexer.h"
-# include "parser.h"
+//# include <X11/keysym.h>
 # include "execution.h"
 # include "expand.h"
-#include <sys/wait.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+# include "lexer.h"
+# include "parser.h"
+# include <math.h>
+# include <readline/history.h>
+# include <readline/readline.h>
+# include <sys/wait.h>
 
+extern int			g_status;
 typedef struct s_redir
 {
-	char				*file;
-	int					file_fd;
-	t_type				type;
-	struct s_redir		*next;
-}						t_redir;
+	char			*file;
+	int				file_fd;
+	int				heredoc_fd;
+	int				do_not_expand;
+	t_type			type;
+	struct s_redir	*next;
+}					t_redir;
 
 typedef struct s_shell
 {
-	t_env				*env;
-	int					exit_status;
-}						t_shell;
+	t_env			*env;
+	int				exit_status;
+}					t_shell;
 
 typedef struct s_command
 {
@@ -59,5 +64,7 @@ typedef struct s_node
 	struct s_node	*right;
 	pid_t			last_pid;
 }					t_node;
+
+void				init_signal(void);
 
 #endif

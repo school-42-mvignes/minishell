@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/14 14:21:55 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/16 15:45:09 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,11 @@ int	main(int ac, char **av, char **env)
 		{
 			write(2, "exit\n", 5);
 			exit_free_all(cur, node, shell, buf);
+		}
+		if (g_status == SIGINT)
+		{
+			shell->exit_status = 130;
+			g_status = 0;
 		}
 		add_history(buf);
 		cur = lexer(buf, &token);
