@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   orchestrator.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:25:03 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 14:48:06 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/16 16:01:57 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,9 @@ int	exec_the_buildin(t_node *node)
 	else if (!ft_strncmp(UNSET, node->cmd->av[0], 6))
 		buildin_unset(node->cmd);
 	else if (!ft_strncmp(EXIT, node->cmd->av[0], 5))
-	{
 		if (buildin_exit(node->cmd))
-			return (1);
-	}
+			return (node->cmd->shell->exit_status);
+	node->cmd->shell->exit_status = 0;
 	exit(node->cmd->shell->exit_status);
-	return (0);
+	return (node->cmd->shell->exit_status);
 }

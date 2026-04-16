@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:57 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 14:46:35 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/16 15:56:16 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	buildin_export(t_command *cmd)
 	}
 	else
 	{
-		if (!ft_isalnum(cmd->av[1][0]) || cmd->av[1][0] == '_')
+		if (ft_isalpha(cmd->av[1][0]) || cmd->av[1][0] == '_')
 			create_or_edit_var(cmd);
 		else
 			error_export(cmd);
