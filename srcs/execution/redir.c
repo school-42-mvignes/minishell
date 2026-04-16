@@ -6,38 +6,12 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:18:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 14:53:58 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/15 14:58:28 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// static int do_heredoc(char *lim)
-// {
-// 	int fd[2];
-// 	char *line;
-
-// 	pipe(fd);
-// 	while (1)
-// 	{
-// 		line = readline("> ");
-// 		// printf("lim=[%s] line=[%s]\n", lim, line);
-// 		if (!line || ft_strncmp(line, lim, ft_strlen(lim) + 1) == 0)
-// 		{
-// 			free(line);
-// 			break ;
-// 		}
-// 		write(fd[1], line, ft_strlen(line));
-// 		write(fd[1], "\n", 1);
-// 		free(line);
-// 	}
-// 	close(fd[1]);
-// 	return (fd[0]);
-// }
-
-/// @brief Open the chosen file to read it
-/// @param outfile 
-/// @return returns the fd
 static int	open_file_in(char *outfile)
 {
 	int	fd;
@@ -92,11 +66,14 @@ int	what_the_outfile(t_redir *redir)
 {
 	int	fd;
 
-	if (redir->type == REDIR_IN)
+	fd = -1;
+	if (redir->type == REDIR_IN) // action redir in
 		fd = open_file_in(redir->file);
 	else if (redir->type == REDIR_OUT)
 		fd = open_file_out(redir->file);
 	else if (redir->type == REDIR_APP)
 		fd = open_file_app(redir->file);
+	else if (redir->type == REDIR_HERE)
+		fd = redir->heredoc_fd;	
 	return (fd);
 }
