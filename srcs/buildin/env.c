@@ -6,12 +6,14 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:22:03 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 20:21:34 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/16 21:28:10 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/// @brief write error env
+/// @param cmd 
 static void	print_error_env(t_command *cmd)
 {
 	ft_putstr_fd("env: '", 1);
@@ -19,6 +21,8 @@ static void	print_error_env(t_command *cmd)
 	ft_putendl_fd("': No such file or directory", 1);
 }
 
+/// @brief check print or error env
+/// @param cmd 
 void	buildin_env(t_command *cmd)
 {
 	if (!cmd->av[1])

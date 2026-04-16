@@ -6,12 +6,15 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 16:46:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 21:03:18 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/16 21:36:16 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/// @brief init the list for env in the form of a linked list
+/// @param lst 
+/// @param env 
 void	init_lst_env(t_list *lst, t_env **env)
 {
 	char	**tab;
@@ -29,6 +32,9 @@ void	init_lst_env(t_list *lst, t_env **env)
 	}
 }
 
+/// @brief rebuild env in char ** for the execute cmd
+/// @param env 
+/// @return 
 char	**rebuild_env(t_env **env)
 {
 	t_env	*tmp;
@@ -52,6 +58,9 @@ char	**rebuild_env(t_env **env)
 	return (tab);
 }
 
+/// @brief build the env in char ** when you run the program without the env
+/// @param void
+/// @return new env
 char	**build_env_since_then_nothing(void)
 {
 	char	**tab;
@@ -64,6 +73,9 @@ char	**build_env_since_then_nothing(void)
 	return (tab);
 }
 
+/// @brief create a chain list without who will be used 
+/// @param env 
+/// @return env in list linkend
 t_env	*call_env(char **env)
 {
 	t_list	*lst = NULL;

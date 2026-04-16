@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 15:45:09 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/16 21:43:16 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,11 @@ static void	exit_free_all(t_token *lst, t_node *node, t_shell *shell, char *buf)
 	return (0);
 } */
 
+/// @brief the 'hand' of the best project you have ever seen
+/// @param ac 
+/// @param av 
+/// @param env 
+/// @return exit_status
 int	main(int ac, char **av, char **env)
 {
 	char	*buf;
