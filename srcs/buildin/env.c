@@ -3,16 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:22:03 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/08 14:38:46 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/16 19:19:09 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+static void	print_error_env(t_command *cmd)
+{
+	ft_putstr_fd("env: '", 1);
+	ft_putstr_fd(cmd->av[1], 1);
+	ft_putendl_fd("': No such file or directory", 1);
+}
+
 void	buildin_env(t_command *cmd)
 {
-	printf_env(cmd->shell->env);
+	if (!cmd->av[1])
+		printf_env(cmd->shell->env);
+	else
+		print_error_env(cmd);
 }

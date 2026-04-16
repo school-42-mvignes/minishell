@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 16:46:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 14:50:46 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/16 20:08:47 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,25 +52,42 @@ char	**rebuild_env(t_env **env)
 	return (tab);
 }
 
-void	error_message(char *message)
+char	**build_env_since_then_nothing(void)
 {
-	ft_putendl_fd(message, 2);
-	exit (1);
+	char	**tab;
+
+	tab = malloc(sizeof(char *) * 4);
+	tab[0] = ft_strjoin("PWD=", getcwd(NULL, 0));
+	tab[1] = ft_strjoin("SHLVL=", "1");
+	tab[2] = ft_strjoin("_=", "/usr/bin/env");
+	tab[3] = NULL;
+	return (tab);
 }
 
 t_env	*call_env(char **env)
 {
 	t_list	*lst = NULL;
 	t_env	*lst_env = NULL;
-	// char	**tab_env;
+	char	**tab;
+	bool	env_build = false;
 
-	split_tab_to_list(env, &lst);
+	if (env[0])
+		split_tab_to_list(env, &lst);
+	else
+	{
+		tab = build_env_since_then_nothing();
+		if (!tab)
+			printf("ca na pas marcher frero\n\n");
+		env_build = true;
+		split_tab_to_list(tab, &lst);
+	}
 	if (lst == NULL)
 		error_message("env : proubleme lst pour split");
 	init_lst_env(lst, &lst_env);
 	if (lst_env == NULL)
 		error_message("env : proubleme lst_env");
-	
 	ft_lstclear(&lst, free);
+	if (env_build)
+		free_tab(tab);
 	return (lst_env);
 }

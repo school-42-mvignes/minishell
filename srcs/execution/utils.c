@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 20:04:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 14:54:12 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/16 19:26:08 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,10 @@ t_redir	*search_last_fd_redir(t_redir *redir)
 	while (tmp->next)
 		tmp = tmp->next;
 	return (tmp);
+}
+
+void	error_message(char *message)
+{
+	ft_putendl_fd(message, 2);
+	exit (1);
 }
