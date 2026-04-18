@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 21:18:43 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/18 13:23:48 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,20 @@ void	exec_cmd(t_node *node, char **args, char **envp)
 	char		*cmd_path;
 	char		*tmp;
 
+	// printf("args 0 == %s\n", args[0]);
 	tmp = args[0];
-	if (!args || !args[0])
+	if (!args || !args[0]) // || ft_strncmp(args[0], "$", 2)
 		error_exec_cmd(node, tmp);
+	// if (!args[1] && args[0][0] == '$' && args[0][1] == '\0') // Pour le test :$ il faut que cela face un commande not found mais vu que dans le expand cela le sup cela fait un truc bizarre. d'abore regler le expand
+	// 	error_exec_cmd(node, tmp);
 	cmd_path = find_path(args[0], envp);
 	if (!cmd_path)
 		error_exec_cmd(node, tmp);
 	execve(cmd_path, args, envp);
+	// if (access(args[0], X_OK) == 0)
+	// 	error_exec_cmd(node, tmp);
 	perror(cmd_path);
 	free(cmd_path);
-	node->cmd->shell->exit_status = 126;
 	exit(126);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 11:33:00 by mvignes           #+#    #+#             */
-/*   Updated: 2026/02/10 19:00:17 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/18 13:47:58 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int					ft_isdigit(int n);
 int					ft_isalnum(int c);
 int					ft_isascii(int c);
 int					ft_isprint(int c);
+int					ft_is_space(int c);
 size_t				ft_strlen(const char *str);
 void				*ft_memset(void *s, int c, size_t n);
 void				ft_bzero(void *s, size_t n);
