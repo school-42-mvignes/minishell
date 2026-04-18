@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/18 13:23:48 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/18 16:36:05 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 /// @param str 
 void	error_exec_cmd(t_node *node, char *str)
 {
-	ft_putstr_fd("Minishell: ", 2);
+	ft_putstr_fd("minishell: line 1: ", 2);
 	if (str)
 		ft_putstr_fd(str, 2);
 	ft_putendl_fd(": command not found", 2);
@@ -105,5 +105,5 @@ int	exec_node_cmd(t_node *node)
 		node->cmd->shell->exit_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
 		node->cmd->shell->exit_status = 128 + WEXITSTATUS(status);
-	return (status);
+	return (node->cmd->shell->exit_status);
 }
