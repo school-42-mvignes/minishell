@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:49 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/08 14:34:56 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/16 21:27:17 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/// @brief check if it’s a flag
+/// @param av 
+/// @return true == it’s a flag
 bool	check_flags(char *av)
 {
 	int	i;
@@ -28,6 +31,8 @@ bool	check_flags(char *av)
 	return (false);
 }
 
+/// @brief writes the requested text
+/// @param cmd 
 void	buildin_echo(t_command *cmd)
 {
 	int		i;

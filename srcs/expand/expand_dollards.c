@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_dollards.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 17:41:51 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/15 14:48:19 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/18 16:09:37 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void replace_dollards(t_token *token, int *i, t_shell *shell)
 	}		
 	while (ft_isalnum(token->value[*i]) || token->value[*i] == '_')
 		(*i)++;
-	tmp = ft_substr(token->value, j, *i - j);
+	tmp = ft_substr(token->value, j, (*i - j) /* + 1 */);
 	true_value = search_key_var(shell->env, tmp);
 	free(tmp);
 	if (true_value)
@@ -84,7 +84,8 @@ void	search_dollards(t_token *token, t_shell *shell)
 		}
 		while (token->value[i])
 		{
-			if (token->value[i] == '$')
+			if (token->value[i] == '$'
+				&& token->value[i + 1] != ft_is_space(i + 1))
 				replace_dollards(token, &i, shell);
 			i++;
 		}
