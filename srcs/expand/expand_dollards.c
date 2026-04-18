@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 17:41:51 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/18 13:50:14 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/18 16:09:37 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void replace_dollards(t_token *token, int *i, t_shell *shell)
 	}		
 	while (ft_isalnum(token->value[*i]) || token->value[*i] == '_')
 		(*i)++;
-	tmp = ft_substr(token->value, j, *i - j + 1);
+	tmp = ft_substr(token->value, j, (*i - j) /* + 1 */);
 	true_value = search_key_var(shell->env, tmp);
 	free(tmp);
 	if (true_value)
