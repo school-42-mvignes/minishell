@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 16:54:22 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/18 16:36:23 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/18 17:12:52 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ int	exec_pipe(t_node *node)
 	waitpid(pid_left, NULL, 0);
 	waitpid(pid_right, &status, 0);
 	if (WIFEXITED(status))
-		status = WEXITSTATUS(status);
+		node->right->cmd->shell->exit_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
-		status = 128 + WTERMSIG(status);
+		node->right->cmd->shell->exit_status = 128 + WTERMSIG(status);
 	// printf("exit_status_exec_pipe == %i\n", node->right->cmd->shell->exit_status);
-	return (status);
+	return (node->right->cmd->shell->exit_status);
 }
