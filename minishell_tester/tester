@@ -1,0 +1,84 @@
+#!/bin/bash
+
+# Force la référence sur Bash POSIX
+BASH_REF="bash --posix"
+MINISHELL_PATH="../minishell"
+
+# Gestion des arguments de fichiers de tests
+if [[ $1 ]]; then
+    test_lists=($1)
+else
+    test_lists=("builtins" "pipes" "redirects" "extras")
+fi
+
+if [[ $1 == "wildcards"  || $1 == "bonus" ]]; then
+    MINISHELL_PATH="../minishell_bonus"
+fi
+
+# Couleurs
+BOLD="\e[1m"; YELLOW="\033[0;33m"; GREY="\033[38;5;244m"; 
+RED="\e[0;31m"; PURPLE="\033[0;35m"; END="\033[0m"
+
+# Setup des dossiers
+chmod 000 ./test_files/invalid_permission 2>/dev/null
+mkdir -p ./outfiles ./mini_outfiles ./bash_outfiles
+
+# Nettoyage des couleurs et du prompt
+PROMPT=$(echo -e "\nexit\n" | $MINISHELL_PATH 2>/dev/null | head -n 1 | sed "s/\x1B\[[0-9;]\{1,\}[A-Za-z]//g" )
+REMOVE_COLORS="sed s/\x1B\[[0-9;]\{1,\}[A-Za-z]//g"
+REMOVE_EXIT="grep -v ^exit$"
+
+echo -e "${BOLD}${YELLOW}MODE : Comparaison stricte avec $BASH_REF${END}"
+
+for testfile in ${test_lists[*]}; do
+    printf $RED
+    echo ———————————— $testfile
+
+    while read teste; do
+        ((i++))
+        rm -rf ./outfiles/* ./mini_outfiles/* ./bash_outfiles/*
+
+        # 1. Ton Minishell
+        MINI_OUTPUT=$(echo -e "$teste" | $MINISHELL_PATH 2> /dev/null | $REMOVE_COLORS | grep -vF "$PROMPT" | $REMOVE_EXIT )
+        cp ./outfiles/* ./mini_outfiles &>/dev/null
+
+        # 2. La Référence (BASH --POSIX)
+        BASH_OUTPUT=$(echo -e "$teste" | $BASH_REF 2> /dev/null)
+        BASH_EXIT_CODE=$?
+        cp ./outfiles/* ./bash_outfiles &>/dev/null
+
+        # 3. Calcul de l'exit code attendu via BASH --POSIX
+        # On simule l'exécution pour récupérer ce que le shell parent recevrait
+        MINI_EXIT_CODE=$(echo -e "$MINISHELL_PATH\n$teste\necho \$?\nexit\n" | $BASH_REF 2> /dev/null | $REMOVE_COLORS | grep -vF "$PROMPT" | $REMOVE_EXIT | tail -n 1)
+
+        # Messages d'erreur
+        MINI_ERROR_MSG=$(trap "" PIPE && echo "$teste" | $MINISHELL_PATH 2>&1 > /dev/null | grep -o '[^:]*$' )
+        BASH_ERROR_MSG=$(trap "" PIPE && echo "$teste" | $BASH_REF 2>&1 > /dev/null | grep -o '[^:]*$' | head -n1)
+
+        OUTFILES_DIFF=$(diff --brief ./mini_outfiles ./bash_outfiles 2>/dev/null)
+
+        # Affichage du résultat
+        printf $YELLOW
+        printf "Test %3s: " $i
+        if [[ "$MINI_OUTPUT" == "$BASH_OUTPUT" && "$MINI_EXIT_CODE" == "$BASH_EXIT_CODE" && -z "$OUTFILES_DIFF" ]]; then
+            printf "✅"
+            ((ok++))
+        else
+            printf "❌"
+        fi
+        printf "$GREY $teste \n$END"
+
+        # Logs d'erreurs détaillés
+        if [[ "$MINI_OUTPUT" != "$BASH_OUTPUT" ]]; then
+            echo -e "  ${RED}DIFF OUTPUT${END} : mini($MINI_OUTPUT) != bash_posix($BASH_OUTPUT)"
+        fi
+        if [[ "$MINI_EXIT_CODE" != "$BASH_EXIT_CODE" ]]; then
+            echo -e "  ${RED}DIFF EXIT${END}   : mini($MINI_EXIT_CODE) != bash_posix($BASH_EXIT_CODE)"
+        fi
+    done < $testfile
+done
+
+# Cleanup final
+chmod 666 ./test_files/invalid_permission 2>/dev/null
+rm -rf ./outfiles ./mini_outfiles ./bash_outfiles
+printf "${PURPLE}${BOLD}\nRESULTAT : $ok/$i${END}\n"

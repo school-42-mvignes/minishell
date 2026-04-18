@@ -6,11 +6,12 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 21:43:16 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/18 13:58:36 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell
+// (cd .. && lwqd || ls > test1.1) && ls | grep mi | wc > test1.2 && (cat < ../Makefile | grep printf > test1.3)
 
 #include "../includes/minishell.h"
 
@@ -38,11 +39,12 @@ static void	exit_free_all(t_token *lst, t_node *node, t_shell *shell, char *buf)
 	int status;
 
 	status = shell->exit_status;
+	ft_envclear(&node->cmd->shell->env, free);
+	free(node->cmd->shell);
 	free_token_lst(lst);
 	free_node(node);
 	// free shell
 	rl_clear_history();
-	// ft_envclear(node->cmd->shell->env, free);
 	
 	free(buf);
 	exit(status);
@@ -82,7 +84,7 @@ int	main(int ac, char **av, char **env)
 	// init_minishell(&shell, env);
 	while (1)
 	{
-		buf = readline("Minishell>");
+		buf = readline("Minishell$ ");
 		if (buf == NULL)
 		{
 			write(2, "exit\n", 5);
@@ -100,12 +102,9 @@ int	main(int ac, char **av, char **env)
 		expand(cur, shell);
 		node = parse_and_or(&cur, shell);
 		if (node)
+		{
 			exec_node(node);
-		// printf("exit_status = %i\n", node->cmd->shell->exit_status);
-		// if (node && node->type == NODE_CMD)
-		// {
-		// 	if (do_node(node))
-		// 		exit_free_all(cur, node, shell, buf);
-		// }
+			// free_node(node); // creer plein de probleme dans valgrind. trop de perte de temps si j'essaie de regler le probleme, voir avec max
+		}
 	}
 }
