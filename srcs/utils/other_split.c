@@ -6,13 +6,16 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 04:09:19 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/24 19:20:03 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/16 21:42:09 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// Function that is used to split in half from the first occurrence c
+/// @brief Function that is used to split in half from the first occurrence c
+/// @param str 
+/// @param c 
+/// @return char **
 char	**split_in_two(char *str, char c)
 {
 	char	**tab;
@@ -37,7 +40,9 @@ char	**split_in_two(char *str, char c)
 	return (tab);
 }
 
-// Function that serves to split a whole **tab into a t_list
+/// @brief Function that serves to split a whole **tab into a t_list
+/// @param old_tab 
+/// @param lst 
 void	split_tab_to_list(char **old_tab, t_list **lst)
 {
 	int		i;

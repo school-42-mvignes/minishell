@@ -6,12 +6,15 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 16:46:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 14:50:46 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/16 21:36:16 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/// @brief init the list for env in the form of a linked list
+/// @param lst 
+/// @param env 
 void	init_lst_env(t_list *lst, t_env **env)
 {
 	char	**tab;
@@ -29,6 +32,9 @@ void	init_lst_env(t_list *lst, t_env **env)
 	}
 }
 
+/// @brief rebuild env in char ** for the execute cmd
+/// @param env 
+/// @return 
 char	**rebuild_env(t_env **env)
 {
 	t_env	*tmp;
@@ -52,25 +58,48 @@ char	**rebuild_env(t_env **env)
 	return (tab);
 }
 
-void	error_message(char *message)
+/// @brief build the env in char ** when you run the program without the env
+/// @param void
+/// @return new env
+char	**build_env_since_then_nothing(void)
 {
-	ft_putendl_fd(message, 2);
-	exit (1);
+	char	**tab;
+
+	tab = malloc(sizeof(char *) * 4);
+	tab[0] = ft_strjoin("PWD=", getcwd(NULL, 0));
+	tab[1] = ft_strjoin("SHLVL=", "1");
+	tab[2] = ft_strjoin("_=", "/usr/bin/env");
+	tab[3] = NULL;
+	return (tab);
 }
 
+/// @brief create a chain list without who will be used 
+/// @param env 
+/// @return env in list linkend
 t_env	*call_env(char **env)
 {
 	t_list	*lst = NULL;
 	t_env	*lst_env = NULL;
-	// char	**tab_env;
+	char	**tab;
+	bool	env_build = false;
 
-	split_tab_to_list(env, &lst);
+	if (env[0])
+		split_tab_to_list(env, &lst);
+	else
+	{
+		tab = build_env_since_then_nothing();
+		if (!tab)
+			error_message("error when separating the key and var\n");
+		env_build = true;
+		split_tab_to_list(tab, &lst);
+	}
 	if (lst == NULL)
-		error_message("env : proubleme lst pour split");
+		error_message("error when separating the environment\n");
 	init_lst_env(lst, &lst_env);
 	if (lst_env == NULL)
-		error_message("env : proubleme lst_env");
-	
+		error_message("error during the linking of the environment\n");
 	ft_lstclear(&lst, free);
+	if (env_build)
+		free_tab(tab);
 	return (lst_env);
 }
