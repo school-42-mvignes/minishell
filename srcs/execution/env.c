@@ -6,11 +6,37 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 16:46:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 21:36:16 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/20 19:29:35 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+/// @brief will increment 1 to the variable shell level
+/// @param tab 
+/// @return char ** new value SHLVL
+char	**shell_lvl(char **tab)
+{
+	char	*tmp1;
+	char	*tmp2;
+	char	**new_tab;
+	int		resultat;
+
+	tmp1 = NULL;
+	tmp2 = NULL;
+	tmp1 = ft_strdup(tab[1]);
+	resultat = ft_atoi(tmp1);
+	resultat++;
+	tmp2 = ft_itoa(resultat);
+	new_tab = malloc(sizeof(char *) * 3);
+	new_tab[0] = ft_strdup(tab[0]);
+	new_tab[1] = ft_strdup(tmp2);
+	new_tab[2] = NULL;
+	free_tab(tab);
+	free(tmp1);
+	free(tmp2);
+	return (new_tab);
+}
 
 /// @brief init the list for env in the form of a linked list
 /// @param lst 
@@ -25,6 +51,8 @@ void	init_lst_env(t_list *lst, t_env **env)
 		tab = split_in_two(lst->content, '=');
 		if (!tab)
 			return ;
+		if (!ft_strncmp("SHLVL", tab[0], 6))
+			tab = shell_lvl(tab);
 		new = ft_envnew(tab);
 		ft_envadd_back(env, new);
 		lst = lst->next;
