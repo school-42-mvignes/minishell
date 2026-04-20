@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 14:58:53 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/20 17:30:22 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 # define MINISHELL_H
 
 # include "libft.h"
+# include <stdbool.h>
 # include "buildin.h"
 # include "env.h"
 # include "lexer.h"
 # include <signal.h>
-# include <stdbool.h>
 //# include <X11/keysym.h>
 # include "execution.h"
 # include "expand.h"
