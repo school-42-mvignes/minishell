@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
 /*   Updated: 2026/04/20 18:27:49 by mvignes          ###   ########.fr       */
@@ -89,7 +89,7 @@ int	exec_node_cmd(t_node *node)
 	if (exec_without_fork(node))
 	{
 		exec_buildin_without_fork(node);
-		return (0);
+		return (node->cmd->shell->exit_status);
 	}
 	pid = create_fork();
 	if (pid == 0)
@@ -104,6 +104,6 @@ int	exec_node_cmd(t_node *node)
 	if (WIFEXITED(status))
 		node->cmd->shell->exit_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
-		node->cmd->shell->exit_status = 128 + WEXITSTATUS(status);
+		node->cmd->shell->exit_status = 128 + WTERMSIG(status);
 	return (node->cmd->shell->exit_status);
 }
