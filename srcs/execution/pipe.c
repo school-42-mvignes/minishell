@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 16:54:22 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/18 16:36:23 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/20 18:27:44 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@
 /// @param pipe 
 void	exec_left(t_node *node, int *pipe)
 {
+	int	ret;
+
 	close(pipe[0]);
 	redirect_fd(STDOUT_FILENO, pipe[1]);
 	close(pipe[1]);
 	node->left->in_pipe = true;
-	exec_node(node->left);
-	exit(0);
+	ret = exec_node(node->left);
+	exit(ret);
 }
 
 /// @brief execute the node right
@@ -30,11 +32,13 @@ void	exec_left(t_node *node, int *pipe)
 /// @param pipe 
 void	exec_right(t_node *node, int *pipe)
 {
+	int	ret;
+
 	close(pipe[1]);
 	redirect_fd(STDIN_FILENO, pipe[0]);
 	close(pipe[0]);
-	exec_node(node->right);
-	exit(0);
+	ret = exec_node(node->right);
+	exit(ret);
 }
 
 /// @brief execute the "|" and do a recursive if there are other
@@ -61,9 +65,8 @@ int	exec_pipe(t_node *node)
 	waitpid(pid_left, NULL, 0);
 	waitpid(pid_right, &status, 0);
 	if (WIFEXITED(status))
-		status = WEXITSTATUS(status);
+		node->right->cmd->shell->exit_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
-		status = 128 + WTERMSIG(status);
-	// printf("exit_status_exec_pipe == %i\n", node->right->cmd->shell->exit_status);
+		node->right->cmd->shell->exit_status = 128 + WTERMSIG(status);
 	return (status);
 }
