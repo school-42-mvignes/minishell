@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ttest.c                                            :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 16:46:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/25 14:36:17 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/16 21:36:16 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-// LA SAINTE COMMANDE DU SEIGNEUR : cc ttest.c ../libft/ft_lstnew.c ../libft/ft_lstadd_back.c ../libft/ft_lstlast.c ../libft/ft_memset.c ../libft/ft_strlen.c ../libft/ft_strchr.c ../libft/ft_strlcpy.c ../libft/ft_strdup.c ../libft/ft_free_tab.c ../libft/ft_lstclear.c ../libft/ft_lstdelone.c ../libft/ft_substr.c ../libft/get_next_line_utils.c ../libft/ft_strjoin.c ../utils/lstenv.c ../utils/other_split.c ../utils/print_struc.c ../libft/ft_putendl_fd.c ../libft/ft_putstr_fd.c ../libft/ft_putchar_fd.c -g3
-// pour la suite surement des fonctions dans ../libft/get_next_line_utils.c ou les recoder
-
 #include "../../includes/minishell.h"
 
+/// @brief init the list for env in the form of a linked list
+/// @param lst 
+/// @param env 
 void	init_lst_env(t_list *lst, t_env **env)
 {
 	char	**tab;
@@ -33,6 +32,9 @@ void	init_lst_env(t_list *lst, t_env **env)
 	}
 }
 
+/// @brief rebuild env in char ** for the execute cmd
+/// @param env 
+/// @return 
 char	**rebuild_env(t_env **env)
 {
 	t_env	*tmp;
@@ -56,88 +58,48 @@ char	**rebuild_env(t_env **env)
 	return (tab);
 }
 
-void	error_message(char *message)
+/// @brief build the env in char ** when you run the program without the env
+/// @param void
+/// @return new env
+char	**build_env_since_then_nothing(void)
 {
-	ft_putendl_fd(message, 2);
-	exit (1);
+	char	**tab;
+
+	tab = malloc(sizeof(char *) * 4);
+	tab[0] = ft_strjoin("PWD=", getcwd(NULL, 0));
+	tab[1] = ft_strjoin("SHLVL=", "1");
+	tab[2] = ft_strjoin("_=", "/usr/bin/env");
+	tab[3] = NULL;
+	return (tab);
 }
 
-// A voir comment le mettre en place void	call_env(t_env *lst_env, char **env)
-
-// void	call_env(t_env **lst_env, char **env)
+/// @brief create a chain list without who will be used 
+/// @param env 
+/// @return env in list linkend
 t_env	*call_env(char **env)
 {
 	t_list	*lst = NULL;
 	t_env	*lst_env = NULL;
-	// char	**tab_env;
+	char	**tab;
+	bool	env_build = false;
 
-	split_tab_to_list(env, &lst);
+	if (env[0])
+		split_tab_to_list(env, &lst);
+	else
+	{
+		tab = build_env_since_then_nothing();
+		if (!tab)
+			error_message("error when separating the key and var\n");
+		env_build = true;
+		split_tab_to_list(tab, &lst);
+	}
 	if (lst == NULL)
-		error_message("env : proubleme lst pour split");
+		error_message("error when separating the environment\n");
 	init_lst_env(lst, &lst_env);
 	if (lst_env == NULL)
-		error_message("env : proubleme lst_env");
-	// printf_env(lst_env);
-	// tab_env = rebuild_env(&lst_env);
-	// if (!tab_env)
-	// 	error_message("env : c'est la merde");
-	// printf("=*=*=*=*=*=*=*=*=*==*=*=*=*=*=*=*=*=*=*=*=*=\n");
-	// int	i = 0;
-	// while (tab_env[i])
-	// 	printf("\033[1m%s\n\033[0m", tab_env[i++]);
-	// free_tab(tab_env);
-	// ft_lstclear(&lst, free);
-	// ft_envclear(&lst_env, free);
+		error_message("error during the linking of the environment\n");
+	ft_lstclear(&lst, free);
+	if (env_build)
+		free_tab(tab);
 	return (lst_env);
 }
-
-/* int	main(int ac, char **av, char **env)
-{
-	(void)ac;
-	(void)av;
-	call_env(env);
-	return (0);
-} */
-
-/* int main(int ac, char **av, char **env)
-{
-	(void)ac;
-	(void)av;
-	t_list  *lst = NULL;
-	t_env	*lst_env = NULL;
-	char	**tab_env;
-
-	split_tab_to_list(env, &lst);
-
-	if (lst == NULL)
-	{
-		printf("proubleme lst\n");
-		return (1);
-	}
-	printf_list(lst);
-	init_lst_env(lst, &lst_env);
-	if (lst_env == NULL)
-	{
-		printf("proubleme lst_env\n");
-		return (1);
-	}
-
-	printf("========================================================================================\nLE MUR DU NORD OU DE BERLIN OU DU MEXIQUE /// COMME TU VEUX FRERO\n========================================================================================\n");
-
-	printf_env(lst_env);
-
-	tab_env = rebuild_env(&lst_env);
-	if (!tab_env)
-	{
-		printf("c'est la merde\n");
-		exit (1);
-	}
-	int	i = 0;
-	while (tab_env[i])
-		printf("\033[1m%s\n\033[0m", tab_env[i++]);
-
-	free_tab(tab_env);
-	ft_lstclear(&lst, free);
-	ft_envclear(&lst_env, free);
-	return (0);
-} */

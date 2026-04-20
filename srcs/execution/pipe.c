@@ -6,123 +6,64 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 16:54:22 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/31 14:43:42 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/20 14:11:58 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	open_file_read(char *infile)
+/// @brief execute the node left
+/// @param node 
+/// @param pipe 
+void	exec_left(t_node *node, int *pipe)
 {
-	int	fd;
-
-	printf("JE SUIS PASSER PAR ICI\n");
-	fd = open(infile, O_RDONLY, 0644);
-	if (fd == -1)
-	{
-		perror("open infile");
-		return (-1);
-	}
-	return (fd);
+	close(pipe[0]);
+	redirect_fd(STDOUT_FILENO, pipe[1]);
+	close(pipe[1]);
+	node->left->in_pipe = true;
+	exec_node(node->left);
+	exit(0);
 }
 
-static int	create_pipe(int pipefd[2])
+/// @brief execute the node right
+/// @param node 
+/// @param pipe 
+void	exec_right(t_node *node, int *pipe)
 {
-	if (pipe(pipefd) == -1)
-	{
-		perror("pipe");
-		return (1);
-	}
-	return (0);
+	close(pipe[1]);
+	redirect_fd(STDIN_FILENO, pipe[0]);
+	close(pipe[0]);
+	exec_node(node->right);
+	exit(0);
 }
 
-pid_t	create_fork(void)
+/// @brief execute the "|" and do a recursive if there are other
+/// separators after
+/// @param node 
+/// @return exit_status
+int	exec_pipe(t_node *node)
 {
-	pid_t	pid;
+	int		pipe[2];
+	int		status;
+	pid_t	pid_left;
+	pid_t	pid_right;
 
-	pid = fork();
-	if (pid == -1)
-	{
-		perror("fork");
-		exit(1);
-	}
-	return (pid);
-}
-
-void	redirect_fd(int old_fd, int new_fd)
-{
-	if (dup2(old_fd, new_fd) == -1)
-	{
-		perror("dup2");
-		exit(1);
-	}
-	close(old_fd);
-}
-
-t_redir	*search_last_fd_redir(t_redir *redir)
-{
-	t_redir	*tmp;
-
-	tmp = redir;
-	while (tmp->next)
-		tmp = tmp->next;
-	return (tmp);
-}
-
-void	exec_sec_cmd(t_node *node, t_command *cmd, int pipe[2])
-{
-	pid_t	pid;
-	t_redir	*redir;
-
-	pid = create_fork();
-	if (pid == 0)
-	{
-		printf("proubleme la\n");
-		printf("infile error = %s\n\n\n", cmd->redir->file);
-
-		close(pipe[1]);
-		redirect_fd(pipe[0], STDIN_FILENO);
-		redir = search_last_fd_redir(cmd->redir);
-		redir->file_fd = what_the_outfile(redir);
-		if (redir->file_fd == -1)
-		{
-			close(pipe[0]);
-			// free_all(pipex);
-			// exit(EXIT_FAILURE);
-		}
-		redirect_fd(redir->file_fd, STDOUT_FILENO);
-		exec_cmd(node, cmd->av, rebuild_env(&cmd->shell->env));
-	}
-	// last_child(node, cmd, pipe);
-	node->last_pid = pid;
+	if (create_pipe(pipe))
+		error_message("error : during the creation of the pipe\n");
+	pid_left = create_fork();
+	if (pid_left == 0)
+		exec_left(node, pipe);
+	pid_right = create_fork();
+	if (pid_right == 0)
+		exec_right(node, pipe);
 	close(pipe[0]);
 	close(pipe[1]);
-}
-
-void	exec_first_cmd(t_node *node, t_command *cmd, int pipe[2])
-{
-	pid_t	pid;
-
-	create_pipe(pipe);
-	pid = create_fork();
-	if (pid == 0)
-	{
-		printf("proubleme ici\n");
-		// printf("av[0] = %s\n\n\n", cmd->av[0]);
-		// printf("infile error = %d\n\n\n", cmd->redir->file_fd);
-		printf("infile error = %s\n\n\n", cmd->redir->file);
-		cmd->redir->file_fd = open_file_read(cmd->redir->file);
-		close(pipe[0]);
-		if (cmd->redir->file_fd == -1)
-		{
-			// free_all(pipex);
-			close(pipe[1]);
-			// exit(EXIT_FAILURE);
-		}
-		redirect_fd(cmd->redir->file_fd, STDIN_FILENO);
-		redirect_fd(pipe[1], STDOUT_FILENO);
-		close(pipe[0]);
-		exec_cmd(node, cmd->av, rebuild_env(&cmd->shell->env));
-	}
-	close(pipe[1]);
+	waitpid(pid_left, NULL, 0);
+	waitpid(pid_right, &status, 0);
+	if (WIFEXITED(status))
+		node->right->cmd->shell->exit_status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		node->right->cmd->shell->exit_status = 128 + WTERMSIG(status);
+	// printf("exit_status_exec_pipe == %i\n", node->right->cmd->shell->exit_status);
+	return (node->right->cmd->shell->exit_status);
 }

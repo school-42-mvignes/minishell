@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:44 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/31 13:05:58 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/18 13:38:38 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,43 @@ void	buildin_cd(t_command *cmd)
 {
 	t_env	*pwd;
 	t_env	*last_pwd;
+	t_env	*home;
 	char	*new_localisation;
 
+	if (cmd->av[2])
+	{
+		ft_putendl_fd("cd: too many arguments", 2);
+		cmd->shell->exit_status = 1;
+		return ;
+	}
+	home = NULL;
 	pwd = search_key_var(cmd->shell->env, "PWD");
 	if (!pwd)
 		return ;
-	if (chdir(cmd->av[1]))
+	if (cmd->av[1] == NULL)
+		buildin_cd_cut(cmd, home);
+	else if (chdir(cmd->av[1]))
 	{
-		printf("OUI OUI BAGUETTE NOT A DIRECTORY\n");
 		pwd = NULL;
-		// exit(1); // dire pas bon sans quitter
+		cmd->shell->exit_status = 1;
+		return ;
 	}
 	last_pwd = search_key_var(cmd->shell->env, "OLDPWD");
 	if (!last_pwd)
 		return ;
 	free(last_pwd->var);
 	last_pwd->var = pwd->var;
-	new_localisation =  getcwd(NULL, 0);
-	pwd->var = new_localisation;	
-	// printf_env(cmd->shell->env);
+	new_localisation = getcwd(NULL, 0);
+	pwd->var = new_localisation;
+}
+
+void	buildin_cd_cut(t_command *cmd, t_env *home)
+{
+	home = search_key_var(cmd->shell->env, "HOME");
+	if (home == NULL)
+	{
+		write(2, "HOME not set\n", 13);
+		return ;
+	}
+	chdir(home->var);
 }

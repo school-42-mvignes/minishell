@@ -1,0 +1,21 @@
+{
+	leak readline
+	Memcheck:Leak
+	...
+	fun:readline
+}
+{
+	leak add_history
+	Memckeck:Leak
+	...
+	fun:add_history
+}
+{
+	<Readline/AddHistory>
+	Memcheck:Leak
+	match-leak-kinds: reachable
+	fun:malloc
+	...
+	fun:add_history
+	...
+}

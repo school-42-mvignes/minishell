@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 14:17:16 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/07 11:28:35 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/09 15:44:45 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	lexer_checker(t_token *token)
 t_token	*next_token(t_token *token)
 {
 	token = token->next;
-	while (token->type == SPACE && token->next)
+	while (token->type == SPACES && token->next)
 		token = token->next;
 	return (token);
 }

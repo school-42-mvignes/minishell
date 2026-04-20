@@ -6,7 +6,7 @@
 #    By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/09 17:23:37 by mvignes           #+#    #+#              #
-#    Updated: 2026/01/30 13:48:37 by mvignes          ###   ########.fr        #
+#    Updated: 2026/04/18 13:48:21 by mvignes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ SRCS	= ft_isalpha.c\
 		ft_isalnum.c\
 		ft_isascii.c\
 		ft_isprint.c\
+		ft_is_space.c\
 		ft_strlen.c\
 		ft_memset.c\
 		ft_bzero.c\

@@ -6,19 +6,19 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:24:01 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/30 17:44:07 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/16 21:30:46 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	buildin_pwd(t_command *cmd) // 4
+/// @brief write path
+/// @param cmd 
+void	buildin_pwd(t_command *cmd)
 {
-	t_env	*tmp;
+	char	*path;
 
-	tmp = cmd->shell->env;
-	while (ft_strncmp("PWD", tmp->key_var, 4))
-		tmp = tmp->next;
-	if (!ft_strncmp("PWD", tmp->key_var, 4))
-		ft_putendl_fd(tmp->var, 1);				// mettre dans un buffer
+	(void)cmd;
+	path = getcwd(NULL, 0);
+	ft_putendl_fd(path, 1);
 }
