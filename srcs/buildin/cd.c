@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:44 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/20 18:01:35 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/20 18:57:08 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	buildin_cd(t_command *cmd)
 	t_env	*home;
 	char	*new_localisation;
 
-	if (!cmd->av[1])
+	if (!cmd->av[1] || cmd->av[1][0] == '\0')
 	{
 		cmd->shell->exit_status = 0;
 		return ;
