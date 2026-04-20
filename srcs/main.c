@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/18 13:58:36 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/20 16:57:21 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,10 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		expand(cur, shell);
 		node = parse_and_or(&cur, shell);
+		avenger_assemble(node, shell);
 		if (node)
 		{
-			exec_node(node);
+			shell->exit_status = exec_node(node);
 			// free_node(node); // creer plein de probleme dans valgrind. trop de perte de temps si j'essaie de regler le probleme, voir avec max
 		}
 	}

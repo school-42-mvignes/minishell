@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 15:46:03 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 14:48:38 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/20 17:07:13 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,6 @@ void	exec_buildin_without_fork(t_node *node)
 		buildin_export(node->cmd);
 	else if (!ft_strncmp(UNSET, node->cmd->av[0], 6))
 		buildin_unset(node->cmd);
+	else if (!ft_strncmp(EXIT, node->cmd->av[0], 5))
+		buildin_exit(node->cmd);
 }
