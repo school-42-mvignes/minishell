@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 15:46:03 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/20 17:07:13 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/20 17:49:40 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,4 @@ bool	exec_without_fork(t_node *node)
 	|| !ft_strncmp(UNSET, node->cmd->av[0], 6)))
 		return (true);
 	return (false);
-}
-
-/// @brief executes the right build without being in a fork
-/// @param node 
-void	exec_buildin_without_fork(t_node *node)
-{
-	if (!ft_strncmp(CD, node->cmd->av[0], 3))
-		buildin_cd(node->cmd);
-	else if (!ft_strncmp(PWD, node->cmd->av[0], 4))
-		buildin_pwd(node->cmd);
-	else if (!ft_strncmp(ENV, node->cmd->av[0], 4))
-		buildin_env(node->cmd);
-	else if (!ft_strncmp(EXPORT, node->cmd->av[0], 7))
-		buildin_export(node->cmd);
-	else if (!ft_strncmp(UNSET, node->cmd->av[0], 6))
-		buildin_unset(node->cmd);
-	else if (!ft_strncmp(EXIT, node->cmd->av[0], 5))
-		buildin_exit(node->cmd);
 }
