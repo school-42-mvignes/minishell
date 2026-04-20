@@ -2,6 +2,24 @@ google doc : https://docs.google.com/document/d/1gOiWskUMj1Yy_AKWRCVarshTkdUbOZi
 google sheet : https://docs.google.com/spreadsheets/d/1aJ4U2OZaG6v-TPvxA6S0wBjT0G4Mk3TzK43tcTCWlaE/edit?usp=sharing
 
 
+
+
+
+
+
+
+ptit merde a coter ;
+- PWD a refaire avec la vrai fonction
+- 
+
+
+
+
+
+
+
+
+
 minitalk ; http://manpagesfr.free.fr/man/man2/sigaction.2.html
 minishell https://tldp.org/LDP/abs/html/subshells.html
 

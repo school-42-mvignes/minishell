@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   print_struc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 04:14:38 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/31 16:58:28 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/16 20:21:18 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	printf_list(t_list *lst)
+/// @brief writes the entire linked list "t_list"
+/// @param lst 
+void	print_list(t_list *lst)
 {
 	t_list	*tmp;
 
@@ -24,17 +26,41 @@ void	printf_list(t_list *lst)
 	}
 }
 
-void	printf_env(t_env *lst)
+/// @brief writes the entire linked list "t_env"
+/// @param lst 
+void	print_env(t_env *lst)
 {
 	t_env	*tmp;
 
 	tmp = lst;
 	while (tmp)
 	{
-		if (tmp->var[0] == '\0')
-			printf("\033[0;35m\033[1m%s=%s\n\033[0m", tmp->key_var, "");
-		else
-			printf("\033[0;35m\033[1m%s=%s\n\033[0m", tmp->key_var, tmp->var);
+		ft_putstr_fd(tmp->key_var, 1);
+		ft_putchar_fd('=', 1);
+		if (tmp->var[0])
+			ft_putstr_fd(tmp->var, 1);
+		ft_putchar_fd('\n', 1);
+		tmp = tmp->next;
+	}
+}
+
+/// @brief writes the entire linked list "t_env"  for thebuildin export
+/// @param lst 
+void	print_export(t_env *lst)
+{
+	t_env	*tmp;
+
+	tmp = lst;
+	while (tmp)
+	{
+		ft_putstr_fd("export ", 1);
+		ft_putstr_fd(tmp->key_var, 1);
+		ft_putchar_fd('=', 1);
+		ft_putchar_fd('\"', 1);
+		if (tmp->var[0])
+			ft_putstr_fd(tmp->var, 1);
+		ft_putchar_fd('\"', 1);
+		ft_putchar_fd('\n', 1);
 		tmp = tmp->next;
 	}
 }

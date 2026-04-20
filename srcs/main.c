@@ -6,40 +6,16 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/03/31 17:22:36 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/20 16:57:21 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+// valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell
+// (cd .. && lwqd || ls > test1.1) && ls | grep mi | wc > test1.2 && (cat < ../Makefile | grep printf > test1.3)
+
 #include "../includes/minishell.h"
-// < Makefile ls -l | wc -l > outfile
 
-void print_tree(t_node *node)
-{
-	int i;
-
-	i = 0;
-	if (!node)
-		return ;
-	if (node->type == NODE_CMD)
-	{
-		while (node->cmd->av[i])
-		{
-			printf("type = %d\n", node->type);
-			printf("av[%d] = %s\n", i, node->cmd->av[i]);
-			// printf("file = %s\n", node->cmd->redir->file);
-			// printf("file = %i\n", node->cmd->redir->file_fd);
-			i++;
-		}
-	}
-	else
-	{
-		print_tree(node->left);
-		print_tree(node->right);
-		printf("type = %d\n", node->type);
-	}
-}
-
-t_shell	*ft_shellnew(void)
+t_shell	*ft_shellnew(char **env)
 {
 	t_shell	*element;
 	int		status;
@@ -48,68 +24,88 @@ t_shell	*ft_shellnew(void)
 	element = malloc(sizeof(t_shell));
 	if (!element)
 		return (NULL);
-	element->env = NULL;
-	element->exit_status = &status;
+	element->env = call_env(env);
+	element->exit_status = status;
 	return (element);
 }
 
-static void	init_minishell(t_shell *shell, char **env)
+/* static void	init_minishell(t_shell *shell, char **env)
 {
-	t_env	*lst_env;
+	t_shell	shell;
+} */
 
-	lst_env = call_env(env);
-	// shell = ft_shellnew();
-	shell->env = lst_env;
-}
-//c'est pas senser etre ici mais dans le parsing, main pour tester les buldins//////
-void	parsing(t_command *cmd, char *line)
+static void	exit_free_all(t_token *lst, t_node *node, t_shell *shell, char *buf)
 {
-	char	**tab;
-	int		i;
+	int status;
 
-	tab = ft_split(line, ' ');
-	i = 0;
-	cmd = malloc(sizeof(t_command));
-	while (tab[i])
-	{
-		cmd->av[i] = ft_strdup(tab[i]);
-		i++;
-	}
-	what_the_buildin(cmd);
+	status = shell->exit_status;
+	ft_envclear(&node->cmd->shell->env, free);
+	free(node->cmd->shell);
+	free_token_lst(lst);
+	free_node(node);
+	// free shell
+	rl_clear_history();
+	
+	free(buf);
+	exit(status);
+	
 }
 
+/* static int do_node(t_node *node)
+{
+	int res;
+
+	res = exec_the_buildin(node);
+	if (res == 1)
+		return (1);
+	if (res == -1)
+		exec_cmd(node, node->cmd->av, rebuild_env(&node->cmd->shell->env));
+	return (0);
+} */
+
+/// @brief the 'hand' of the best project you have ever seen
+/// @param ac 
+/// @param av 
+/// @param env 
+/// @return exit_status
 int	main(int ac, char **av, char **env)
 {
 	char	*buf;
 	t_token	*cur;
 	t_token	token;
 	t_node *node;
-	t_shell	shell;
+	t_shell	*shell;
 
 	(void)ac;
 	(void)av;
-	(void)env;
-	(void)node;
-	ft_memset(&shell, 0, (sizeof(t_shell)));
-	init_minishell(&shell, env);
+	cur = NULL;
+	node = NULL;
+	shell = ft_shellnew(env);
+	// init_minishell(&shell, env);
 	while (1)
 	{
-		// ft_memset(&cmd, 0, (sizeof(t_command))); // clear all sauf l'env et peut etre la sortie {$?}
-		// printf("testest");
-		buf = readline("Minishell>");
+		buf = readline("Minishell$ ");
+		if (buf == NULL)
+		{
+			write(2, "exit\n", 5);
+			exit_free_all(cur, node, shell, buf);
+		}
+		if (g_status == SIGINT)
+		{
+			shell->exit_status = 130;
+			g_status = 0;
+		}
+		add_history(buf);
 		cur = lexer(buf, &token);
 		if (cur == NULL)
 			continue ;
-		node = parse_and_or(&cur, &shell);
-		// printf("type node = %i\n\n", node->type);
-		// print_tree(node);
-		// while (node->cmd->redir)
-		// {
-		// 	printf("redir file = %s\n redir type = %d\n", node->cmd->redir->outfile, node->cmd->redir->type);
-		// 	node->cmd->redir = node->cmd->redir->next;
-		// }
-		what_the_buildin(node->cmd); // fait l'init dans la creation de cmd
-		what_the_separator(node, &shell);
-		// free_token_lst(cur);
+		expand(cur, shell);
+		node = parse_and_or(&cur, shell);
+		avenger_assemble(node, shell);
+		if (node)
+		{
+			shell->exit_status = exec_node(node);
+			// free_node(node); // creer plein de probleme dans valgrind. trop de perte de temps si j'essaie de regler le probleme, voir avec max
+		}
 	}
 }

@@ -1,4 +1,4 @@
-# **************************************************************************** #
+#**************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
@@ -6,7 +6,7 @@
 #    By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/22 14:39:19 by mvignes           #+#    #+#              #
-#    Updated: 2026/04/02 16:19:23 by mmusquer         ###   ########.fr        #
+#    Updated: 2026/04/10 16:05:55 by mmusquer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@
 
 NAME		= minishell
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -g3
 RM			= rm -f
 
 MAKEFLAGS	+= --no-print-directory
@@ -43,6 +43,7 @@ SRCS	= srcs/libft/ft_isalpha.c\
 		srcs/libft/ft_isalnum.c\
 		srcs/libft/ft_isascii.c\
 		srcs/libft/ft_isprint.c\
+		srcs/libft/ft_is_space.c\
 		srcs/libft/ft_strlen.c\
 		srcs/libft/ft_memset.c\
 		srcs/libft/ft_bzero.c\
@@ -105,13 +106,18 @@ SRCS	= srcs/libft/ft_isalpha.c\
 		srcs/buildin/orchestrator.c\
 		srcs/buildin/pwd.c\
 		srcs/buildin/unset.c\
+		srcs/buildin/utils.c\
 		\
 		srcs/execution/env.c\
 		srcs/execution/exec_cmd.c\
+		srcs/execution/exec_line.c\
 		srcs/execution/path.c\
 		srcs/execution/pipe.c\
+		srcs/execution/and.c\
+		srcs/execution/or.c\
 		srcs/execution/redir.c\
-		srcs/execution/sep.c\
+		srcs/execution/redir_heredoc.c\
+		srcs/execution/utils.c\
 		\
 		srcs/lexer/lexer.c\
 		srcs/lexer/lexer_utils.c\
@@ -121,10 +127,19 @@ SRCS	= srcs/libft/ft_isalpha.c\
 		srcs/lexer/lexer_checker_bracket.c\
 		\
 		srcs/parser/parser.c\
+		srcs/parser/parser_cut.c\
 		srcs/parser/parser_utils.c\
 		srcs/parser/parser_free.c\
 		\
+		srcs/expand/expand.c\
+		srcs/expand/expand_dollards.c\
+		srcs/expand/expand_quotes.c\
+		srcs/expand/expand_concatenate.c\
+		\
+		srcs/signal/signal.c\
 		
+#srcs/execution/and.c
+#srcs/execution/or.c
 
 SRCS_BONUS	= \
 
