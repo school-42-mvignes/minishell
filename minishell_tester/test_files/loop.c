@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lalex-ku <lalex-ku@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/20 01:24:01 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 21:30:46 by mvignes          ###   ########.fr       */
+/*   Created: 2022/06/22 17:32:45 by lalex-ku          #+#    #+#             */
+/*   Updated: 2022/06/22 17:32:50 by lalex-ku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include <fcntl.h>
+#include <stdio.h>
+#include <unistd.h>
 
-/// @brief write path
-/// @param cmd 
-void	buildin_pwd(t_command *cmd)
+int	main(int argc, char const *argv[])
 {
-	char	*path;
+	int	pid;
 
-	(void)cmd;
-	path = getcwd(NULL, 0);
-	ft_putendl_fd(path, 1);
+	pid = fork();
+	open("infile", O_RDONLY);
+	while (1)
+	{
+		printf("Helloo miniHELL %i\n", pid);
+		sleep(1);
+	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 04:14:38 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 14:55:01 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/16 20:21:18 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /// @brief writes the entire linked list "t_list"
 /// @param lst 
-void	printf_list(t_list *lst)
+void	print_list(t_list *lst)
 {
 	t_list	*tmp;
 
@@ -28,7 +28,7 @@ void	printf_list(t_list *lst)
 
 /// @brief writes the entire linked list "t_env"
 /// @param lst 
-void	printf_env(t_env *lst)
+void	print_env(t_env *lst)
 {
 	t_env	*tmp;
 
@@ -46,7 +46,7 @@ void	printf_env(t_env *lst)
 
 /// @brief writes the entire linked list "t_env"  for thebuildin export
 /// @param lst 
-void	printf_export(t_env *lst)
+void	print_export(t_env *lst)
 {
 	t_env	*tmp;
 

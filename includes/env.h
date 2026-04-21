@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 04:03:34 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/15 18:30:00 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/20 18:04:35 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define ENV_H
 
 # include "minishell.h"
-# include <stdbool.h>
 
 typedef struct s_env
 {
@@ -23,14 +22,14 @@ typedef struct s_env
 	struct s_env		*next;
 }						t_env;
 
-// void				call_env(t_env	**lst_env, char **env);
 t_env			*call_env(char **env);
 char			**rebuild_env(t_env **env);
 
 // srcs/utils/
-void			printf_env(t_env *lst);
-void			printf_list(t_list *lst);
-void			printf_export(t_env *lst);
+void			print_env(t_env *lst);
+void			print_list(t_list *lst);
+void			print_export(t_env *lst);
+void			error_message(char *message);
 char			**split_in_two(char *str, char c);
 void			split_tab_to_list(char **old_tab, t_list **lst);
 

@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:24:04 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/08 15:02:15 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/16 21:31:50 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/// @brief delete var
+/// @param preview_node 
+/// @param node 
 static void	ft_delete_envnode(t_env *preview_node, t_env *node)
 {
 	preview_node->next = node->next;
@@ -21,6 +24,8 @@ static void	ft_delete_envnode(t_env *preview_node, t_env *node)
 	node->var = NULL;
 }
 
+/// @brief check is a var and delete var
+/// @param cmd 
 void	buildin_unset(t_command *cmd)
 {
 	t_env	*tmp;
@@ -40,7 +45,3 @@ void	buildin_unset(t_command *cmd)
 		tmp = tmp->next;
 	}
 }
-
-		// printf("\033[0;35m\033[1mcmd av[0] = {%s}, tmp keyvar = {%s}, 
-		// tmp var = {%s}, strlen = {%d}\n\033[0m", cmd->av[1],
-		// tmp->key_var, tmp->var, i);

@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 14:52:18 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/15 15:56:24 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/21 11:12:32 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	lexer_while(t_token *token, char *str, int i)
 			return (-1);
 		}
 	}
-	else if (str[i] == '|' || str[i] == '&' || str[i] == '>' || str[i] == '<'
+	else if (str[i] == '|' || (str[i] == '&') || str[i] == '>' || str[i] == '<'
 		|| str[i] == '(' || str[i] == ')')
 	{
 		i = lexer_sep(token, str, i);
