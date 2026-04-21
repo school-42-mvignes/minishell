@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/08 16:22:37 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/21 16:00:31 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_node						*parse_pipe(t_token **token, t_shell *shell);
 t_node						*parse_cmd(t_token **token, t_shell *shell);
 t_redir						*parse_redir(t_token **token);
 t_node						*parse_bracket(t_token **token, t_shell *shell);
+void						free_malloc_fail(t_node *node, t_command *cmd);
 
 t_token						*use_token(t_token **token);
 t_redir						*add_redir(t_redir **redir, t_redir *new_redir);

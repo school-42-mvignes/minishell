@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 11:51:04 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/15 16:29:42 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/21 16:01:10 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ t_redir	*parse_redir(t_token **token)
 {
 	t_redir	*redir;
 
+	redir = NULL;
 	if (*token && (((*token)->type == REDIR_APP)
 			|| ((*token)->type == REDIR_HERE) || ((*token)->type == REDIR_IN)
 			|| ((*token)->type == REDIR_OUT)))
@@ -118,11 +119,11 @@ t_node	*parse_cmd(t_token **token, t_shell *shell)
 	node->count = count_word(*token);
 	cmd = malloc(sizeof(t_command));
 	if (!cmd)
-		return (NULL);
+		return (free_malloc_fail(node, cmd), NULL);
 	ft_memset(cmd, 0, sizeof(t_command));
 	cmd->av = malloc(sizeof(char *) * (node->count + 1));
 	if (!cmd->av)
-		return (NULL);
+		return (free_malloc_fail(node, cmd), NULL);
 	while_redir(token, cmd);
 	node->cmd = cmd;
 	cmd->shell = shell;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:24:01 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 21:30:46 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/21 16:06:21 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,5 @@ void	buildin_pwd(t_command *cmd)
 	(void)cmd;
 	path = getcwd(NULL, 0);
 	ft_putendl_fd(path, 1);
+	free(path);
 }
