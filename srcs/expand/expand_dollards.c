@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 17:41:51 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/20 17:17:20 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/21 11:06:57 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static int	create_new_value(t_token *token, int start, int i, char *value)
 	char	*after;
 	char	*new_str;
 	int		l;
+	char	*tmp;
 
 	l = ft_strlen(token->value + i);
 	before = ft_substr(token->value, 0, start);
@@ -25,12 +26,12 @@ static int	create_new_value(t_token *token, int start, int i, char *value)
 	new_str = ft_strjoin(before, value);
 	free(before);
 	before = new_str;
-	before = ft_strjoin(new_str, after);
-	free(before);
+	tmp = ft_strjoin(new_str, after);
+	free(new_str);
 	free(after);
 	free(token->value);
-	token->value = new_str;
-	i = start + ft_strlen(value);
+	token->value = tmp;
+	i = start + ft_strlen(value) - 1;
 	return (i);
 }
 
