@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:27:15 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 14:52:16 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/20 17:36:08 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	exec_node(t_node *node)
 {
 	int	ret;
 
+	if (!node)
+		return (0);
 	if (node->type == NODE_CMD)
 		ret = exec_node_cmd(node);
 	else if (node->type == NODE_PIPE)

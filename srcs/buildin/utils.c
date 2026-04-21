@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/15 15:46:03 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/20 17:07:13 by mmusquer         ###   ########.fr       */
+/*   Created: 2026/04/15 15:46:03 by mvignes           #+#    #+#             */ 
+/*   Updated: 2026/04/21 11:25:28 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ bool	exec_without_fork(t_node *node)
 	if (!node->in_pipe &&
 	(!ft_strncmp(CD, node->cmd->av[0], 3)
 	|| !ft_strncmp(EXPORT, node->cmd->av[0], 7)
-	|| !ft_strncmp(UNSET, node->cmd->av[0], 6)))
+	|| !ft_strncmp(UNSET, node->cmd->av[0], 6)
+	|| !ft_strncmp(EXIT, node->cmd->av[0], 5)))
 		return (true);
 	return (false);
 }
