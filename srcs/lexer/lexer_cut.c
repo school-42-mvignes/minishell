@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 16:11:45 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/02 17:52:17 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/21 11:12:15 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@ int	lexer_sep(t_token *token, char *str, int i)
 	{
 		token->type = SP_AND;
 		return (i + 2);
+	}
+	if (str[i] == '&')
+	{
+		token->type = SP_AND;
+		return (i + 1);
 	}
 	if (str[i] == '|' && str[i + 1] != '|')
 	{
