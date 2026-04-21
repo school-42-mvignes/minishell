@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_is_space.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/20 01:22:03 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 21:28:10 by mvignes          ###   ########.fr       */
+/*   Created: 2026/04/18 13:46:14 by mvignes           #+#    #+#             */
+/*   Updated: 2026/04/18 13:49:29 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/libft.h"
 
-/// @brief write error env
-/// @param cmd 
-static void	print_error_env(t_command *cmd)
+int	ft_is_space(int c)
 {
-	ft_putstr_fd("env: '", 1);
-	ft_putstr_fd(cmd->av[1], 1);
-	ft_putendl_fd("': No such file or directory", 1);
-}
-
-/// @brief check print or error env
-/// @param cmd 
-void	buildin_env(t_command *cmd)
-{
-	if (!cmd->av[1])
-		print_env(cmd->shell->env);
-	else
-		print_error_env(cmd);
+	if ((c >= 7 && c <= 13) || c == 32)
+		return (1);
+	return (0);
 }

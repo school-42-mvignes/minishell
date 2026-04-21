@@ -43,6 +43,7 @@ SRCS	= srcs/libft/ft_isalpha.c\
 		srcs/libft/ft_isalnum.c\
 		srcs/libft/ft_isascii.c\
 		srcs/libft/ft_isprint.c\
+		srcs/libft/ft_is_space.c\
 		srcs/libft/ft_strlen.c\
 		srcs/libft/ft_memset.c\
 		srcs/libft/ft_bzero.c\

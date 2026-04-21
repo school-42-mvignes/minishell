@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:44 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/08 15:02:47 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/20 18:57:08 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,17 @@ void	buildin_cd(t_command *cmd)
 	t_env	*home;
 	char	*new_localisation;
 
+	if (!cmd->av[1] || cmd->av[1][0] == '\0')
+	{
+		cmd->shell->exit_status = 0;
+		return ;
+	}
+	if (cmd->av[2])
+	{
+		ft_putendl_fd("cd: too many arguments", 2);
+		cmd->shell->exit_status = 1;
+		return ;
+	}
 	home = NULL;
 	pwd = search_key_var(cmd->shell->env, "PWD");
 	if (!pwd)
@@ -28,6 +39,7 @@ void	buildin_cd(t_command *cmd)
 	else if (chdir(cmd->av[1]))
 	{
 		pwd = NULL;
+		cmd->shell->exit_status = 1;
 		return ;
 	}
 	last_pwd = search_key_var(cmd->shell->env, "OLDPWD");

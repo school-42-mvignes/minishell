@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 15:35:22 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/21 11:13:18 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 /// @param str 
 void	error_exec_cmd(t_node *node, char *str)
 {
-	ft_putstr_fd("Minishell: ", 2);
+	ft_putstr_fd("minishell: ", 2);
 	if (str)
 		ft_putstr_fd(str, 2);
 	ft_putendl_fd(": command not found", 2);
@@ -36,16 +36,20 @@ void	exec_cmd(t_node *node, char **args, char **envp)
 	char		*cmd_path;
 	char		*tmp;
 
+	// printf("args 0 == %s\n", args[0]);
 	tmp = args[0];
-	if (!args || !args[0])
+	if (!args || !args[0]) // || ft_strncmp(args[0], "$", 2)
 		error_exec_cmd(node, tmp);
+	// if (!args[1] && args[0][0] == '$' && args[0][1] == '\0') // Pour le test :$ il faut que cela face un commande not found mais vu que dans le expand cela le sup cela fait un truc bizarre. d'abore regler le expand
+	// 	error_exec_cmd(node, tmp);
 	cmd_path = find_path(args[0], envp);
 	if (!cmd_path)
 		error_exec_cmd(node, tmp);
 	execve(cmd_path, args, envp);
+	// if (access(args[0], X_OK) == 0)
+	// 	error_exec_cmd(node, tmp);
 	perror(cmd_path);
 	free(cmd_path);
-	node->cmd->shell->exit_status = 126;
 	exit(126);
 }
 
@@ -76,6 +80,7 @@ void	create_and_redir_file(t_redir *redir)
 
 /// @brief executes the command found or buildin in the node command
 /// @param node 
+/// @return exit_status
 int	exec_node_cmd(t_node *node)
 {
 	pid_t	pid;
@@ -84,7 +89,7 @@ int	exec_node_cmd(t_node *node)
 	if (exec_without_fork(node))
 	{
 		exec_buildin_without_fork(node);
-		return (0);
+		return (node->cmd->shell->exit_status);
 	}
 	pid = create_fork();
 	if (pid == 0)
@@ -99,6 +104,6 @@ int	exec_node_cmd(t_node *node)
 	if (WIFEXITED(status))
 		node->cmd->shell->exit_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
-		node->cmd->shell->exit_status = 128 + WEXITSTATUS(status);
-	return (status);
+		node->cmd->shell->exit_status = 128 + WTERMSIG(status);
+	return (node->cmd->shell->exit_status);
 }
