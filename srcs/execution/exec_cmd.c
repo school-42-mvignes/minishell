@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/20 17:04:36 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/21 11:13:18 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 /// @param str 
 void	error_exec_cmd(t_node *node, char *str)
 {
-	ft_putstr_fd("minishell: line 1: ", 2);
+	ft_putstr_fd("minishell: ", 2);
 	if (str)
 		ft_putstr_fd(str, 2);
 	ft_putendl_fd(": command not found", 2);
