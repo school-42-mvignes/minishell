@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/21 14:44:56 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/21 17:52:34 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static void	exit_free_all(t_token *lst, t_node *node, t_shell *shell, char *buf)
 	free_node(node);
 	// free shell
 	rl_clear_history();
-	
 	free(buf);
 	exit(status);
 	
@@ -89,9 +88,11 @@ int	main(int ac, char **av, char **env)
 		if (node)
 		{
 			shell->exit_status = exec_node(node);
-			// free_node(node); // creer plein de probleme dans valgrind. trop de perte de temps si j'essaie de regler le probleme, voir avec max
 		}
+		free_node(node);
+		free_token_lst(cur);
+		cur = NULL;
+		node = NULL;
 	}
 	free(buf);
-	free_token_lst(cur);
 }
