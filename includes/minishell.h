@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/21 19:19:38 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/22 16:22:19 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,7 @@ typedef struct s_node
 }					t_node;
 
 void				init_signal(void);
+void				controller(int sig);
+void				controller_for_heredoc(int sig);
 
 #endif

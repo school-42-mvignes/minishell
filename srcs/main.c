@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/21 19:54:14 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/22 19:11:41 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,11 @@ static void	exit_free_all(t_token *lst, t_node *node, t_shell *shell, char *buf)
 
 	status = shell->exit_status;
 	ft_envclear(&shell->env, free);
-	free(node->cmd->shell);
-	free_token_lst(lst);
-	free_node(node);
+	free(shell);
+	if (lst)
+		free_token_lst(lst);
+	if (node)
+		free_node(node);
 	rl_clear_history();
 	free(buf);
 	exit(status);
@@ -60,12 +62,12 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
-	cur = NULL;
-	node = NULL;
 	init_signal();
 	shell = ft_shellnew(env, &token);
 	while (1)
 	{
+		cur = NULL;
+		node = NULL;
 		buf = readline("Minishell$ ");
 		if (buf == NULL)
 		{
@@ -81,17 +83,19 @@ int	main(int ac, char **av, char **env)
 		cur = lexer(buf, &token);
 		shell->free_the_token = cur;
 		if (cur == NULL)
+		{
+			free(buf);
 			continue ;
+		}
 		expand(cur, shell);
 		node = parse_and_or(&cur, shell);
 		shell->free_the_node = node;
-		avenger_assemble(node, shell);
-		if (node)
+		if (avenger_assemble(node, shell) == 0 && node)
 			shell->exit_status = exec_node(node);
 		free_node(node);
 		free_token_lst(cur);
+		free(buf);
 		cur = NULL;
 		node = NULL;
 	}
-	free(buf);
 }

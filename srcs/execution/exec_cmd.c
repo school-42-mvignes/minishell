@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/21 19:04:05 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/22 13:12:33 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,23 @@ int	exec_node_cmd(t_node *node)
 	pid = create_fork();
 	if (pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		create_and_redir_file(node->cmd->redir);
 		if (is_one_buildin(node))
 			exec_the_buildin(node);
 		else
 			exec_cmd(node, node->cmd->av, rebuild_env(&node->cmd->shell->env));
 	}
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	waitpid(pid, &status, 0);
+	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+		write(1, "\n", 1);
+	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
+		write(1, "Quit (core dumped)\n", 19);
+	signal(SIGINT, controller);
+	signal(SIGQUIT, SIG_IGN);
 	if (WIFEXITED(status))
 		node->cmd->shell->exit_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))

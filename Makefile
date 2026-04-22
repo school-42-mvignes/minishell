@@ -21,7 +21,7 @@
 
 NAME		= minishell
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror -g3
+CFLAGS		= -Wall -Wextra -Werror -g3 -D_XOPEN_SOURCE=700
 RM			= rm -f
 
 MAKEFLAGS	+= --no-print-directory
