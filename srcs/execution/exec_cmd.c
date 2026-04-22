@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/21 19:04:05 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/21 21:48:32 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ int	exec_node_cmd(t_node *node)
 	pid_t	pid;
 	int		status;
 
+	if (is_wildcard(node->cmd->av[1]))
+		node->cmd->av = exec_wildcard(node->cmd->av);
 	if (exec_without_fork(node))
 	{
 		exec_buildin_without_fork(node);

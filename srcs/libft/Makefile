@@ -6,7 +6,7 @@
 #    By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/09 17:23:37 by mvignes           #+#    #+#              #
-#    Updated: 2026/04/18 13:48:21 by mvignes          ###   ########.fr        #
+#    Updated: 2026/04/22 09:45:06 by mvignes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,9 @@ SRCS	= ft_isalpha.c\
 		ft_lstlast.c\
 		ft_lstadd_back.c\
 		ft_lstdelone.c\
+		ft_lstclear.c\
+		ft_lst_create_and_addback.c\
+		ft_lst_sort.c\
 		ft_lstclear.c\
 		ft_lstiter.c\
 		ft_lstmap.c\

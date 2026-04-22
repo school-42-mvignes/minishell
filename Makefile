@@ -83,6 +83,8 @@ SRCS	= srcs/libft/ft_isalpha.c\
 		srcs/libft/ft_lstadd_back.c\
 		srcs/libft/ft_lstdelone.c\
 		srcs/libft/ft_lstclear.c\
+		srcs/libft/ft_lst_create_and_addback.c\
+		srcs/libft/ft_lst_sort.c\
 		srcs/libft/ft_lstiter.c\
 		srcs/libft/ft_lstmap.c\
 		srcs/libft/ft_print_char.c\
@@ -117,6 +119,8 @@ SRCS	= srcs/libft/ft_isalpha.c\
 		srcs/execution/or.c\
 		srcs/execution/redir.c\
 		srcs/execution/redir_heredoc.c\
+		srcs/execution/wildcard.c\
+		srcs/execution/wildcard_utils.c\
 		srcs/execution/utils.c\
 		\
 		srcs/lexer/lexer.c\
