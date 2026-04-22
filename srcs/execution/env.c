@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 16:46:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/22 15:04:44 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/22 18:06:18 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ char	**shell_lvl(char **tab)
 	tmp2 = NULL;
 	tmp1 = ft_strdup(tab[1]);
 	resultat = ft_atoi(tmp1);
+	if (!resultat)
+		resultat = 0;
 	resultat++;
 	tmp2 = ft_itoa(resultat);
 	new_tab = malloc(sizeof(char *) * 3);

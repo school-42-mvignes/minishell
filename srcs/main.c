@@ -6,12 +6,12 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/22 15:08:55 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/22 18:06:59 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell
-// (cd .. && lwqd || ls > test1.1) && ls | grep mi | wc > test1.2 && (cat < ../Makefile | grep printf > test1.3)
+// funcheck ./minishell -c "ls | ls"
 
 #include "../includes/minishell.h"
 
@@ -30,7 +30,7 @@ t_shell	*ft_shellnew(char **env, t_token *token)
 	return (element);
 }
 
-static void	exit_free_all(t_token *lst, t_node *node, t_shell *shell, char *buf)
+void	exit_free_all(t_token *lst, t_node *node, t_shell *shell, char *buf)
 {
 	int status;
 

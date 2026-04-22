@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/22 15:46:58 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/22 18:13:55 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,12 @@
 /// @param str 
 void	error_exec_cmd(t_node *node, char *str)
 {
-	int	code_error;
-
-	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd("minishell: line 1: ", 2);
 	if (str)
-	{
 		ft_putstr_fd(str, 2);
-		code_error = 127;
-	}
-	else if (access(str, X_OK) == 0)
-		code_error = 126;
-	else
-		code_error = 127;
 	ft_putendl_fd(": command not found", 2);
-	node->cmd->shell->exit_status = code_error;
-	free_token_lst(node->cmd->shell->free_the_token);
-	free_node(node);
-	exit (code_error);
+	node->cmd->shell->exit_status = 127;
+	exit (127);
 }
 
 /// @brief executes the command found

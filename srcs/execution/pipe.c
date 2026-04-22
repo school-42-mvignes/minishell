@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 16:54:22 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/20 18:27:44 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/22 17:09:52 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	exec_left(t_node *node, int *pipe)
 	close(pipe[1]);
 	node->left->in_pipe = true;
 	ret = exec_node(node->left);
+	exit_free_all(node->right->cmd->shell->free_the_token, node->right->cmd->shell->free_the_node, node->right->cmd->shell, NULL);
 	exit(ret);
 }
 
@@ -38,6 +39,7 @@ void	exec_right(t_node *node, int *pipe)
 	redirect_fd(STDIN_FILENO, pipe[0]);
 	close(pipe[0]);
 	ret = exec_node(node->right);
+	exit_free_all(node->right->cmd->shell->free_the_token, node->right->cmd->shell->free_the_node, node->right->cmd->shell, NULL);
 	exit(ret);
 }
 

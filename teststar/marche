@@ -1,0 +1,19 @@
+void	free_token_lst(t_token *lst)
+{
+	t_token	*next;
+
+	if (!lst)
+		return ;
+	while (lst->next)
+	{
+		next = lst->next;
+		free(lst->value);
+		free(lst);
+		lst = next;
+	}
+	if (lst)
+	{
+		free(lst->value);
+		free(lst);
+	}
+}
