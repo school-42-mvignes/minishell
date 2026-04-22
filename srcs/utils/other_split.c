@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   other_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 04:09:19 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 21:42:09 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/21 17:43:30 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	**split_in_two(char *str, char c)
 		return (NULL);
 	var_delimiter = ft_strchr(str, c);
 	if (!var_delimiter)
-		return (NULL);
+		return (free(tab), NULL);
 	var_delimiter = &var_delimiter[+1];
 	key_len = ft_strlen(str) - ft_strlen(var_delimiter);
 	tab[0] = ft_substr(str, 0, (key_len - 1));
@@ -35,7 +35,11 @@ char	**split_in_two(char *str, char c)
 		return (NULL);
 	tab[1] = ft_strdup(var_delimiter);
 	if (!tab[1])
+	{
+		free(tab[0]);
+		free(tab);
 		return (NULL);
+	}
 	tab[2] = NULL;
 	return (tab);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:24:04 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 21:31:50 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/21 16:10:28 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	ft_delete_envnode(t_env *preview_node, t_env *node)
 	node->key_var = NULL;
 	free(node->var);
 	node->var = NULL;
+	free(node);
 }
 
 /// @brief check is a var and delete var
@@ -44,4 +45,5 @@ void	buildin_unset(t_command *cmd)
 		preview = tmp;
 		tmp = tmp->next;
 	}
+	free(tmp);
 }

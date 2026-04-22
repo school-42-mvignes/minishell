@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 16:46:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/20 19:29:35 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/21 17:11:34 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,15 @@ char	**rebuild_env(t_env **env)
 char	**build_env_since_then_nothing(void)
 {
 	char	**tab;
+	char	*tmp;
 
+	tmp =getcwd(NULL, 0);
 	tab = malloc(sizeof(char *) * 4);
-	tab[0] = ft_strjoin("PWD=", getcwd(NULL, 0));
+	tab[0] = ft_strjoin("PWD=", tmp);
 	tab[1] = ft_strjoin("SHLVL=", "1");
 	tab[2] = ft_strjoin("_=", "/usr/bin/env");
 	tab[3] = NULL;
+	free(tmp);
 	return (tab);
 }
 

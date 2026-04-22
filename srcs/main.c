@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/20 16:57:21 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/21 17:52:34 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,6 @@ t_shell	*ft_shellnew(char **env)
 	return (element);
 }
 
-/* static void	init_minishell(t_shell *shell, char **env)
-{
-	t_shell	shell;
-} */
-
 static void	exit_free_all(t_token *lst, t_node *node, t_shell *shell, char *buf)
 {
 	int status;
@@ -45,23 +40,10 @@ static void	exit_free_all(t_token *lst, t_node *node, t_shell *shell, char *buf)
 	free_node(node);
 	// free shell
 	rl_clear_history();
-	
 	free(buf);
 	exit(status);
 	
 }
-
-/* static int do_node(t_node *node)
-{
-	int res;
-
-	res = exec_the_buildin(node);
-	if (res == 1)
-		return (1);
-	if (res == -1)
-		exec_cmd(node, node->cmd->av, rebuild_env(&node->cmd->shell->env));
-	return (0);
-} */
 
 /// @brief the 'hand' of the best project you have ever seen
 /// @param ac 
@@ -80,6 +62,7 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	cur = NULL;
 	node = NULL;
+	init_signal();
 	shell = ft_shellnew(env);
 	// init_minishell(&shell, env);
 	while (1)
@@ -105,7 +88,11 @@ int	main(int ac, char **av, char **env)
 		if (node)
 		{
 			shell->exit_status = exec_node(node);
-			// free_node(node); // creer plein de probleme dans valgrind. trop de perte de temps si j'essaie de regler le probleme, voir avec max
 		}
+		free_node(node);
+		free_token_lst(cur);
+		cur = NULL;
+		node = NULL;
 	}
+	free(buf);
 }
