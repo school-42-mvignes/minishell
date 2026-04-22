@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:18:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 20:24:20 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/22 14:00:34 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,21 @@ static int	open_file_app(char *outfile)
 	return (fd);
 }
 
+bool	wildcard_redir(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+	{
+		
+		if (str[i] == '*')
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
 /// @brief Choose how to open the file
 /// @param redir 
 /// @return returns the fd
@@ -69,6 +84,8 @@ int	what_the_outfile(t_redir *redir)
 	int	fd;
 
 	fd = -1;
+	if (wildcard_redir(redir->file))
+		error_message("minishell: *: ambiguous redirect");
 	if (redir->type == REDIR_IN)
 		fd = open_file_in(redir->file);
 	else if (redir->type == REDIR_OUT)

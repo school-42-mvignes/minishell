@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 10:52:24 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/22 10:58:09 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/22 13:55:04 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool	is_wildcard(char *str)
 	int	i;
 
 	if (!str)
-	return (false);
+		return (false);
 	i = 0;
 	while (str[i])
 	{
