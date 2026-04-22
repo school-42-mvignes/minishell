@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/21 17:41:23 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/21 19:04:05 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	error_exec_cmd(t_node *node, char *str)
 		ft_putstr_fd(str, 2);
 	ft_putendl_fd(": command not found", 2);
 	node->cmd->shell->exit_status = 127;
+	free_token_lst(node->cmd->shell->free_the_token);
+	free_node(node);
 	exit (127);
 }
 
@@ -48,12 +50,14 @@ void	exec_cmd(t_node *node, char **args, char **envp)
 		free_tab(envp);
 		error_exec_cmd(node, tmp);
 	}
+	free_token_lst(node->cmd->shell->free_the_token);
 	execve(cmd_path, args, envp);
 	// if (access(args[0], X_OK) == 0)
 	// 	error_exec_cmd(node, tmp);
 	perror(cmd_path);
 	free(cmd_path);
 	free_tab(envp);
+	free_node(node);
 	exit(126);
 }
 

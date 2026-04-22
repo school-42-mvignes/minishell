@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 14:17:16 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/09 15:44:45 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/21 17:58:44 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	lexer_checker(t_token *token)
 	if (res == 1)
 	{
 		write(2, "Error syntax\n", 13);
+		free_token_lst(token);
 		return (1);
 	}
 	return (0);

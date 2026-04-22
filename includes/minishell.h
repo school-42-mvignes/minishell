@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/20 17:30:22 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/21 19:19:38 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef struct s_redir
 typedef struct s_shell
 {
 	t_env			*env;
+	t_token			*free_the_token;
+	t_node			*free_the_node;
 	int				exit_status;
 }					t_shell;
 

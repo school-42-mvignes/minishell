@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:53 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/21 13:35:46 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/21 19:26:54 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void	not_num_exit(t_command *cmd)
 	write(2, "minishell: exit: ", 17);
 	write(2, cmd->av[1], ft_strlen(cmd->av[1]));
 	write(2, ": numeric argument required\n", 28);
+	free_exit(cmd);
 	exit(2);
 }
 
@@ -88,7 +89,9 @@ int	buildin_exit(t_command *cmd)
 {
 	long long	num_exit;
 	int			error;
+	int status;
 
+	status = 0;
 	error = 0;
 	write(2, "exit\n", 5);
 	if (cmd->av[1] && cmd->av[2])
@@ -106,7 +109,11 @@ int	buildin_exit(t_command *cmd)
 		if (error)
 			not_num_exit(cmd);
 		cmd->shell->exit_status = ((num_exit % 256) + 256) % 256;
-		exit(cmd->shell->exit_status);
+		status = cmd->shell->exit_status;
+		free_exit(cmd);
+		exit(status);
 	}
-	exit(cmd->shell->exit_status);
+	status = cmd->shell->exit_status;
+	free_exit(cmd);
+	exit(status);
 }

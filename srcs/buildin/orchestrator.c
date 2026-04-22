@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:25:03 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/21 14:04:12 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/21 18:23:46 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ FAUT REVOIR CA PARCE QUE CA VA PAS, ON RETURN L EXIT STATUS ET 1 EN CAS D'EXIT
 /// @return 
 int	exec_the_buildin(t_node *node)
 {
+	int status;
+	
+	status = 0;
 	if (node->cmd->av[0] == NULL)
 		return (0);
 	else if (!ft_strncmp(ECHO, node->cmd->av[0], 5))
@@ -60,8 +63,10 @@ int	exec_the_buildin(t_node *node)
 		if (buildin_exit(node->cmd))
 			return (node->cmd->shell->exit_status);
 	node->cmd->shell->exit_status = 0;
-	exit(node->cmd->shell->exit_status);
-	return (node->cmd->shell->exit_status);
+	status = node->cmd->shell->exit_status;
+	free_token_lst(node->cmd->shell->free_the_token);
+	free_node(node);
+	exit(status);
 }
 
 /// @brief executes the right build without being in a fork
