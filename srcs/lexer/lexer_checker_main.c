@@ -29,6 +29,7 @@ int	lexer_checker(t_token *token)
 	if (res == 1)
 	{
 		write(2, "Error syntax\n", 13);
+		free_token_lst(token);
 		return (1);
 	}
 	return (0);
