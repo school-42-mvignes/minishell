@@ -41,3 +41,9 @@ bool	exec_without_fork(t_node *node)
 		return (true);
 	return (false);
 }
+
+void	free_exit(t_command *cmd)
+{
+	free_token_lst(cmd->shell->free_the_token);
+	free_node(cmd->shell->free_the_node);
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/21 11:13:18 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/21 21:48:32 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	error_exec_cmd(t_node *node, char *str)
 		ft_putstr_fd(str, 2);
 	ft_putendl_fd(": command not found", 2);
 	node->cmd->shell->exit_status = 127;
+	free_token_lst(node->cmd->shell->free_the_token);
+	free_node(node);
 	exit (127);
 }
 
@@ -36,20 +38,26 @@ void	exec_cmd(t_node *node, char **args, char **envp)
 	char		*cmd_path;
 	char		*tmp;
 
-	// printf("args 0 == %s\n", args[0]);
 	tmp = args[0];
-	if (!args || !args[0]) // || ft_strncmp(args[0], "$", 2)
+	if (!args || !args[0])
+	{
+		free_tab(envp);
 		error_exec_cmd(node, tmp);
-	// if (!args[1] && args[0][0] == '$' && args[0][1] == '\0') // Pour le test :$ il faut que cela face un commande not found mais vu que dans le expand cela le sup cela fait un truc bizarre. d'abore regler le expand
-	// 	error_exec_cmd(node, tmp);
+	}
 	cmd_path = find_path(args[0], envp);
 	if (!cmd_path)
+	{
+		free_tab(envp);
 		error_exec_cmd(node, tmp);
+	}
+	free_token_lst(node->cmd->shell->free_the_token);
 	execve(cmd_path, args, envp);
 	// if (access(args[0], X_OK) == 0)
 	// 	error_exec_cmd(node, tmp);
 	perror(cmd_path);
 	free(cmd_path);
+	free_tab(envp);
+	free_node(node);
 	exit(126);
 }
 
@@ -86,6 +94,8 @@ int	exec_node_cmd(t_node *node)
 	pid_t	pid;
 	int		status;
 
+	if (is_wildcard(node->cmd->av[1]))
+		node->cmd->av = exec_wildcard(node->cmd->av);
 	if (exec_without_fork(node))
 	{
 		exec_buildin_without_fork(node);

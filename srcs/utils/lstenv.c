@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lstenv.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 01:26:50 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 21:41:11 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/21 16:16:27 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ t_env	*ft_envnew(char **tab)
 		return (NULL);
 	element->var = tab[1];
 	if (!element->var)
+	{
+		free(tab[0]);
 		return (NULL);
+	}
 	element->next = NULL;
 	return (element);
 }
