@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:22:03 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 21:28:10 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/22 16:18:50 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 /// @param cmd 
 static void	print_error_env(t_command *cmd)
 {
-	ft_putstr_fd("env: '", 1);
-	ft_putstr_fd(cmd->av[1], 1);
-	ft_putendl_fd("': No such file or directory", 1);
+	ft_putstr_fd("env: '", 2);
+	ft_putstr_fd(cmd->av[1], 2);
+	ft_putendl_fd("': No such file or directory", 2);
 }
 
 /// @brief check print or error env
