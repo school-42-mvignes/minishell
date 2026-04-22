@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/22 12:57:32 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/22 15:08:55 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	exit_free_all(t_token *lst, t_node *node, t_shell *shell, char *buf)
 
 	status = shell->exit_status;
 	ft_envclear(&shell->env, free);
-	free(node->cmd->shell);
+	free(shell);
 	free_token_lst(lst);
 	free_node(node);
 	rl_clear_history();
