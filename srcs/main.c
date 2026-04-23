@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/23 11:33:52 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/23 13:46:01 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,10 @@ int	main(int ac, char **av, char **env)
 		add_history(buf);
 		cur = lexer(buf, &token);
 		if (!cur)
+		{
 			shell->exit_status = 1;
+			free_token_lst(&token);
+		}
 		shell->free_the_token = cur;
 		if (cur == NULL)
 			continue ;
