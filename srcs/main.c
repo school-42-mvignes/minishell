@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/22 19:11:41 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/23 17:51:06 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,16 @@
 // (cd .. && lwqd || ls > test1.1) && ls | grep mi | wc > test1.2 && (cat < ../Makefile | grep printf > test1.3)
 
 #include "../includes/minishell.h"
+
+static	int is_void(char *buf)
+{
+	int i;
+
+	i = 0;
+	while (buf[i] == ' ')
+		i++;
+	return (buf[i] == '\0');
+}
 
 t_shell	*ft_shellnew(char **env, t_token *token)
 {
@@ -79,6 +89,11 @@ int	main(int ac, char **av, char **env)
 			shell->exit_status = 130;
 			g_status = 0;
 		}
+		if (is_void(buf))
+		{
+			free(buf);
+			continue ;
+		}
 		add_history(buf);
 		cur = lexer(buf, &token);
 		shell->free_the_token = cur;
@@ -90,8 +105,18 @@ int	main(int ac, char **av, char **env)
 		expand(cur, shell);
 		node = parse_and_or(&cur, shell);
 		shell->free_the_node = node;
-		if (avenger_assemble(node, shell) == 0 && node)
+		shell->exit_status = avenger_assemble(node, shell);
+		if (shell->exit_status == 0 && node)
 			shell->exit_status = exec_node(node);
+		if (shell->exit_status == 130)
+		{
+			free(node);
+			free_token_lst(cur);
+			free(buf);
+			rl_replace_line("", 0);
+			rl_on_new_line();
+			continue ;
+		}
 		free_node(node);
 		free_token_lst(cur);
 		free(buf);

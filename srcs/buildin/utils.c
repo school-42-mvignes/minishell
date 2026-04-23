@@ -17,7 +17,7 @@
 /// @return true or false
 bool	is_one_buildin(t_node *node)
 {
-	if (!ft_strncmp(ECHO, node->cmd->av[0], 5)
+	if (!ft_strncmp(ECHOS, node->cmd->av[0], 5)
 		|| !ft_strncmp(CD, node->cmd->av[0], 3)
 		|| !ft_strncmp(PWD, node->cmd->av[0], 4)
 		|| !ft_strncmp(ENV, node->cmd->av[0], 4)

@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 14:09:56 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/21 19:22:28 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/23 16:31:13 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 #endif */
 
 #ifndef BUILDIN
-#define ECHO "echo"
+#define ECHOS "echo"
 #define CD "cd"
 #define PWD "pwd"
 #define ENV "env"

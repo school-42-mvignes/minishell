@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 17:09:26 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/22 19:03:28 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/23 16:05:16 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,14 @@ void init_signal(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-void	controller_for_heredoc(int sig)
-{
-	g_status = sig;
-	write(1,"\n", 1);
-}
+
+// void	controller_for_heredoc(int sig)
+// {
+// 	(void)sig;
+// 	g_status = SIGINT;
+// 	write(1,"^C\n", 3);
+// 	rl_replace_line("", 0);
+// 	rl_on_new_line();
+// 	rl_done = 1;
+// 	// signal(SIGINT, controller_for_heredoc);
+// }

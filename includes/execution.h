@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:14:18 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/22 16:57:19 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/23 17:21:35 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 # include "minishell.h"
 
-typedef struct s_redir	t_redir;
-typedef struct s_node	t_node;
-typedef struct s_shell	t_shell;
+typedef struct s_redir		t_redir;
+typedef struct s_node		t_node;
+typedef struct s_shell		t_shell;
 typedef struct s_command	t_command;
 
 int							exec_node(t_node *node);
@@ -32,7 +32,9 @@ void						create_and_redir_file(t_redir *redir);
 pid_t						create_fork(void);
 int							create_pipe(int pipefd[2]);
 int							what_the_outfile(t_redir *redir);
+
 int							avenger_assemble(t_node *node, t_shell *shell);
+int							do_heredoc(char *lim, t_shell *shell, int flag);
 void						check_quote_heredoc(t_token *token);
 
 char						*find_path(char *cmd, char **envp);
