@@ -6,13 +6,13 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/23 15:39:37 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/23 17:59:47 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell
 // funcheck ./minishell -c "ls | ls"
-
+// valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-fds=yes ./minishell
 #include "../includes/minishell.h"
 
 t_shell	*ft_shellnew(char **env, t_token *token)
@@ -44,11 +44,6 @@ void	exit_free_all(t_token *lst, t_node *node, t_shell *shell, char *buf)
 	exit(status);
 	
 }
-
-/* void	printf_token(t_token *token)
-{
-	
-} */
 
 /// @brief the 'hand' of the best project you have ever seen
 /// @param ac 
@@ -97,11 +92,12 @@ int	main(int ac, char **av, char **env)
 		shell->free_the_node = node;
 		avenger_assemble(node, shell);
 		if (node)
+		{
 			shell->exit_status = exec_node(node);
+		}
 		free_node(node);
-		free_token_lst(cur);
 		// free_token_lst(&token);
-		// free(token.value);
+		free_token_lst(cur);
 		cur = NULL;
 		node = NULL;
 	}

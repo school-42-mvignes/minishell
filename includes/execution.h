@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:14:18 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/22 10:58:19 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/23 16:57:34 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ char						*build_my_path(char *path, char *cmd);
 char						*search_my_path(char **envp);
 void						exec_cmd(t_node *node, char **args, char **envp);
 
+
+bool						wildcard_redir(char *str);
 bool						is_wildcard(char *str);
 char						**exec_wildcard(char **av);
 bool						match(char *pat, char *str);
