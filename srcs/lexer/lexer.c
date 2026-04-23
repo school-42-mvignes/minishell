@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 14:52:18 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/21 11:12:32 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/23 16:21:01 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,10 @@ t_token	*lexer(char *str, t_token *token)
 	int		j;
 
 	i = 0;
+	j = 0;
 	status = 0;
 	t_lst = NULL;
-	while (str[i])
+	while (ft_strlen(str) + j < ft_strlen(str))
 	{
 		j = i;
 		if (lexer_spaces(&t_lst, str, &i, &status))
@@ -65,8 +66,6 @@ t_token	*lexer(char *str, t_token *token)
 		if (i == -1)
 			return (NULL);
 		add_token(&t_lst, create_token(token->type, str + j, i - j), &status);
-		if (status == 1)
-			return (NULL);
 	}
 	add_token(&t_lst, create_token(NONE, str + i, 1), &status);
 	if (lexer_checker(t_lst) == 1)
