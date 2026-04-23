@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/22 18:06:59 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/23 11:33:52 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int	main(int ac, char **av, char **env)
 		if (node)
 			shell->exit_status = exec_node(node);
 		free_node(node);
+		// free_token_lst(&token);
 		free_token_lst(cur);
 		cur = NULL;
 		node = NULL;

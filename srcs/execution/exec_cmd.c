@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/23 11:28:21 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/23 11:36:17 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	error_exec_cmd(t_node *node, char *str)
 		ft_putstr_fd(str, 2);
 	ft_putendl_fd(": command not found", 2);
 	node->cmd->shell->exit_status = 127;
+	exit_free_all(node->cmd->shell->free_the_token, node->cmd->shell->free_the_node, node->cmd->shell, NULL);
 	exit (127);
 }
 
