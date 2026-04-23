@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:49 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 21:27:17 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/22 16:19:39 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	buildin_echo(t_command *cmd)
 	i = 1;
 	while (cmd->av[i])
 	{
-		while (check_flags(cmd->av[i]))
+		while (check_flags(cmd->av[i]) && first_word == true)
 		{
 			i++;
 			new_line = true;

@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/21 21:48:32 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/23 13:31:34 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,12 @@
 /// @param str 
 void	error_exec_cmd(t_node *node, char *str)
 {
-	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd("minishell: line 1: ", 2);
 	if (str)
 		ft_putstr_fd(str, 2);
 	ft_putendl_fd(": command not found", 2);
 	node->cmd->shell->exit_status = 127;
-	free_token_lst(node->cmd->shell->free_the_token);
-	free_node(node);
+	exit_free_all(node->cmd->shell->free_the_token, node->cmd->shell->free_the_node, node->cmd->shell, NULL);
 	exit (127);
 }
 
@@ -52,8 +51,6 @@ void	exec_cmd(t_node *node, char **args, char **envp)
 	}
 	free_token_lst(node->cmd->shell->free_the_token);
 	execve(cmd_path, args, envp);
-	// if (access(args[0], X_OK) == 0)
-	// 	error_exec_cmd(node, tmp);
 	perror(cmd_path);
 	free(cmd_path);
 	free_tab(envp);

@@ -6,71 +6,11 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 18:02:45 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/22 11:16:14 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/22 13:55:40 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-/*
-==========================================
-		METTRE DANS LA LIBFT
-==========================================
-*/
-// void	ft_lst_create_and_addback(t_list **lst, char *str) // rajouter dans la libft
-// {
-// 	char	*tmp;
-// 	t_list	*new_node;
-
-// 	tmp = ft_strdup(str);
-// 	if (!tmp)
-// 		return ;
-// 	new_node = ft_lstnew(tmp);
-// 	if (!new_node)
-// 	{
-// 		free(tmp);
-// 		return ;
-// 	}
-// 	ft_lstadd_back(lst, new_node);
-// }
-
-/*
-==========================================
-		METTRE DANS LA LIBFT
-==========================================
-*/
-// void	ft_lst_sort(t_list *lst) // rajouter dans la libft
-// {
-// 	t_list	*i;
-// 	t_list	*j;
-// 	int		n;
-// 	char	*tmp;
-
-// 	i = lst;
-// 	while (i)
-// 	{
-// 		j = i->next;
-// 		while (j)
-// 		{
-// 			if (ft_strlen(i->content) >= ft_strlen(j->content))
-// 				n = ft_strlen(i->content);
-// 			else
-// 				n = ft_strlen(j->content);
-// 			if (ft_strncmp(i->content, j->content, n) > 0)
-// 			{
-// 				tmp = i->content;
-// 				i->content = j->content;
-// 				j->content = tmp;
-// 			}
-// 			j = j->next;
-// 		}
-// 		i = i->next;
-// 	}
-// }
-/*
-====================================================================================
-====================================================================================
-*/
 
 /// @brief read all file in the directory
 /// @param av 
@@ -152,6 +92,6 @@ char	**exec_wildcard(char **av)
 		add_to_final_list(&lst, av[i++]);
 	new_av = rebuild_av_for_wildcard(lst);
 	ft_lstclear(&lst, free);
-	free_tab(av); 
+	free_tab(av);
 	return (new_av);
 }

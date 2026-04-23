@@ -263,12 +263,16 @@ endef
 name_ascii:
 	@printf "\n"
 	@printf "$(call get_random_color)$(GRAS)"
-	@printf "\n"
-	@printf "\n"
-	@printf "\n"
-	@printf "\n"
-	@printf "\n"
+	@printf "                  ,,                ,,           ,,                 ,,    ,,  \n"
+	@printf "'7MMM.     ,MMF'  db                db         '7MM               '7MM  '7MM  \n"
+	@printf "  MMMb    dPMM                                   MM                 MM    MM  \n"
+	@printf "  M YM   ,M MM  '7MM  '7MMpMMMb.  '7MM  ,pP'Ybd  MMpMMMb.  .gP'Ya   MM    MM  \n"
+	@printf "  M  Mb  M' MM    MM    MM    MM    MM  8I   ''  MM    MM ,M'   Yb  MM    MM  \n"
+	@printf "  M  YM.P'  MM    MM    MM    MM    MM  'YMMMa.  MM    MM 8M''''''  MM    MM  \n"
+	@printf "  M  'YM'   MM    MM    MM    MM    MM  L.   I8  MM    MM YM.    ,  MM    MM  \n"
+	@printf ".JML. ''  .JMML..JMML..JMML  JMML..JMML.M9mmmP'.JMML  JMML.'Mbmmd'.JMML..JMML.\n"
 	@printf "$(RESET)\n"
+
 
 user42:
 #	@printf "$(call get_random_color)$(GRAS)"

@@ -6,12 +6,12 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/22 12:57:32 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/23 13:46:01 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell
-// (cd .. && lwqd || ls > test1.1) && ls | grep mi | wc > test1.2 && (cat < ../Makefile | grep printf > test1.3)
+// funcheck ./minishell -c "ls | ls"
 
 #include "../includes/minishell.h"
 
@@ -30,13 +30,13 @@ t_shell	*ft_shellnew(char **env, t_token *token)
 	return (element);
 }
 
-static void	exit_free_all(t_token *lst, t_node *node, t_shell *shell, char *buf)
+void	exit_free_all(t_token *lst, t_node *node, t_shell *shell, char *buf)
 {
 	int status;
 
 	status = shell->exit_status;
 	ft_envclear(&shell->env, free);
-	free(node->cmd->shell);
+	free(shell);
 	free_token_lst(lst);
 	free_node(node);
 	rl_clear_history();
@@ -80,7 +80,10 @@ int	main(int ac, char **av, char **env)
 		add_history(buf);
 		cur = lexer(buf, &token);
 		if (!cur)
+		{
 			shell->exit_status = 1;
+			free_token_lst(&token);
+		}
 		shell->free_the_token = cur;
 		if (cur == NULL)
 			continue ;
@@ -91,6 +94,7 @@ int	main(int ac, char **av, char **env)
 		if (node)
 			shell->exit_status = exec_node(node);
 		free_node(node);
+		// free_token_lst(&token);
 		free_token_lst(cur);
 		cur = NULL;
 		node = NULL;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/21 21:05:46 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/22 17:08:34 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,7 @@ typedef struct s_node
 }					t_node;
 
 void				init_signal(void);
+void				exit_free_all(t_token *lst, t_node *node, t_shell *shell, char *buf);
+int					main(int ac, char **av, char **env);
 
 #endif
