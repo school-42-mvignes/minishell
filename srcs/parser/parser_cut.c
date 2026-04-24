@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 14:40:53 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/24 16:28:48 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/24 18:05:23 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,8 @@ void	while_redir(t_token **token, t_command *cmd)
 			add_redir(&cmd->redir, parse_redir(token));
 		else
 		{
-			if ((*token)->value[0] != '\0')
-			{
-				cmd->av[i] = ft_strdup((*token)->value);
-				i++;
-			}
+			cmd->av[i] = ft_strdup((*token)->value);
+			i++;
 			use_token(token);
 		}
 	}

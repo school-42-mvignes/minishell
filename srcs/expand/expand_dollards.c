@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 17:41:51 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/24 16:27:24 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/24 18:01:10 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ static void	replace_dollards(t_token *token, int *i, t_shell *shell)
 	else
 		tmp = "";
 	*i = create_new_value(token, j - 1, *i, tmp);
+	if (token->value[0] == '\0')
+		token->type = SPACES;
 }
 
 void	search_dollards(t_token *token, t_shell *shell)

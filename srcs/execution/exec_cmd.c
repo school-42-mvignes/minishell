@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/24 17:30:40 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/24 18:03:10 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	exec_cmd(t_node *node, char **args, char **envp)
 	char	*tmp;
 
 	tmp = args[0];
-	if (!args || !args[0])
+	if (!args || !args[0] || args[0][0] == '\0')
 		error_exec_cmd(node->cmd->shell, tmp, envp, 127);
 	cmd_path = find_path(args[0], envp);
 	if (!cmd_path)
@@ -97,6 +97,8 @@ int	exec_node_cmd(t_node *node)
 	pid_t	pid;
 	int		status;
 
+	if (!node->cmd->av[0])
+		return (0);
 	if (node->cmd->av[1])
 		if (is_wildcard(node->cmd->av[1]))
 			node->cmd->av = exec_wildcard(node->cmd->av);
