@@ -90,3 +90,23 @@ avec le bash nous pouvons avoir des options :
 - r = l'interpreteur est restreint (voir SHELLS RESTREINTS plus loin)
 - s = traite les donnees de facon standard puis invoque un shell interactif
 - D = 
+
+
+
+
+
+brief lexer.h enum
+/// WORD,       // mot
+/// SP_AND,     // &&
+/// SP_OR,      // ||
+/// SP_PIPE,    // |
+/// REDIR_IN,   // <
+/// REDIR_OUT,  // >
+/// REDIR_APP,  // >>
+/// REDIR_HERE, // <<
+/// S_QUOTE,    // ''
+/// D_QUOTE,    // ""
+/// L_BRACKET,  // (
+/// R_BRACKET,  // )
+/// SPACES,      // ' '
+/// NONE,       // y'a R

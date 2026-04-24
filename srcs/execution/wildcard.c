@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 18:02:45 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/22 13:55:40 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/24 16:06:18 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,11 @@ static t_list	*get_wildcard_files(char *av)
 	i = -1;
 	while (++i < 2)
 		(file = readdir(directory));
-	while ((file = readdir(directory)))
+	while (1)
 	{
+		file = readdir(directory);
+		if (!file)
+			break ;
 		if (file->d_name[0] == '.' && av[0] != '.')
 			continue ;
 		if (match(av, file->d_name))
@@ -67,7 +70,7 @@ static void	check_star(t_list **lst, char *str)
 /// @brief create the final list before rebuild char ** for execute
 /// @param lst 
 /// @param str 
-static void add_to_final_list(t_list **lst, char *str)
+static void	add_to_final_list(t_list **lst, char *str)
 {
 	if (is_wildcard(str))
 		check_star(lst, str);

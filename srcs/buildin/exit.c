@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:53 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/21 13:35:46 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/24 15:05:29 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	not_num_exit(t_command *cmd)
 	exit(2);
 }
 
-static	int check_overflow(long long res, int last_digit, int si, int *error)
+static int	check_overflow(long long res, int last_digit, int si, int *error)
 {
 	if (si == 1)
 	{
@@ -58,7 +58,7 @@ static	int check_overflow(long long res, int last_digit, int si, int *error)
 	}
 	return (0);
 }
-static	long long	ft_atoll(char *str, int *error)
+static long long	ft_atoll(char *str, int *error)
 {
 	int			i;
 	int			si;

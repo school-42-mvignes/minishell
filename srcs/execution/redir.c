@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:18:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/23 16:59:16 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/24 15:21:46 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,6 @@ int	what_the_outfile(t_redir *redir)
 	else if (redir->type == REDIR_APP)
 		fd = open_file_app(redir->file);
 	else if (redir->type == REDIR_HERE)
-		fd = redir->heredoc_fd;	
+		fd = redir->heredoc_fd;
 	return (fd);
 }

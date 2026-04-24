@@ -111,6 +111,7 @@ SRCS	= srcs/libft/ft_isalpha.c\
 		srcs/buildin/utils.c\
 		\
 		srcs/execution/env.c\
+		srcs/execution/env_utils.c\
 		srcs/execution/exec_cmd.c\
 		srcs/execution/exec_line.c\
 		srcs/execution/path.c\
@@ -227,6 +228,21 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 		exit 1; \
 	fi
 
+#============================#
+# _____       _   _ _     	||
+#|  _  |     | | (_) |    	||
+#| | | |_   _| |_ _| |___ 	||
+#| | | | | | | __| | / __|	||
+#\ \_/ / |_| | |_| | \__ \	||
+# \___/ \__,_|\__|_|_|___/	||
+#============================#
+
+# Statistiques du projet
+stats:
+	@printf "$(CYAN)Statistiques du projet:$(RESET)\n"
+	@printf "	Fichiers .c	: %d\n" $(TOTAL)
+	@printf "	Lignes code	: %d\n" $$(cat $(SRCS) $(SRCS_BONUS) | wc -l)
+	@printf "	Headers		: %d\n" $$(find includes -name "*.h" | wc -l)
 
 #===========================================#
 #  ___       _      ___          _ _ 	   ||
