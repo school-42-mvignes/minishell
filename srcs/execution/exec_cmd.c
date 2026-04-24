@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/24 11:56:03 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/24 13:37:28 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,32 @@ void	exec_cmd(t_node *node, char **args, char **envp)
 	execve(cmd_path, args, envp);
 	free(cmd_path);
 	error_exec_cmd(node->cmd->shell, tmp, envp, 126);
+}
+
+/// @brief rebuild env in char ** for the execute cmd
+/// @param env 
+/// @return char ** env
+char	**rebuild_env(t_env **env)
+{
+	t_env	*tmp;
+	char	*str_tmp;
+	char	**tab;
+	int		i;
+
+	tmp = (*env);
+	tab = malloc(sizeof(char *) * (ft_envsize(tmp) + 1));
+	i = 0;
+	while (tmp)
+	{
+		str_tmp = ft_strjoin(tmp->key_var, "=");
+		tab[i] = ft_strjoin_gnl(str_tmp, tmp->var);
+		if (!tab[i])
+			return (NULL);
+		i++;
+		tmp = tmp->next;
+	}
+	tab[i] = NULL;
+	return (tab);
 }
 
 /// @brief exec cmd in child

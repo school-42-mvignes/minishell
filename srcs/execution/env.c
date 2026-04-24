@@ -6,13 +6,15 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 16:46:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/24 13:13:50 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/24 13:37:13 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-
+/// @brief incrementing nomber in char
+/// @param str 
+/// @return char *
 char	*char_incrementing(char *str)
 {
 	int		res;
@@ -67,32 +69,6 @@ void	init_lst_env(t_list *lst, t_env **env)
 		lst = lst->next;
 		free(tab);
 	}
-}
-
-/// @brief rebuild env in char ** for the execute cmd
-/// @param env 
-/// @return char ** env
-char	**rebuild_env(t_env **env)
-{
-	t_env	*tmp;
-	char	*str_tmp;
-	char	**tab;
-	int		i;
-
-	tmp = (*env);
-	tab = malloc(sizeof(char *) * (ft_envsize(tmp) + 1));
-	i = 0;
-	while (tmp)
-	{
-		str_tmp = ft_strjoin(tmp->key_var, "=");
-		tab[i] = ft_strjoin_gnl(str_tmp, tmp->var);
-		if (!tab[i])
-			return (NULL);
-		i++;
-		tmp = tmp->next;
-	}
-	tab[i] = NULL;
-	return (tab);
 }
 
 /// @brief build the env in char ** when you run the program without the env
