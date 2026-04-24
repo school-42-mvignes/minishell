@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 14:09:56 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/23 16:31:13 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/24 16:13:59 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@
 #define EXIT ft_rot_x("exit", ROT)		// 7
 #endif */
 
-#ifndef BUILDIN
-#define ECHOS "echo"
-#define CD "cd"
-#define PWD "pwd"
-#define ENV "env"
-#define EXPORT "export"
-#define UNSET "unset"
-#define EXIT "exit"
-#endif
+# ifndef BUILDIN
+#  define ECHOS "echo"
+#  define CD "cd"
+#  define PWD "pwd"
+#  define ENV "env"
+#  define EXPORT "export"
+#  define UNSET "unset"
+#  define EXIT "exit"
+# endif
 
 typedef struct s_command	t_command;
 typedef struct s_node		t_node;

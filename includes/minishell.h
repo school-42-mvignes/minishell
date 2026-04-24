@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/23 16:30:52 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/24 16:15:22 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,19 @@
 # include "env.h"
 # include "lexer.h"
 # include <signal.h>
-//# include <X11/keysym.h>
 # include "execution.h"
 # include "expand.h"
 # include "lexer.h"
 # include "parser.h"
 # include <math.h>
-#include <dirent.h>
+# include <dirent.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <termios.h>
 # include <sys/wait.h>
 
 extern int			g_status;
+
 typedef struct s_redir
 {
 	char			*file;
@@ -70,10 +70,10 @@ typedef struct s_node
 	pid_t			last_pid;
 }					t_node;
 
-void				init_signal(void);
-void				controller(int sig);
-void				controller_for_heredoc(int sig);
-void				exit_free_all(t_token *lst, t_node *node, t_shell *shell, char *buf);
-int					main(int ac, char **av, char **env);
+void		init_signal(void);
+void		controller(int sig);
+void		controller_for_heredoc(int sig);
+void		exit_free_all(t_token *lst, t_node *node, t_shell *shell, char *b);
+int			main(int ac, char **av, char **env);
 
 #endif

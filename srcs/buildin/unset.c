@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:24:04 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/22 15:34:43 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/24 15:14:58 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,4 @@ void	buildin_unset(t_command *cmd)
 		preview = tmp;
 		tmp = tmp->next;
 	}
-	// if (tmp)
-	// 	free(tmp);
 }

@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:25:03 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/23 16:31:07 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/24 15:15:18 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ FAUT REVOIR CA PARCE QUE CA VA PAS, ON RETURN L EXIT STATUS ET 1 EN CAS D'EXIT
 /// @return 
 int	exec_the_buildin(t_node *node)
 {
-	int status;
-	
+	int	status;
+
 	status = 0;
 	if (node->cmd->av[0] == NULL)
 		return (0);
