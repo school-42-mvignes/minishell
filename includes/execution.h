@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:14:18 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/23 16:57:34 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/24 10:17:11 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,14 @@ int							exec_or(t_node *node);
 int							exec_and(t_node *node);
 int							exec_node_cmd(t_node *node);
 
-t_redir						*search_last_fd_redir(t_redir *redir);
-void						redirect_fd(int old_fd, int new_fd);
 void						create_and_redir_file(t_redir *redir);
+int							what_the_outfile(t_redir *redir);
+
+void						redirect_fd(int old_fd, int new_fd);
 pid_t						create_fork(void);
 int							create_pipe(int pipefd[2]);
-int							what_the_outfile(t_redir *redir);
+void						search_exit_status(t_shell *shell, int status);
+
 void						avenger_assemble(t_node *node, t_shell *shell);
 void						check_quote_heredoc(t_token *token);
 
@@ -47,4 +49,5 @@ char						**exec_wildcard(char **av);
 bool						match(char *pat, char *str);
 char						**rebuild_av_for_wildcard(t_list *lst);
 
+// t_redir						*search_last_fd_redir(t_redir *redir);
 #endif

@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 16:46:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/23 14:35:06 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/24 10:33:33 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	init_lst_env(t_list *lst, t_env **env)
 
 /// @brief rebuild env in char ** for the execute cmd
 /// @param env 
-/// @return 
+/// @return char ** env
 char	**rebuild_env(t_env **env)
 {
 	t_env	*tmp;

@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 13:20:34 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/23 18:25:59 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/24 09:41:16 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,12 @@ void	free_token_lst(t_token *lst) // leak, crash, la total
 		free(lst);
 		lst = next;
 	}
-	if (lst)
+	if (!lst)
+		return ;
+	if (lst->type == NONE)
+	{
+		if (lst->value)
+			free(lst->value);
 		free(lst);
+	}
 }

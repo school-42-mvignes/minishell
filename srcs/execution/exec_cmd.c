@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/23 18:23:41 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/24 10:32:00 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	exec_cmd(t_node *node, char **args, char **envp)
 	error_exec_cmd(node, tmp, envp, false);
 }
 
-/// @brief exec in child
+/// @brief exec cmd in child
 /// @param node 
 static void	child_exec_cmd(t_node *node)
 {
@@ -88,10 +88,7 @@ int	exec_node_cmd(t_node *node)
 		if (pid == 0)
 			child_exec_cmd(node);
 		waitpid(pid, &status, 0);
-		if (WIFEXITED(status))
-			node->cmd->shell->exit_status = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			node->cmd->shell->exit_status = 128 + WTERMSIG(status);
+		search_exit_status(node->cmd->shell, status);
 	}
 	return (node->cmd->shell->exit_status);
 }
