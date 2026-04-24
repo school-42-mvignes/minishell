@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:25:03 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/22 11:55:24 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/23 16:31:07 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	exec_the_buildin(t_node *node)
 	status = 0;
 	if (node->cmd->av[0] == NULL)
 		return (0);
-	else if (!ft_strncmp(ECHO, node->cmd->av[0], 5))
+	else if (!ft_strncmp(ECHOS, node->cmd->av[0], 5))
 		buildin_echo(node->cmd);
 	else if (!ft_strncmp(CD, node->cmd->av[0], 3))
 		buildin_cd(node->cmd);

@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/23 17:59:47 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/23 17:51:06 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,16 @@
 // funcheck ./minishell -c "ls | ls"
 // valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-fds=yes ./minishell
 #include "../includes/minishell.h"
+
+static	int is_void(char *buf)
+{
+	int i;
+
+	i = 0;
+	while (buf[i] == ' ')
+		i++;
+	return (buf[i] == '\0');
+}
 
 t_shell	*ft_shellnew(char **env, t_token *token)
 {
@@ -37,8 +47,10 @@ void	exit_free_all(t_token *lst, t_node *node, t_shell *shell, char *buf)
 	status = shell->exit_status;
 	ft_envclear(&shell->env, free);
 	free(shell);
-	free_token_lst(lst);
-	free_node(node);
+	if (lst)
+		free_token_lst(lst);
+	if (node)
+		free_node(node);
 	rl_clear_history();
 	free(buf);
 	exit(status);
@@ -60,12 +72,12 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
-	cur = NULL;
-	node = NULL;
 	init_signal();
 	shell = ft_shellnew(env, &token);
 	while (1)
 	{
+		cur = NULL;
+		node = NULL;
 		buf = readline("Minishell$ ");
 		if (buf == NULL)
 		{
@@ -77,6 +89,11 @@ int	main(int ac, char **av, char **env)
 			shell->exit_status = 130;
 			g_status = 0;
 		}
+		if (is_void(buf))
+		{
+			free(buf);
+			continue ;
+		}
 		add_history(buf);
 		cur = lexer(buf, &token);
 		if (!cur)
@@ -86,20 +103,30 @@ int	main(int ac, char **av, char **env)
 		}
 		shell->free_the_token = cur;
 		if (cur == NULL)
+		{
+			free(buf);
 			continue ;
+		}
 		expand(cur, shell);
 		node = parse_and_or(&cur, shell);
 		shell->free_the_node = node;
-		avenger_assemble(node, shell);
-		if (node)
-		{
+		shell->exit_status = avenger_assemble(node, shell);
+		if (shell->exit_status == 0 && node)
 			shell->exit_status = exec_node(node);
+		if (shell->exit_status == 130)
+		{
+			free(node);
+			free_token_lst(cur);
+			free(buf);
+			rl_replace_line("", 0);
+			rl_on_new_line();
+			continue ;
 		}
 		free_node(node);
 		// free_token_lst(&token);
 		free_token_lst(cur);
+		free(buf);
 		cur = NULL;
 		node = NULL;
 	}
-	free(buf);
 }

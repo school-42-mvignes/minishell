@@ -119,6 +119,7 @@ SRCS	= srcs/libft/ft_isalpha.c\
 		srcs/execution/or.c\
 		srcs/execution/redir.c\
 		srcs/execution/redir_heredoc.c\
+		srcs/execution/redir_heredoc_utils.c\
 		srcs/execution/wildcard.c\
 		srcs/execution/wildcard_utils.c\
 		srcs/execution/utils.c\

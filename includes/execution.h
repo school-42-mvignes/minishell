@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:14:18 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/24 10:17:11 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/23 17:21:35 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 # include "minishell.h"
 
-typedef struct s_redir	t_redir;
-typedef struct s_node	t_node;
-typedef struct s_shell	t_shell;
+typedef struct s_redir		t_redir;
+typedef struct s_node		t_node;
+typedef struct s_shell		t_shell;
 typedef struct s_command	t_command;
 
 int							exec_node(t_node *node);
@@ -32,16 +32,17 @@ int							what_the_outfile(t_redir *redir);
 void						redirect_fd(int old_fd, int new_fd);
 pid_t						create_fork(void);
 int							create_pipe(int pipefd[2]);
+int							what_the_outfile(t_redir *redir);
 void						search_exit_status(t_shell *shell, int status);
 
-void						avenger_assemble(t_node *node, t_shell *shell);
+int							avenger_assemble(t_node *node, t_shell *shell);
+int							do_heredoc(char *lim, t_shell *shell, int flag);
 void						check_quote_heredoc(t_token *token);
 
 char						*find_path(char *cmd, char **envp);
 char						*build_my_path(char *path, char *cmd);
 char						*search_my_path(char **envp);
 void						exec_cmd(t_node *node, char **args, char **envp);
-
 
 bool						wildcard_redir(char *str);
 bool						is_wildcard(char *str);

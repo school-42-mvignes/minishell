@@ -6,13 +6,14 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/22 17:08:34 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/23 16:30:52 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+// # define DEFAULT_SOURCES
 # include "libft.h"
 # include <stdbool.h>
 # include "buildin.h"
@@ -28,6 +29,7 @@
 #include <dirent.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <termios.h>
 # include <sys/wait.h>
 
 extern int			g_status;
@@ -69,6 +71,8 @@ typedef struct s_node
 }					t_node;
 
 void				init_signal(void);
+void				controller(int sig);
+void				controller_for_heredoc(int sig);
 void				exit_free_all(t_token *lst, t_node *node, t_shell *shell, char *buf);
 int					main(int ac, char **av, char **env);
 

@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/24 11:29:34 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/22 13:12:33 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void	exec_cmd(t_node *node, char **args, char **envp)
 /// @param node 
 static void	child_exec_cmd(t_node *node)
 {
+  signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	create_and_redir_file(node->cmd->redir);
 	if (is_one_buildin(node))
 		exec_the_buildin(node);
@@ -84,7 +86,15 @@ int	exec_node_cmd(t_node *node)
 		pid = create_fork();
 		if (pid == 0)
 			child_exec_cmd(node);
+	  signal(SIGINT, SIG_IGN);
+  	signal(SIGQUIT, SIG_IGN);
 		waitpid(pid, &status, 0);
+    if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+		  write(1, "\n", 1);
+	  if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
+		  write(1, "Quit (core dumped)\n", 19);
+  	signal(SIGINT, controller);
+	  signal(SIGQUIT, SIG_IGN);
 		search_exit_status(node->cmd->shell, status);
 	}
 	return (node->cmd->shell->exit_status);
