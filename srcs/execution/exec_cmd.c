@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/24 17:30:40 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/24 18:22:47 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ int	exec_node_cmd(t_node *node)
 	pid_t	pid;
 	int		status;
 
+	if (!node->cmd->av[0])
+		return (0);
 	if (node->cmd->av[1])
 		if (is_wildcard(node->cmd->av[1]))
 			node->cmd->av = exec_wildcard(node->cmd->av);
@@ -110,12 +112,6 @@ int	exec_node_cmd(t_node *node)
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
 		waitpid(pid, &status, 0);
-		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-			write(1, "\n", 1);
-		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
-			write(1, "Quit (core dumped)\n", 19);
-		signal(SIGINT, controller);
-		signal(SIGQUIT, SIG_IGN);
 		search_exit_status(node->cmd->shell, status, true);
 	}
 	return (node->cmd->shell->exit_status);
