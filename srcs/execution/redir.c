@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:18:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 20:24:20 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/23 16:59:16 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,31 @@ static int	open_file_app(char *outfile)
 	return (fd);
 }
 
+/// @brief Create and make the redirects of fd for the files called
+/// @param redir 
+void	create_and_redir_file(t_redir *redir)
+{
+	int	fd;
+
+	if (redir)
+	{
+		while (redir)
+		{
+			fd = what_the_outfile(redir);
+			if (fd == -1)
+			{
+				exit(EXIT_FAILURE);
+			}
+			if (redir->type == REDIR_IN || redir->type == REDIR_HERE)
+				redirect_fd(STDIN_FILENO, fd);
+			else
+				redirect_fd(STDOUT_FILENO, fd);
+			close(fd);
+			redir = redir->next;
+		}
+	}
+}
+
 /// @brief Choose how to open the file
 /// @param redir 
 /// @return returns the fd
@@ -69,6 +94,8 @@ int	what_the_outfile(t_redir *redir)
 	int	fd;
 
 	fd = -1;
+	if (wildcard_redir(redir->file))
+		error_message("minishell: *: ambiguous redirect");
 	if (redir->type == REDIR_IN)
 		fd = open_file_in(redir->file);
 	else if (redir->type == REDIR_OUT)

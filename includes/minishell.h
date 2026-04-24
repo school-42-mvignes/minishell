@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
 /*   Updated: 2026/04/23 16:30:52 by mmusquer         ###   ########.fr       */
@@ -26,6 +26,7 @@
 # include "lexer.h"
 # include "parser.h"
 # include <math.h>
+#include <dirent.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <termios.h>
@@ -72,5 +73,7 @@ typedef struct s_node
 void				init_signal(void);
 void				controller(int sig);
 void				controller_for_heredoc(int sig);
+void				exit_free_all(t_token *lst, t_node *node, t_shell *shell, char *buf);
+int					main(int ac, char **av, char **env);
 
 #endif

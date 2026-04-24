@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   buildin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 14:09:56 by mvignes           #+#    #+#             */
 /*   Updated: 2026/04/23 16:31:13 by mmusquer         ###   ########.fr       */
@@ -43,20 +43,20 @@ typedef struct s_command	t_command;
 typedef struct s_node		t_node;
 typedef struct s_env		t_env;
 
-t_env						*search_key_var(t_env *env, char *key);
-int							exec_the_buildin(t_node *node);
-bool						is_one_buildin(t_node *node);
-bool						exec_without_fork(t_node *node);
-void						exec_buildin_without_fork(t_node *node);
-void						free_exit(t_command *cmd);
+t_env				*search_key_var(t_env *env, char *key);
+int					exec_the_buildin(t_node *node);
+bool				is_one_buildin(t_node *node);
+bool				exec_without_fork(t_node *node);
+void				exec_buildin_without_fork(t_node *node);
+void				free_exit(t_command *cmd);
 
-void						buildin_unset(t_command *cmd);
-void						buildin_export(t_command *cmd);
-void						buildin_pwd(t_command *cmd);
-void						buildin_env(t_command *cmd);
-void						buildin_cd(t_command *cmd);
-void						buildin_cd_cut(t_command *cmd, t_env *home);
-void						buildin_echo(t_command *cmd);
-int							buildin_exit(t_command *cmd);
+void				buildin_unset(t_command *cmd);
+void				buildin_export(t_command *cmd);
+void				buildin_pwd(t_command *cmd);
+void				buildin_env(t_command *cmd);
+void				buildin_cd(t_command *cmd);
+void				buildin_cd_cut(t_command *cmd, t_env *home);
+void				buildin_echo(t_command *cmd);
+int					buildin_exit(t_command *cmd);
 
 #endif

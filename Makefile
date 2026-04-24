@@ -21,7 +21,7 @@
 
 NAME		= minishell
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror -g3 -D_XOPEN_SOURCE=700
+CFLAGS		= -Wall -Wextra -Werror -g3
 RM			= rm -f
 
 MAKEFLAGS	+= --no-print-directory
@@ -83,6 +83,8 @@ SRCS	= srcs/libft/ft_isalpha.c\
 		srcs/libft/ft_lstadd_back.c\
 		srcs/libft/ft_lstdelone.c\
 		srcs/libft/ft_lstclear.c\
+		srcs/libft/ft_lst_create_and_addback.c\
+		srcs/libft/ft_lst_sort.c\
 		srcs/libft/ft_lstiter.c\
 		srcs/libft/ft_lstmap.c\
 		srcs/libft/ft_print_char.c\
@@ -118,6 +120,8 @@ SRCS	= srcs/libft/ft_isalpha.c\
 		srcs/execution/redir.c\
 		srcs/execution/redir_heredoc.c\
 		srcs/execution/redir_heredoc_utils.c\
+		srcs/execution/wildcard.c\
+		srcs/execution/wildcard_utils.c\
 		srcs/execution/utils.c\
 		\
 		srcs/lexer/lexer.c\
@@ -138,9 +142,6 @@ SRCS	= srcs/libft/ft_isalpha.c\
 		srcs/expand/expand_concatenate.c\
 		\
 		srcs/signal/signal.c\
-		
-#srcs/execution/and.c
-#srcs/execution/or.c
 
 SRCS_BONUS	= \
 
@@ -182,6 +183,7 @@ $(NAME): $(OBJS)
 
 clean:
 	@$(RM) -r $(OBJS_DIR)
+	@$(RM) vgcore.*
 	@printf "$(RED)Dossier .objects supprimé$(RESET)\n"
 
 fclean: clean
@@ -260,12 +262,16 @@ endef
 name_ascii:
 	@printf "\n"
 	@printf "$(call get_random_color)$(GRAS)"
-	@printf "\n"
-	@printf "\n"
-	@printf "\n"
-	@printf "\n"
-	@printf "\n"
+	@printf "                  ,,                ,,           ,,                 ,,    ,,  \n"
+	@printf "'7MMM.     ,MMF'  db                db         '7MM               '7MM  '7MM  \n"
+	@printf "  MMMb    dPMM                                   MM                 MM    MM  \n"
+	@printf "  M YM   ,M MM  '7MM  '7MMpMMMb.  '7MM  ,pP'Ybd  MMpMMMb.  .gP'Ya   MM    MM  \n"
+	@printf "  M  Mb  M' MM    MM    MM    MM    MM  8I   ''  MM    MM ,M'   Yb  MM    MM  \n"
+	@printf "  M  YM.P'  MM    MM    MM    MM    MM  'YMMMa.  MM    MM 8M''''''  MM    MM  \n"
+	@printf "  M  'YM'   MM    MM    MM    MM    MM  L.   I8  MM    MM YM.    ,  MM    MM  \n"
+	@printf ".JML. ''  .JMML..JMML..JMML  JMML..JMML.M9mmmP'.JMML  JMML.'Mbmmd'.JMML..JMML.\n"
 	@printf "$(RESET)\n"
+
 
 user42:
 #	@printf "$(call get_random_color)$(GRAS)"

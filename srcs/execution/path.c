@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:01 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/15 16:46:18 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/24 11:26:12 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	*find_path(char *cmd, char **envp)
 
 	if (!cmd || !envp)
 		return (NULL);
-	if (ft_strchr(cmd, '/') && access(cmd, X_OK) == 0)
+	if (ft_strchr(cmd, '/') && access(cmd, F_OK) == 0)
 		return (ft_strdup(cmd));
 	path_env = search_my_path(envp);
 	if (!path_env)

@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 11:33:00 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/18 13:47:58 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/22 09:47:06 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ void				ft_lstclear(t_list **lst, void (*del)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
+void				ft_lst_create_and_addback(t_list **lst, char *str);
+void				ft_lst_sort(t_list *lst);
 // printf
 int					ft_printf(const char *format, ...);
 int					ft_condition_printf(char formati, va_list args);

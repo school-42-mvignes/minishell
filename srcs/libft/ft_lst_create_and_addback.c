@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_lst_create_and_addback.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/20 01:22:03 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/22 16:18:50 by mvignes          ###   ########.fr       */
+/*   Created: 2026/04/22 09:39:30 by mvignes           #+#    #+#             */
+/*   Updated: 2026/04/22 09:45:46 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/libft.h"
 
-/// @brief write error env
-/// @param cmd 
-static void	print_error_env(t_command *cmd)
+void	ft_lst_create_and_addback(t_list **lst, char *str)
 {
-	ft_putstr_fd("env: '", 2);
-	ft_putstr_fd(cmd->av[1], 2);
-	ft_putendl_fd("': No such file or directory", 2);
-}
+	char	*tmp;
+	t_list	*new_node;
 
-/// @brief check print or error env
-/// @param cmd 
-void	buildin_env(t_command *cmd)
-{
-	if (!cmd->av[1])
-		print_env(cmd->shell->env);
-	else
-		print_error_env(cmd);
+	tmp = ft_strdup(str);
+	if (!tmp)
+		return ;
+	new_node = ft_lstnew(tmp);
+	if (!new_node)
+	{
+		free(tmp);
+		return ;
+	}
+	ft_lstadd_back(lst, new_node);
 }

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
 /*   Updated: 2026/04/22 13:12:33 by mmusquer         ###   ########.fr       */
@@ -16,16 +16,18 @@
 /// the command
 /// @param node 
 /// @param str 
-void	error_exec_cmd(t_node *node, char *str)
+void	error_exec_cmd(t_shell *shell, char *str, char **env, int exit_status)
 {
+	free_tab(env);
 	ft_putstr_fd("minishell: ", 2);
 	if (str)
 		ft_putstr_fd(str, 2);
-	ft_putendl_fd(": command not found", 2);
-	node->cmd->shell->exit_status = 127;
-	free_token_lst(node->cmd->shell->free_the_token);
-	free_node(node);
-	exit (127);
+	if (exit_status == 127)
+		ft_putendl_fd(": command not found", 2);
+	else
+		ft_putendl_fd(" : Permission denied", 2);
+	shell->exit_status = exit_status;
+	exit_free_all(shell->free_the_token, shell->free_the_node, shell, NULL);
 }
 
 /// @brief executes the command found
@@ -41,49 +43,29 @@ void	exec_cmd(t_node *node, char **args, char **envp)
 	tmp = args[0];
 	if (!args || !args[0])
 	{
-		free_tab(envp);
-		error_exec_cmd(node, tmp);
+		error_exec_cmd(node->cmd->shell, tmp, envp, 127);
 	}
 	cmd_path = find_path(args[0], envp);
 	if (!cmd_path)
 	{
-		free_tab(envp);
-		error_exec_cmd(node, tmp);
+		error_exec_cmd(node->cmd->shell, tmp, envp, 127);
 	}
-	free_token_lst(node->cmd->shell->free_the_token);
 	execve(cmd_path, args, envp);
-	// if (access(args[0], X_OK) == 0)
-	// 	error_exec_cmd(node, tmp);
-	perror(cmd_path);
 	free(cmd_path);
-	free_tab(envp);
-	free_node(node);
-	exit(126);
+	error_exec_cmd(node->cmd->shell, tmp, envp, 126);
 }
 
-/// @brief Create and make the redirects of fd for the files called
-/// @param redir 
-void	create_and_redir_file(t_redir *redir)
+/// @brief exec cmd in child
+/// @param node 
+static void	child_exec_cmd(t_node *node)
 {
-	int	fd;
-
-	if (redir)
-	{
-		while (redir)
-		{
-			fd = what_the_outfile(redir);
-			if (fd == -1)
-			{
-				exit(EXIT_FAILURE);
-			}
-			if (redir->type == REDIR_IN || redir->type == REDIR_HERE)
-				redirect_fd(STDIN_FILENO, fd);
-			else
-				redirect_fd(STDOUT_FILENO, fd);
-			close(fd);
-			redir = redir->next;
-		}
-	}
+  signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+	create_and_redir_file(node->cmd->redir);
+	if (is_one_buildin(node))
+		exec_the_buildin(node);
+	else
+		exec_cmd(node, node->cmd->av, rebuild_env(&node->cmd->shell->env));
 }
 
 /// @brief executes the command found or buildin in the node command
@@ -94,34 +76,26 @@ int	exec_node_cmd(t_node *node)
 	pid_t	pid;
 	int		status;
 
+	if (node->cmd->av[1])
+		if (is_wildcard(node->cmd->av[1]))
+			node->cmd->av = exec_wildcard(node->cmd->av);
 	if (exec_without_fork(node))
-	{
 		exec_buildin_without_fork(node);
-		return (node->cmd->shell->exit_status);
-	}
-	pid = create_fork();
-	if (pid == 0)
+	else
 	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
-		create_and_redir_file(node->cmd->redir);
-		if (is_one_buildin(node))
-			exec_the_buildin(node);
-		else
-			exec_cmd(node, node->cmd->av, rebuild_env(&node->cmd->shell->env));
+		pid = create_fork();
+		if (pid == 0)
+			child_exec_cmd(node);
+	  signal(SIGINT, SIG_IGN);
+  	signal(SIGQUIT, SIG_IGN);
+		waitpid(pid, &status, 0);
+    if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+		  write(1, "\n", 1);
+	  if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
+		  write(1, "Quit (core dumped)\n", 19);
+  	signal(SIGINT, controller);
+	  signal(SIGQUIT, SIG_IGN);
+		search_exit_status(node->cmd->shell, status);
 	}
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-	waitpid(pid, &status, 0);
-	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-		write(1, "\n", 1);
-	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
-		write(1, "Quit (core dumped)\n", 19);
-	signal(SIGINT, controller);
-	signal(SIGQUIT, SIG_IGN);
-	if (WIFEXITED(status))
-		node->cmd->shell->exit_status = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
-		node->cmd->shell->exit_status = 128 + WTERMSIG(status);
 	return (node->cmd->shell->exit_status);
 }
