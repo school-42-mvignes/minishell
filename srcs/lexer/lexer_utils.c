@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 13:20:34 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/24 09:41:16 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/24 12:15:29 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_token	*create_token(t_type token, char *value, int n)
 	new = malloc(sizeof(t_token));
 	if (!new)
 		return (NULL);
-	tmp = malloc(sizeof(char *) * (n + 1));
+	tmp = malloc(sizeof(char) * (n + 1));
 	if (!tmp)
 		return (free(new), NULL);
 	tmp[n] = '\0';
@@ -80,7 +80,7 @@ void	free_token_lst(t_token *lst) // leak, crash, la total
 	}
 	if (!lst)
 		return ;
-	if (lst->type == NONE)
+	if (lst)
 	{
 		if (lst->value)
 			free(lst->value);
