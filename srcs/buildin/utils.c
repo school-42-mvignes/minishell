@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:24:04 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/24 15:20:44 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/24 17:20:37 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,25 @@ void	free_exit(t_command *cmd)
 {
 	free_token_lst(cmd->shell->free_the_token);
 	free_node(cmd->shell->free_the_node);
+}
+
+/// @brief check if its a number
+/// @param str
+/// @return true or false
+int	is_num(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	if (str[i] == '\0')
+		return (0);
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
 }

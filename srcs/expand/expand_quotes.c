@@ -6,16 +6,16 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 15:53:11 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/10 16:06:02 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/24 15:40:47 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void cut_quotes(t_token *token)
+void	cut_quotes(t_token *token)
 {
-	char *new_str;
-	
+	char	*new_str;
+
 	while (token->next)
 	{
 		if (token->type != D_QUOTE && token->type != S_QUOTE)

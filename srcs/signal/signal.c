@@ -6,39 +6,27 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 17:09:26 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/23 16:05:16 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/24 15:57:15 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int g_status = 0;
+int		g_status = 0;
 
 void	controller(int sig)
 {
 	g_status = sig;
-	write(2,"^C\n", 3);
+	write(2, "^C\n", 3);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
 	signal(SIGINT, controller);
 }
 
-void init_signal(void)
+void	init_signal(void)
 {
 	rl_catch_signals = 0;
 	signal(SIGINT, controller);
 	signal(SIGQUIT, SIG_IGN);
 }
-
-
-// void	controller_for_heredoc(int sig)
-// {
-// 	(void)sig;
-// 	g_status = SIGINT;
-// 	write(1,"^C\n", 3);
-// 	rl_replace_line("", 0);
-// 	rl_on_new_line();
-// 	rl_done = 1;
-// 	// signal(SIGINT, controller_for_heredoc);
-// }
