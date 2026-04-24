@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
 /*   Updated: 2026/04/24 15:40:06 by mvignes          ###   ########.fr       */

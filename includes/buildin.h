@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   buildin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 14:09:56 by mvignes           #+#    #+#             */
 /*   Updated: 2026/04/24 16:13:59 by mvignes          ###   ########.fr       */
@@ -49,6 +49,7 @@ bool				is_one_buildin(t_node *node);
 bool				exec_without_fork(t_node *node);
 void				exec_buildin_without_fork(t_node *node);
 void				free_exit(t_command *cmd);
+int					is_num(char *str);
 
 void				buildin_unset(t_command *cmd);
 void				buildin_export(t_command *cmd);

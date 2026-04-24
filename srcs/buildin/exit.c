@@ -12,23 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-static	int is_num(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	if (str[i] == '\0')
-		return (0);
-	while (str[i])
-	{
-		if (!ft_isdigit(str[i]))
-			return (0);
-		i++;
-	}
-	return (1);
-}
 static void	not_num_exit(t_command *cmd)
 {
 	write(2, "minishell: exit: ", 17);
@@ -58,6 +41,7 @@ static int	check_overflow(long long res, int last_digit, int si, int *error)
 	}
 	return (0);
 }
+
 static long long	ft_atoll(char *str, int *error)
 {
 	int			i;
@@ -85,11 +69,23 @@ static long long	ft_atoll(char *str, int *error)
 	return (res * si);
 }
 
-int	buildin_exit(t_command *cmd)
+static void	do_atoll(t_command *cmd, int *error, int *status)
 {
 	long long	num_exit;
-	int			error;
-	int status;
+
+	num_exit = ft_atoll(cmd->av[1], error);
+	if (*error)
+		not_num_exit(cmd);
+	cmd->shell->exit_status = ((num_exit % 256) + 256) % 256;
+	*status = cmd->shell->exit_status;
+	free_exit(cmd);
+	exit(*status);
+}
+
+int	buildin_exit(t_command *cmd)
+{
+	int	error;
+	int	status;
 
 	status = 0;
 	error = 0;
@@ -104,15 +100,7 @@ int	buildin_exit(t_command *cmd)
 	if (cmd->av[1] && !is_num(cmd->av[1]))
 		not_num_exit(cmd);
 	if (cmd->av[1])
-	{
-		num_exit = ft_atoll(cmd->av[1], &error);
-		if (error)
-			not_num_exit(cmd);
-		cmd->shell->exit_status = ((num_exit % 256) + 256) % 256;
-		status = cmd->shell->exit_status;
-		free_exit(cmd);
-		exit(status);
-	}
+		do_atoll(cmd, &error, &status);
 	status = cmd->shell->exit_status;
 	free_exit(cmd);
 	exit(status);

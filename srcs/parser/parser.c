@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 11:51:04 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/21 16:01:10 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/24 14:29:55 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ t_node	*parse_bracket(t_token **token, t_shell *shell)
 		skip_spaces(token);
 		return (node);
 	}
-	return (NULL);	
+	return (NULL);
 }
 
 t_node	*parse_cmd(t_token **token, t_shell *shell)
