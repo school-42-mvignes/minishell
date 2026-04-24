@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/24 12:07:53 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/24 13:31:39 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	init_signal();
 	shell = ft_shellnew(env, &token);
+	if (!shell)
+		return (1);
 	while (1)
 	{
 		cur = NULL;
