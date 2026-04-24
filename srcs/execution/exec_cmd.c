@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/24 10:32:00 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/24 11:29:34 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,18 @@
 /// the command
 /// @param node 
 /// @param str 
-void	error_exec_cmd(t_node *node, char *str, char **env, bool status)
+void	error_exec_cmd(t_shell *shell, char *str, char **env, int exit_status)
 {
-	int	exit_status;
-
 	free_tab(env);
-	exit_status = 126;
-	if (status)
-		exit_status = 127;
-	ft_putstr_fd("minishell: line 1: ", 2);
+	ft_putstr_fd("minishell: ", 2);
 	if (str)
 		ft_putstr_fd(str, 2);
-	ft_putendl_fd(": command not found", 2);
-	node->cmd->shell->exit_status = exit_status;
-	exit_free_all(node->cmd->shell->free_the_token,
-		node->cmd->shell->free_the_node, node->cmd->shell, NULL);
+	if (exit_status == 127)
+		ft_putendl_fd(": command not found", 2);
+	else
+		ft_putendl_fd(" : Permission denied", 2);
+	shell->exit_status = exit_status;
+	exit_free_all(shell->free_the_token, shell->free_the_node, shell, NULL);
 }
 
 /// @brief executes the command found
@@ -46,16 +43,16 @@ void	exec_cmd(t_node *node, char **args, char **envp)
 	tmp = args[0];
 	if (!args || !args[0])
 	{
-		error_exec_cmd(node, tmp, envp, true);
+		error_exec_cmd(node->cmd->shell, tmp, envp, 127);
 	}
 	cmd_path = find_path(args[0], envp);
 	if (!cmd_path)
 	{
-		error_exec_cmd(node, tmp, envp, true);
+		error_exec_cmd(node->cmd->shell, tmp, envp, 127);
 	}
 	execve(cmd_path, args, envp);
 	free(cmd_path);
-	error_exec_cmd(node, tmp, envp, false);
+	error_exec_cmd(node->cmd->shell, tmp, envp, 126);
 }
 
 /// @brief exec cmd in child
