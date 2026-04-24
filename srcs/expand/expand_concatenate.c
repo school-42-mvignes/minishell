@@ -6,16 +6,17 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 16:06:17 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/10 16:26:56 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/24 15:42:59 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void concatenate(t_token *token)
+void	concatenate(t_token *token)
 {
-	char *new_str;
-	t_token *tmp;
+	char	*new_str;
+	t_token	*tmp;
+
 	while (token->next)
 	{
 		if (token->type == WORD && token->next->type == WORD)

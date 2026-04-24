@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 14:52:18 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/24 14:29:20 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/24 16:59:54 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,18 @@ static int	do_none(t_token **t_lst, char *str, int i, int *status)
 		return (1);
 	return (0);
 }
+
+// static void print_token(t_token *t_lst)
+// {
+// 	t_token *tmp;
+
+// 	tmp = t_lst;
+// 	while(tmp)
+// 	{
+// 		printf("%s\n", tmp->value);
+// 		tmp = tmp->next;
+// 	}
+// }
 
 t_token	*lexer(char *str, t_token *token)
 {
