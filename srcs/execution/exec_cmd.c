@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/24 17:17:14 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/24 17:30:40 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,7 @@ void	exec_cmd(t_node *node, char **args, char **envp)
 		error_exec_cmd(node->cmd->shell, tmp, envp, 127);
 	execve(cmd_path, args, envp);
 	free(cmd_path);
-	if (access(args[0], X_OK) != 0)
-		error_exec_cmd(node->cmd->shell, tmp, envp, 126);
-	error_exec_cmd(node->cmd->shell, tmp, envp, 127);
+	error_exec_cmd(node->cmd->shell, tmp, envp, 126);
 }
 
 /// @brief rebuild env in char ** for the execute cmd
