@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 16:54:22 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/24 10:17:57 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/24 11:59:36 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,6 @@ int	exec_pipe(t_node *node)
 	close(pipe[1]);
 	waitpid(pid_left, NULL, 0);
 	waitpid(pid_right, &status, 0);
-	search_exit_status(node->right->cmd->shell, status);
+	search_exit_status(node->right->cmd->shell, status, false);
 	return (status);
 }

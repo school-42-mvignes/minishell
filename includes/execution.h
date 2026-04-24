@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:14:18 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/23 17:21:35 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/24 11:56:07 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void						redirect_fd(int old_fd, int new_fd);
 pid_t						create_fork(void);
 int							create_pipe(int pipefd[2]);
 int							what_the_outfile(t_redir *redir);
-void						search_exit_status(t_shell *shell, int status);
+void						search_exit_status(t_shell *shell, int status, bool loc);
 
 int							avenger_assemble(t_node *node, t_shell *shell);
 int							do_heredoc(char *lim, t_shell *shell, int flag);

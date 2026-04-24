@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/22 13:12:33 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/24 11:56:03 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,16 +86,16 @@ int	exec_node_cmd(t_node *node)
 		pid = create_fork();
 		if (pid == 0)
 			child_exec_cmd(node);
-	  signal(SIGINT, SIG_IGN);
-  	signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
 		waitpid(pid, &status, 0);
-    if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-		  write(1, "\n", 1);
-	  if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
-		  write(1, "Quit (core dumped)\n", 19);
-  	signal(SIGINT, controller);
-	  signal(SIGQUIT, SIG_IGN);
-		search_exit_status(node->cmd->shell, status);
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+			write(1, "\n", 1);
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
+			write(1, "Quit (core dumped)\n", 19);
+		signal(SIGINT, controller);
+		signal(SIGQUIT, SIG_IGN);
+		search_exit_status(node->cmd->shell, status, true);
 	}
 	return (node->cmd->shell->exit_status);
 }

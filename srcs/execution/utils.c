@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 20:04:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/24 10:37:30 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/24 12:00:38 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,19 @@ void	redirect_fd(int old_fd, int new_fd)
 /// @brief wait exit status
 /// @param node 
 /// @param status 
-void	search_exit_status(t_shell *shell, int status)
+void	search_exit_status(t_shell *shell, int status, bool loc)
 {
+	(void)loc;
+
+	if (loc)
+	{
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+			write(1, "\n", 1);
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
+			write(1, "Quit (core dumped)\n", 19);
+		signal(SIGINT, controller);
+		signal(SIGQUIT, SIG_IGN);
+	}
 	if (WIFEXITED(status))
 		shell->exit_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
