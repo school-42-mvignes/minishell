@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 14:52:18 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/24 16:59:54 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/24 18:11:39 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,18 @@ static int	do_none(t_token **t_lst, char *str, int i, int *status)
 
 // static void print_token(t_token *t_lst)
 // {
+// 	int		node;
 // 	t_token *tmp;
 
 // 	tmp = t_lst;
+// 	node = 1;
 // 	while(tmp)
 // 	{
-// 		printf("%s\n", tmp->value);
+// 		printf("node nb : %i\n", node);
+// 		printf("value = %s\n", tmp->value);
+// 		printf("type = %i\n", tmp->type);
 // 		tmp = tmp->next;
+// 		node++;
 // 	}
 // }
 
@@ -91,13 +96,17 @@ t_token	*lexer(char *str, t_token *token)
 			continue ;
 		i = lexer_while(token, str, i);
 		if (i == -1)
-			return (NULL);
+			return (free_token_lst(t_lst), NULL);
 		add_token(&t_lst, create_token(token->type, str + j, i - j), &status);
 		if (status == 1)
 			return (NULL);
 	}
+	// printf("print avant done:\n\n");
+	// print_token(t_lst);
 	if (do_none(&t_lst, str, i, &status) == 1)
 		return (NULL);
+	// printf("print apres done:\n\n");
+	// print_token(t_lst);
 	check_quote_heredoc(t_lst);
 	return (t_lst);
 }
