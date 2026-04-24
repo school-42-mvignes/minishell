@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 16:46:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/24 13:37:13 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/24 13:40:44 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /// @brief incrementing nomber in char
 /// @param str 
 /// @return char *
-char	*char_incrementing(char *str)
+static char	*char_incrementing(char *str)
 {
 	int		res;
 	char	*tmp;
