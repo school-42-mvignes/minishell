@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lstenv.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 01:26:50 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/21 16:16:27 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/24 13:19:40 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,14 @@ void	ft_envclear(t_env **env, void (*del)(void *))
 	while (*env)
 	{
 		tmp = (*env)->next;
-		if ((*env)->key_var)
-			del((*env)->key_var);
-		if ((*env)->var)
-			del((*env)->var);
 		if ((*env))
+		{
+			if ((*env)->key_var)
+				del((*env)->key_var);
+			if ((*env)->var)
+				del((*env)->var);
 			del((*env));
+		}
 		*env = tmp;
 	}
 }
@@ -56,16 +58,23 @@ t_env	*ft_envnew(char **tab)
 	t_env	*element;
 
 	element = malloc(sizeof(t_env));
-	if (!element)
+	if (!element || !tab)
 		return (NULL);
-	element->key_var = tab[0];
-	if (!element->key_var)
-		return (NULL);
-	element->var = tab[1];
-	if (!element->var)
+	if (tab[0])
 	{
-		free(tab[0]);
-		return (NULL);
+		element->key_var = tab[0];
+		if (!element->key_var)
+			return (free(element), NULL);
+	}
+	if (tab[1])
+	{
+		element->var = tab[1];
+		if (!element->var)
+		{
+			free(element);
+			free_tab(tab);
+			return (NULL);
+		}
 	}
 	element->next = NULL;
 	return (element);

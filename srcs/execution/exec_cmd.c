@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/22 13:12:33 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/24 13:37:28 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,32 @@ void	exec_cmd(t_node *node, char **args, char **envp)
 	error_exec_cmd(node->cmd->shell, tmp, envp, 126);
 }
 
+/// @brief rebuild env in char ** for the execute cmd
+/// @param env 
+/// @return char ** env
+char	**rebuild_env(t_env **env)
+{
+	t_env	*tmp;
+	char	*str_tmp;
+	char	**tab;
+	int		i;
+
+	tmp = (*env);
+	tab = malloc(sizeof(char *) * (ft_envsize(tmp) + 1));
+	i = 0;
+	while (tmp)
+	{
+		str_tmp = ft_strjoin(tmp->key_var, "=");
+		tab[i] = ft_strjoin_gnl(str_tmp, tmp->var);
+		if (!tab[i])
+			return (NULL);
+		i++;
+		tmp = tmp->next;
+	}
+	tab[i] = NULL;
+	return (tab);
+}
+
 /// @brief exec cmd in child
 /// @param node 
 static void	child_exec_cmd(t_node *node)
@@ -86,16 +112,16 @@ int	exec_node_cmd(t_node *node)
 		pid = create_fork();
 		if (pid == 0)
 			child_exec_cmd(node);
-	  signal(SIGINT, SIG_IGN);
-  	signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
 		waitpid(pid, &status, 0);
-    if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-		  write(1, "\n", 1);
-	  if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
-		  write(1, "Quit (core dumped)\n", 19);
-  	signal(SIGINT, controller);
-	  signal(SIGQUIT, SIG_IGN);
-		search_exit_status(node->cmd->shell, status);
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+			write(1, "\n", 1);
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
+			write(1, "Quit (core dumped)\n", 19);
+		signal(SIGINT, controller);
+		signal(SIGQUIT, SIG_IGN);
+		search_exit_status(node->cmd->shell, status, true);
 	}
 	return (node->cmd->shell->exit_status);
 }
