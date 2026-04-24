@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 20:04:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/22 13:34:18 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/24 10:37:30 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,29 @@ void	redirect_fd(int old_fd, int new_fd)
 	}
 }
 
-/// @brief search last redir for execution in the good redirection
+/// @brief wait exit status
+/// @param node 
+/// @param status 
+void	search_exit_status(t_shell *shell, int status)
+{
+	if (WIFEXITED(status))
+		shell->exit_status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		shell->exit_status = 128 + WTERMSIG(status);
+}
+
+/// @brief write message error
+/// @param message 
+void	error_message(char *message)
+{
+	ft_putendl_fd(message, 2);
+	exit (1);
+}
+
+/*/// @brief search last redir for execution in the good redirection
 /// @param redir 
 /// @return last redir
-t_redir	*search_last_fd_redir(t_redir *redir)
+ t_redir	*search_last_fd_redir(t_redir *redir)
 {
 	t_redir	*tmp;
 
@@ -65,10 +84,4 @@ t_redir	*search_last_fd_redir(t_redir *redir)
 	while (tmp->next)
 		tmp = tmp->next;
 	return (tmp);
-}
-
-void	error_message(char *message)
-{
-	ft_putendl_fd(message, 2);
-	exit (1);
-}
+} */

@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:18:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/22 14:00:34 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/23 16:59:16 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,29 @@ static int	open_file_app(char *outfile)
 	return (fd);
 }
 
-bool	wildcard_redir(char *str)
+/// @brief Create and make the redirects of fd for the files called
+/// @param redir 
+void	create_and_redir_file(t_redir *redir)
 {
-	int	i;
+	int	fd;
 
-	i = -1;
-	while (str[++i])
+	if (redir)
 	{
-		
-		if (str[i] == '*')
-			return (true);
-		i++;
+		while (redir)
+		{
+			fd = what_the_outfile(redir);
+			if (fd == -1)
+			{
+				exit(EXIT_FAILURE);
+			}
+			if (redir->type == REDIR_IN || redir->type == REDIR_HERE)
+				redirect_fd(STDIN_FILENO, fd);
+			else
+				redirect_fd(STDOUT_FILENO, fd);
+			close(fd);
+			redir = redir->next;
+		}
 	}
-	return (false);
 }
 
 /// @brief Choose how to open the file

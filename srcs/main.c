@@ -6,13 +6,13 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/23 13:46:01 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/23 17:59:47 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell
 // funcheck ./minishell -c "ls | ls"
-
+// valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-fds=yes ./minishell
 #include "../includes/minishell.h"
 
 t_shell	*ft_shellnew(char **env, t_token *token)
@@ -92,7 +92,9 @@ int	main(int ac, char **av, char **env)
 		shell->free_the_node = node;
 		avenger_assemble(node, shell);
 		if (node)
+		{
 			shell->exit_status = exec_node(node);
+		}
 		free_node(node);
 		// free_token_lst(&token);
 		free_token_lst(cur);

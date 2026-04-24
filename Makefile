@@ -141,9 +141,6 @@ SRCS	= srcs/libft/ft_isalpha.c\
 		srcs/expand/expand_concatenate.c\
 		\
 		srcs/signal/signal.c\
-		
-#srcs/execution/and.c
-#srcs/execution/or.c
 
 SRCS_BONUS	= \
 
@@ -185,6 +182,7 @@ $(NAME): $(OBJS)
 
 clean:
 	@$(RM) -r $(OBJS_DIR)
+	@$(RM) vgcore.*
 	@printf "$(RED)Dossier .objects supprimé$(RESET)\n"
 
 fclean: clean

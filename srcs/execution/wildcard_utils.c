@@ -6,11 +6,29 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 10:52:24 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/22 13:55:04 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/23 16:57:52 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+/// @brief check if the redir is wildcard
+/// @param str 
+/// @return true == wildcard in the redir
+bool	wildcard_redir(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+	{
+		
+		if (str[i] == '*')
+			return (true);
+		i++;
+	}
+	return (false);
+}
 
 /// @brief check if there is a wildcard in the character string
 /// @param str 
