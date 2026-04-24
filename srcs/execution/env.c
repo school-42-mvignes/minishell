@@ -6,37 +6,44 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 16:46:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/24 10:33:33 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/24 13:13:50 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+
+char	*char_incrementing(char *str)
+{
+	int		res;
+	char	*tmp;
+
+	res = ft_atoi(str);
+	if (!res)
+		res = 0;
+	res++;
+	tmp = ft_itoa(res);
+	return (tmp);
+}
 
 /// @brief will increment 1 to the variable shell level
 /// @param tab 
 /// @return char ** new value SHLVL
 char	**shell_lvl(char **tab)
 {
-	char	*tmp1;
-	char	*tmp2;
 	char	**new_tab;
-	int		resultat;
 
-	tmp1 = NULL;
-	tmp2 = NULL;
-	tmp1 = ft_strdup(tab[1]);
-	resultat = ft_atoi(tmp1);
-	if (!resultat)
-		resultat = 0;
-	resultat++;
-	tmp2 = ft_itoa(resultat);
 	new_tab = malloc(sizeof(char *) * 3);
+	if (!new_tab)
+		return (NULL);
 	new_tab[0] = ft_strdup(tab[0]);
-	new_tab[1] = ft_strdup(tmp2);
+	if (!new_tab[0])
+		return(free_tab(new_tab), NULL);
+	new_tab[1] = char_incrementing(tab[1]);
+	if (!new_tab[1])
+		return(free_tab(new_tab), NULL);
 	new_tab[2] = NULL;
 	free_tab(tab);
-	free(tmp1);
-	free(tmp2);
 	return (new_tab);
 }
 
