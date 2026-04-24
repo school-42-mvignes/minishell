@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/24 16:22:08 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/24 18:12:28 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int	main(int ac, char **av, char **env)
 	{
 		cur = NULL;
 		node = NULL;
+		shell->free_the_token = &token;
 		buf = readline("Minishell$ ");
 		if (buf == NULL)
 		{
@@ -125,6 +126,13 @@ int	main(int ac, char **av, char **env)
 		// free_token_lst(&token);
 		free_token_lst(cur);
 		free(buf);
+		if (shell->free_the_token)
+		{
+			if (shell->free_the_token->value)
+				free(shell->free_the_token->value);
+			free(shell->free_the_token);
+		}
+		shell->free_the_token = NULL;
 		cur = NULL;
 		node = NULL;
 	}
