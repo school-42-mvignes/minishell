@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 15:16:29 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/08 16:07:04 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/24 12:24:37 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_redir	*add_redir(t_redir **redir, t_redir *new_redir)
 
 void	skip_spaces(t_token **token)
 {
-	while ((*token)->type == SPACES)
+	while (*token && (*token)->type == SPACES)
 		use_token(token);
 }
 
