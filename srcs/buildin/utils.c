@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/15 15:46:03 by mvignes           #+#    #+#             */ 
-/*   Updated: 2026/04/21 11:25:28 by mmusquer         ###   ########.fr       */
+/*   Created: 2026/03/20 01:24:04 by mvignes           #+#    #+#             */
+/*   Updated: 2026/04/24 15:20:44 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,18 @@ bool	is_one_buildin(t_node *node)
 	return (false);
 }
 
-/// @brief Check if he is in a trap and whether to launch a fork or not on the buildin cd, export, unset
+/// @brief Check if he is in a trap and whether to launch a fork
+/// or not on the buildin cd, export, unset
 /// @param node 
 /// @return true = exec_without_fork, false exec_with_fork
 bool	exec_without_fork(t_node *node)
 {
-	if (!node->in_pipe &&
-	(!ft_strncmp(CD, node->cmd->av[0], 3)
-	|| !ft_strncmp(EXPORT, node->cmd->av[0], 7)
-	|| !ft_strncmp(UNSET, node->cmd->av[0], 6)
-	|| !ft_strncmp(EXIT, node->cmd->av[0], 5)))
+	if (node->in_pipe)
+		return (false);
+	if (!ft_strncmp(CD, node->cmd->av[0], 3)
+		|| !ft_strncmp(EXPORT, node->cmd->av[0], 7)
+		|| !ft_strncmp(UNSET, node->cmd->av[0], 6)
+		|| !ft_strncmp(EXIT, node->cmd->av[0], 5))
 		return (true);
 	return (false);
 }

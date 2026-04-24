@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 20:04:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/24 12:00:38 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/24 15:37:19 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ void	redirect_fd(int old_fd, int new_fd)
 /// @param status 
 void	search_exit_status(t_shell *shell, int status, bool loc)
 {
-	(void)loc;
-
 	if (loc)
 	{
 		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
@@ -83,16 +81,3 @@ void	error_message(char *message)
 	ft_putendl_fd(message, 2);
 	exit (1);
 }
-
-/*/// @brief search last redir for execution in the good redirection
-/// @param redir 
-/// @return last redir
- t_redir	*search_last_fd_redir(t_redir *redir)
-{
-	t_redir	*tmp;
-
-	tmp = redir;
-	while (tmp->next)
-		tmp = tmp->next;
-	return (tmp);
-} */

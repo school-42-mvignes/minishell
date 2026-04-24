@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 16:54:22 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/24 12:04:13 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/24 15:36:40 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /// @brief execute the node left
 /// @param node 
 /// @param pipe 
-void	exec_left(t_node *node, int *pipe)
+static void	exec_left(t_node *node, t_shell *shell, int *pipe)
 {
 	int	ret;
 
@@ -24,14 +24,14 @@ void	exec_left(t_node *node, int *pipe)
 	close(pipe[1]);
 	node->left->in_pipe = true;
 	ret = exec_node(node->left);
-	exit_free_all(node->right->cmd->shell->free_the_token, node->right->cmd->shell->free_the_node, node->right->cmd->shell, NULL);
+	exit_free_all(shell->free_the_token, shell->free_the_node, shell, NULL);
 	exit(ret);
 }
 
 /// @brief execute the node right
 /// @param node 
 /// @param pipe 
-void	exec_right(t_node *node, int *pipe)
+static void	exec_right(t_node *node, t_shell *shell, int *pipe)
 {
 	int	ret;
 
@@ -39,7 +39,7 @@ void	exec_right(t_node *node, int *pipe)
 	redirect_fd(STDIN_FILENO, pipe[0]);
 	close(pipe[0]);
 	ret = exec_node(node->right);
-	exit_free_all(node->right->cmd->shell->free_the_token, node->right->cmd->shell->free_the_node, node->right->cmd->shell, NULL);
+	exit_free_all(shell->free_the_token, shell->free_the_node, shell, NULL);
 	exit(ret);
 }
 
@@ -58,10 +58,10 @@ int	exec_pipe(t_node *node)
 		error_message("error : during the creation of the pipe\n");
 	pid_left = create_fork();
 	if (pid_left == 0)
-		exec_left(node, pipe);
+		exec_left(node, node->right->cmd->shell, pipe);
 	pid_right = create_fork();
 	if (pid_right == 0)
-		exec_right(node, pipe);
+		exec_right(node, node->right->cmd->shell, pipe);
 	close(pipe[0]);
 	close(pipe[1]);
 	waitpid(pid_left, NULL, 0);

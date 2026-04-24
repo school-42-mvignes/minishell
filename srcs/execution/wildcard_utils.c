@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 10:52:24 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/23 16:57:52 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/24 15:23:39 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ bool	wildcard_redir(char *str)
 	i = -1;
 	while (str[++i])
 	{
-		
 		if (str[i] == '*')
 			return (true);
 		i++;
@@ -76,7 +75,7 @@ bool	match(char *pat, char *str)
 char	**rebuild_av_for_wildcard(t_list *lst)
 {
 	char	**tab;
-	int	 i;
+	int		i;
 
 	tab = malloc(sizeof(char *) * (ft_lstsize(lst) + 1));
 	if (!tab)
@@ -84,7 +83,7 @@ char	**rebuild_av_for_wildcard(t_list *lst)
 	i = 0;
 	while (lst)
 	{
-		tab[i++] = ft_strdup(lst->content); 
+		tab[i++] = ft_strdup(lst->content);
 		lst = lst->next;
 	}
 	tab[i] = NULL;

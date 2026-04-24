@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/15 15:02:23 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/24 16:13:14 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,23 @@
 
 # include "minishell.h"
 
+/// @brief enumeration for the type struct token
 typedef enum e_type
 {
-	WORD,       // mot
-	SP_AND,     // &&
-	SP_OR,      // ||
-	SP_PIPE,    // |
-	REDIR_IN,   // <
-	REDIR_OUT,  // >
-	REDIR_APP,  // >>
-	REDIR_HERE, // <<
-	S_QUOTE,    // ''
-	D_QUOTE,    // ""
-	L_BRACKET,  // (
-	R_BRACKET,  // )
-	SPACES,      // ' '
-	NONE,       // y'a R
+	WORD,
+	SP_AND,
+	SP_OR,
+	SP_PIPE,
+	REDIR_IN,
+	REDIR_OUT,
+	REDIR_APP,
+	REDIR_HERE,
+	S_QUOTE,
+	D_QUOTE,
+	L_BRACKET,
+	R_BRACKET,
+	SPACES,
+	NONE,
 }					t_type;
 
 typedef struct s_token

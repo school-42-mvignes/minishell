@@ -6,48 +6,11 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 16:46:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/24 13:40:44 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/24 16:02:54 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-/// @brief incrementing nomber in char
-/// @param str 
-/// @return char *
-static char	*char_incrementing(char *str)
-{
-	int		res;
-	char	*tmp;
-
-	res = ft_atoi(str);
-	if (!res)
-		res = 0;
-	res++;
-	tmp = ft_itoa(res);
-	return (tmp);
-}
-
-/// @brief will increment 1 to the variable shell level
-/// @param tab 
-/// @return char ** new value SHLVL
-char	**shell_lvl(char **tab)
-{
-	char	**new_tab;
-
-	new_tab = malloc(sizeof(char *) * 3);
-	if (!new_tab)
-		return (NULL);
-	new_tab[0] = ft_strdup(tab[0]);
-	if (!new_tab[0])
-		return(free_tab(new_tab), NULL);
-	new_tab[1] = char_incrementing(tab[1]);
-	if (!new_tab[1])
-		return(free_tab(new_tab), NULL);
-	new_tab[2] = NULL;
-	free_tab(tab);
-	return (new_tab);
-}
 
 /// @brief init the list for env in the form of a linked list
 /// @param lst 
@@ -57,6 +20,8 @@ void	init_lst_env(t_list *lst, t_env **env)
 	char	**tab;
 	t_env	*new;
 
+	if (!lst || !env)
+		return ;
 	while (lst)
 	{
 		tab = split_in_two(lst->content, '=');
@@ -74,12 +39,12 @@ void	init_lst_env(t_list *lst, t_env **env)
 /// @brief build the env in char ** when you run the program without the env
 /// @param void
 /// @return new env
-char	**build_env_since_then_nothing(void)
+static char	**build_env_since_then_nothing(void)
 {
 	char	**tab;
 	char	*tmp;
 
-	tmp =getcwd(NULL, 0);
+	tmp = getcwd(NULL, 0);
 	tab = malloc(sizeof(char *) * 4);
 	tab[0] = ft_strjoin("PWD=", tmp);
 	tab[1] = ft_strjoin("SHLVL=", "1");
@@ -94,11 +59,14 @@ char	**build_env_since_then_nothing(void)
 /// @return env in list linkend
 t_env	*call_env(char **env)
 {
-	t_list	*lst = NULL;
-	t_env	*lst_env = NULL;
+	t_list	*lst;
+	t_env	*lst_env;
 	char	**tab;
-	bool	env_build = false;
+	bool	env_build;
 
+	lst = NULL;
+	lst_env = NULL;
+	env_build = false;
 	if (env[0])
 		split_tab_to_list(env, &lst);
 	else
@@ -109,11 +77,7 @@ t_env	*call_env(char **env)
 		env_build = true;
 		split_tab_to_list(tab, &lst);
 	}
-	if (lst == NULL)
-		error_message("error when separating the environment\n");
 	init_lst_env(lst, &lst_env);
-	if (lst_env == NULL)
-		error_message("error during the linking of the environment\n");
 	ft_lstclear(&lst, free);
 	if (env_build)
 		free_tab(tab);

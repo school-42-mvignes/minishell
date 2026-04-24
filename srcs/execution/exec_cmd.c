@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/24 16:48:40 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/24 15:40:06 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,15 @@ void	error_exec_cmd(t_shell *shell, char *str, char **env, int exit_status)
 /// @param envp 
 void	exec_cmd(t_node *node, char **args, char **envp)
 {
-	(void)node;
-	char		*cmd_path;
-	char		*tmp;
+	char	*cmd_path;
+	char	*tmp;
 
 	tmp = args[0];
 	if (!args || !args[0])
-	{
 		error_exec_cmd(node->cmd->shell, tmp, envp, 127);
-	}
 	cmd_path = find_path(args[0], envp);
 	if (!cmd_path)
-	{
 		error_exec_cmd(node->cmd->shell, tmp, envp, 127);
-	}
 	execve(cmd_path, args, envp);
 	free(cmd_path);
 	error_exec_cmd(node->cmd->shell, tmp, envp, 126);
@@ -85,7 +80,7 @@ char	**rebuild_env(t_env **env)
 /// @param node 
 static void	child_exec_cmd(t_node *node)
 {
-  signal(SIGINT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	create_and_redir_file(node->cmd->redir);
 	if (is_one_buildin(node))
