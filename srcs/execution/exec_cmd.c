@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/24 15:40:06 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/24 17:17:14 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ void	exec_cmd(t_node *node, char **args, char **envp)
 		error_exec_cmd(node->cmd->shell, tmp, envp, 127);
 	execve(cmd_path, args, envp);
 	free(cmd_path);
-	error_exec_cmd(node->cmd->shell, tmp, envp, 126);
+	if (access(args[0], X_OK) != 0)
+		error_exec_cmd(node->cmd->shell, tmp, envp, 126);
+	error_exec_cmd(node->cmd->shell, tmp, envp, 127);
 }
 
 /// @brief rebuild env in char ** for the execute cmd

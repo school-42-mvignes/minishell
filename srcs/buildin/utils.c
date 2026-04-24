@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:24:04 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/24 15:20:44 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/24 17:20:37 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	free_exit(t_command *cmd)
 /// @brief check if its a number
 /// @param str
 /// @return true or false
-int is_num(char *str)
+int	is_num(char *str)
 {
 	int	i;
 
