@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 16:54:22 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/24 15:36:40 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/25 11:30:27 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	exec_left(t_node *node, t_shell *shell, int *pipe)
 
 	close(pipe[0]);
 	redirect_fd(STDOUT_FILENO, pipe[1]);
-	close(pipe[1]);
+	// close(pipe[1]);
 	node->left->in_pipe = true;
 	ret = exec_node(node->left);
 	exit_free_all(shell->free_the_token, shell->free_the_node, shell, NULL);
@@ -37,7 +37,7 @@ static void	exec_right(t_node *node, t_shell *shell, int *pipe)
 
 	close(pipe[1]);
 	redirect_fd(STDIN_FILENO, pipe[0]);
-	close(pipe[0]);
+	// close(pipe[0]);
 	ret = exec_node(node->right);
 	exit_free_all(shell->free_the_token, shell->free_the_node, shell, NULL);
 	exit(ret);
