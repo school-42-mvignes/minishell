@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:57 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/25 12:15:29 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/25 17:35:34 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,13 @@
 /// @param cmd 
 void	error_export(t_command *cmd)
 {
-	ft_putstr_fd("minishell: export:", 2);
-	ft_putchar_fd('`', 2);
-	ft_putstr_fd(cmd->av[1], 2);
-	ft_putendl_fd("': not a valid identifier", 2);
+	char	*msg;
+
+	msg = ft_strjoin("Minishell: export:", "`");
+	msg = ft_strjoin_gnl(msg, cmd->av[1]);
+	msg = ft_strjoin_gnl(msg, "': not a valid identifier");
+	ft_putendl_fd(msg, 2);
+	free(msg);
 	cmd->shell->exit_status = 1;
 }
 

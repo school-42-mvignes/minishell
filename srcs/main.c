@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/25 12:52:06 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/25 17:36:46 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	exit_free_all(t_token *lst, t_node *node, t_shell *shell, char *b)
 	if (node)
 		free_node(node);
 	rl_clear_history();
-	free(b);
+	if (b)
+		free(b);
 	close(STDOUT_FILENO);
 	close(STDIN_FILENO);
 	exit(status);
@@ -131,6 +132,7 @@ int	main(int ac, char **av, char **env)
 		/////////////////////////////////on l'appelera ici mais surtout dans le exit all
 		// if (shell->free_the_token)
 		// {
+		// sleep(10);
 		if (shell->free_the_token->value)
 			free(shell->free_the_token->value);
 		free(shell->free_the_token);

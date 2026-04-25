@@ -244,6 +244,13 @@ stats:
 	@printf "	Lignes code	: %d\n" $$(cat $(SRCS) $(SRCS_BONUS) | wc -l)
 	@printf "	Headers		: %d\n" $$(find includes -name "*.h" | wc -l)
 
+des:
+	@printf "$(CYAN)description de toute les fonctions :(RESET)\n"
+#	@printf "mkdir .des"
+#awk -v RS='\\Z' "///// && /^int.*)$/ && /^char.&)$/{e=1} END{exit !e}" */* && echo "exists" || echo "does not exist"
+#(cat */* | grep "^///") || (cat */* | grep "^char.*)$") || (cat */* | grep "^int.*)$")
+#	@printf "cat */* | grep /// > .des"
+
 #===========================================#
 #  ___       _      ___          _ _ 	   ||
 # / _ \     | |    / _ \        (_|_)	   ||
