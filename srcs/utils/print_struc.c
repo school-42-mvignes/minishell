@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 04:14:38 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/16 20:21:18 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/25 12:42:08 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,14 @@ void	print_env(t_env *lst)
 	tmp = lst;
 	while (tmp)
 	{
-		ft_putstr_fd(tmp->key_var, 1);
-		ft_putchar_fd('=', 1);
-		if (tmp->var[0])
-			ft_putstr_fd(tmp->var, 1);
-		ft_putchar_fd('\n', 1);
+		if (tmp->var[0] != '\0')
+		{
+			ft_putstr_fd(tmp->key_var, 1);
+			ft_putchar_fd('=', 1);
+			if (tmp->var[0])
+				ft_putstr_fd(tmp->var, 1);
+			ft_putchar_fd('\n', 1);
+		}
 		tmp = tmp->next;
 	}
 }

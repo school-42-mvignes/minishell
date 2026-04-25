@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 16:54:22 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/25 11:30:27 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/25 12:51:54 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,12 @@
 /// @param pipe 
 static void	exec_left(t_node *node, t_shell *shell, int *pipe)
 {
-	int	ret;
-
 	close(pipe[0]);
 	redirect_fd(STDOUT_FILENO, pipe[1]);
-	// close(pipe[1]);
+	close(pipe[1]);
 	node->left->in_pipe = true;
-	ret = exec_node(node->left);
+	exec_node(node->left);
 	exit_free_all(shell->free_the_token, shell->free_the_node, shell, NULL);
-	exit(ret);
 }
 
 /// @brief execute the node right
@@ -33,14 +30,11 @@ static void	exec_left(t_node *node, t_shell *shell, int *pipe)
 /// @param pipe 
 static void	exec_right(t_node *node, t_shell *shell, int *pipe)
 {
-	int	ret;
-
 	close(pipe[1]);
 	redirect_fd(STDIN_FILENO, pipe[0]);
-	// close(pipe[0]);
-	ret = exec_node(node->right);
+	close(pipe[0]);
+	exec_node(node->right);
 	exit_free_all(shell->free_the_token, shell->free_the_node, shell, NULL);
-	exit(ret);
 }
 
 /// @brief execute the "|" and do a recursive if there are other

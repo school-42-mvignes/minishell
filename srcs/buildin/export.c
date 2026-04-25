@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:57 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/18 16:02:49 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/25 12:15:29 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,35 @@ void	error_export(t_command *cmd)
 	cmd->shell->exit_status = 1;
 }
 
-/// @brief create or edit the var in list t_env
+/// @brief create node var empty for export
 /// @param cmd 
-void	create_or_edit_var(t_command *cmd)
+t_env	*create_node_var_empty(t_command *cmd)
 {
-	t_env	*node;
+	t_env	*new;
 	char	**tab;
 
+	tab = malloc(sizeof(char *) * 3);
+	if (!tab)
+		return (NULL);
+	tab[0] = ft_strdup(cmd->av[1]);
+	if (!tab)
+		return (free_tab(tab), NULL);
+	tab[1] = ft_strdup("");
+	if (!tab)
+		return (free_tab(tab), NULL);
+	tab[2] = NULL;
+	new = ft_envnew(tab);
+	if (!new)
+		free_tab(tab);
+	return (new);
+}
+
+/// @brief edit var in list t_env
+/// @param cmd 
+void	edit_var(t_command *cmd, t_env *node)
+{
+	char	**tab;
+	
 	tab = split_in_two(cmd->av[1], '=');
 	if (!tab)
 		return ;
@@ -40,13 +62,27 @@ void	create_or_edit_var(t_command *cmd)
 		ft_envadd_back(&cmd->shell->env, node);
 		free(tab);
 	}
+}
+
+/// @brief create or edit the var in list t_env
+/// @param cmd 
+void	create_or_edit_var(t_command *cmd)
+{
+	t_env	*node;
+
+	node = NULL;
+	if (strchr(cmd->av[1], '='))
+	{
+		edit_var(cmd, node);
+		if (node)
+			return ;
+	}
 	else
 	{
-		free(tab[0]);
-		free(node->var);
-		node->var = NULL;
-		node->var = tab[1];
-		free(tab);
+		node = create_node_var_empty(cmd);
+		if (!node)
+			return ;
+		ft_envadd_back(&cmd->shell->env, node);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 20:04:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/25 11:30:13 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/25 12:16:21 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ void	redirect_fd(int old_fd, int new_fd)
 		perror("dup2");
 		exit(1);
 	}
-	close(old_fd);
-	close(new_fd);
+	// close(old_fd);
+	// close(new_fd);
 }
 
 /// @brief wait exit status

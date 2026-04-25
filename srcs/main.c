@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/25 11:33:20 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/25 12:52:06 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	exit_free_all(t_token *lst, t_node *node, t_shell *shell, char *b)
 		free_node(node);
 	rl_clear_history();
 	free(b);
+	close(STDOUT_FILENO);
+	close(STDIN_FILENO);
 	exit(status);
 	
 }
@@ -112,7 +114,7 @@ int	main(int ac, char **av, char **env)
 		shell->free_the_node = node;
 		shell->exit_status = avenger_assemble(node, shell);
 		if (shell->exit_status == 0 && node)
-			shell->exit_status = exec_node(node);
+		shell->exit_status = exec_node(node);
 		if (shell->exit_status == 130)
 		{
 			free(node);
