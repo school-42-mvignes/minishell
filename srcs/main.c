@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/25 17:36:46 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/25 18:30:42 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,16 +126,17 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		}
 		free_node(node);
-		free_token_lst(cur);
+		// free_token_lst(cur);
 		free(buf);
 		/////////////////////////////////faire une fonction fin d'execution pour qu'on puisse la rappeler dans les enfants / enfnat des enfants, ...
 		/////////////////////////////////on l'appelera ici mais surtout dans le exit all
 		// if (shell->free_the_token)
 		// {
 		// sleep(10);
-		if (shell->free_the_token->value)
-			free(shell->free_the_token->value);
-		free(shell->free_the_token);
+		free_token_lst(shell->free_the_token);
+		// if (shell->free_the_token->value)
+		// 	free(shell->free_the_token->value);
+		// free(shell->free_the_token);
 		// }
 		shell->free_the_token = NULL;
 		cur = NULL;
