@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/26 10:23:50 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/26 16:38:37 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,12 @@ typedef struct s_node
 	pid_t			last_pid;
 }					t_node;
 
+// typedef struct s_init
+// {
+// 	t_token			*cur;
+// 	t_token			token;
+// 	t_node			*node;
+// }					t_init;
 
 t_shell		*call_shell(t_node *node);
 void		init_signal(void);

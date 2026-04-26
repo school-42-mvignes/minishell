@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 10:52:24 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/24 15:23:39 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/26 16:56:33 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,12 @@ bool	wildcard_redir(char *str)
 {
 	int	i;
 
+	if (!str)
+		return (false);
 	i = -1;
 	while (str[++i])
-	{
 		if (str[i] == '*')
 			return (true);
-		i++;
-	}
 	return (false);
 }
 
