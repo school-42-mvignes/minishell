@@ -99,6 +99,7 @@ SRCS	= srcs/libft/ft_isalpha.c\
 		srcs/utils/lstenv.c\
 		srcs/utils/other_split.c\
 		srcs/utils/print_struc.c\
+		srcs/utils/utils.c\
 		\
 		srcs/buildin/cd.c\
 		srcs/buildin/echo.c\
