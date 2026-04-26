@@ -190,7 +190,7 @@ clean:
 	@printf "$(RED)Dossier .objects supprimé$(RESET)\n"
 
 fclean: clean
-	@$(RM) $(NAME) .last_colors
+	@$(RM) $(NAME) .last_colors extract.awk
 	@printf "$(RED)$(NAME) supprimé$(RESET)\n"
 
 re: fclean all
@@ -246,12 +246,11 @@ stats:
 	@printf "	Lignes code	: %d\n" $$(cat $(SRCS) $(SRCS_BONUS) | wc -l)
 	@printf "	Headers		: %d\n" $$(find includes -name "*.h" | wc -l)
 
+# Description des fonctions du projet
 des:
-	@printf "$(CYAN)description de toute les fonctions :(RESET)\n"
-#	@printf "mkdir .des"
-#awk -v RS='\\Z' "///// && /^int.*)$/ && /^char.&)$/{e=1} END{exit !e}" */* && echo "exists" || echo "does not exist"
-#(cat */* | grep "^///") || (cat */* | grep "^char.*)$") || (cat */* | grep "^int.*)$")
-#	@printf "cat */* | grep /// > .des"
+	@printf "$(CYAN)$(GRAS)Description des fonctions du projet :$(RESET)\n\n\n\n"
+	@find srcs -name "*.c" -exec awk '/^\/\/\// { c=1; print; next } c\
+	 && /\(/ { print; print ""; print ""; c=0 }' {} +
 
 val:
 	@make re

@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/26 10:21:13 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/26 10:27:20 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/26 14:23:28 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ void	error_message(char *message)
 	exit (1);
 }
 
+/// @brief search struct shell
+/// @param node 
+/// @return struct shell
 t_shell	*call_shell(t_node *node)
 {
 	t_node	*tmp;
