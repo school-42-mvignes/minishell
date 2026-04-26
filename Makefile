@@ -199,7 +199,7 @@ bonus:
 	@$(MAKE) -j12 $(NAME) $(OBJS_BONUS)
 
 bash:
-	bash --posix
+	@bash --posix
 
 #============================================================#
 # _____                       _ _       _   _             	||
@@ -256,7 +256,7 @@ val:
 	@make re
 	@$(VALGRIND) ./minishell
 
-mini:
+mi:
 	@make re
 	@./minishell
 
