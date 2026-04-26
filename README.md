@@ -39,6 +39,7 @@ minishell/
 │   |   └── utils.c
 │   ├── execution/
 │   |   ├── and.c
+│   |   ├── env_utils.c
 │   |   ├── env.c
 │   |   ├── exec_cmd.c
 │   |   ├── exec_line.c
@@ -62,7 +63,7 @@ minishell/
 │   |   ├── lexer_utils.c
 │   |   └── lexer.c
 │   ├── libft/
-│   |   └── *all_libft.c*
+│   |   └── *all_libft_mvignes.c*
 │   ├── parser/
 │   |   ├── parser_cut.c
 │   |   ├── parser_free.c
@@ -73,7 +74,8 @@ minishell/
 │   ├── utils/
 │   |   ├── lstenv.c
 │   |   ├── other_split.c
-│   |   └── print_struc.c
+│   |   ├── print_struc.c
+│   |   └── utils.c
 │   └── main.c
 ├── .objects/            # .o files
 │   ├── buildin/
@@ -88,6 +90,7 @@ minishell/
 │   |   └── utils.o
 │   ├── execution/
 │   |   ├── and.o
+│   |   ├── env_utils.o
 │   |   ├── env.o
 │   |   ├── exec_cmd.o
 │   |   ├── exec_line.o
@@ -111,7 +114,7 @@ minishell/
 │   |   ├── lexer_utils.o
 │   |   └── lexer.o
 │   ├── libft/
-│   |   └── *all_libft.o*
+│   |   └── *all_libft_mvignes.o*
 │   ├── parser/
 │   |   ├── parser_cut.o
 │   |   ├── parser_free.o
@@ -122,7 +125,8 @@ minishell/
 │   ├── utils/
 │   |   ├── lstenv.o
 │   |   ├── other_split.o
-│   |   └── print_struc.o
+│   |   ├── print_struc.o
+│   |   └── utils.o
 │   └── main.o
 ├── .readline.supp         # file for removes memory leaks coming from readline
 ├── .last_colors          # Stores the last color used for compilation
@@ -141,6 +145,11 @@ make
 ### Execution
 ```bash
 ./minishell
+```
+
+### Execution / Testing
+```bash
+make val
 ```
 
 ### Manual Testing
@@ -162,6 +171,7 @@ make
 - [koor](https://koor.fr/)
 - [IBM](https://www.ibm.com/docs/en/ibm-mq/9.2.x?topic=SSFKSJ_9.2.0/com.ibm.mq.ref.dev.doc/q093670_.html)
 - [forum dev](https://www.developpez.net/forums/d235094/c-cpp/c/fonction-opendir/)
+- [toturiel hostinger](https://www.hostinger.com/fr/tutoriels)
 
 #### Artificial intelligence (Gemini) was used for the following tasks : Understanding of the subject and help with the translation into English of the README.
 

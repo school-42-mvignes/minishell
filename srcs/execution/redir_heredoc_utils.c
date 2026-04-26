@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 17:08:23 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/24 12:09:18 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/26 10:58:25 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static int	assemble_cut(t_redir *redir, t_shell *shell)
 	return (0);
 }
 
+
+
 int	avenger_assemble(t_node *node, t_shell *shell)
 {
 	t_redir	*redir;
@@ -56,6 +58,11 @@ int	avenger_assemble(t_node *node, t_shell *shell)
 		avenger_assemble(node->left, shell);
 		avenger_assemble(node->right, shell);
 	}
+	// if (&node != &shell->free_the_node)
+	// {
+	// 	shell->exit_status = 0;
+	// 	exit_free_all(shell->free_the_token, shell->free_the_node, shell, 0);
+	// }
 	return (0);
 }
 

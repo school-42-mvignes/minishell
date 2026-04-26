@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 13:20:34 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/24 17:59:55 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/26 11:46:12 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_token	*add_token(t_token **lst, t_token *new_nod, int *status)
 {
 	t_token	*last;
 
-	if (!lst || (!new_nod && new_nod->type == NONE))
+	if (!lst)
 		return (NULL);
 	if (!*lst)
 	{

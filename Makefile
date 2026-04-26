@@ -22,6 +22,7 @@
 NAME		= minishell
 CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror -g3
+VALGRIND	= valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-children=yes
 RM			= rm -f
 
 MAKEFLAGS	+= --no-print-directory
@@ -251,6 +252,18 @@ des:
 #awk -v RS='\\Z' "///// && /^int.*)$/ && /^char.&)$/{e=1} END{exit !e}" */* && echo "exists" || echo "does not exist"
 #(cat */* | grep "^///") || (cat */* | grep "^char.*)$") || (cat */* | grep "^int.*)$")
 #	@printf "cat */* | grep /// > .des"
+
+val:
+	@make re
+	@$(VALGRIND) ./minishell
+
+mini:
+	@make re
+	@./minishell
+
+fun:
+	@make re
+	@funcheck ./minishell -c "(ls | ls) && (qfdqw || ls)"
 
 #===========================================#
 #  ___       _      ___          _ _ 	   ||

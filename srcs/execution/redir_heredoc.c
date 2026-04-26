@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 14:57:48 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/24 14:24:28 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/26 11:00:27 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ static void	do_heredoc_cut(t_shell *shell, char *lim, int flag, int fd[2])
 	close(fd[0]);
 	do_heredoc_while(lim, shell, flag, fd);
 	close(fd[1]);
+	// shell->exit_status = 0;
+	// exit_free_all(shell->free_the_token, shell->free_the_node, shell, 0);
 	exit(0);
 }
 
