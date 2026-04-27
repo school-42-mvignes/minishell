@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/25 12:39:57 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/27 17:14:39 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static void	child_exec_cmd(t_node *node)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
-	create_and_redir_file(node->cmd->redir);
+	create_and_redir_file(node, node->cmd->redir);
 	if (is_one_buildin(node))
 		exec_the_buildin(node, node->cmd->shell);
 	else

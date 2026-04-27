@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:14:18 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/24 16:11:16 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/27 16:09:29 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int					exec_or(t_node *node);
 int					exec_and(t_node *node);
 int					exec_node_cmd(t_node *node);
 
-void				create_and_redir_file(t_redir *redir);
+void				create_and_redir_file(t_node *node, t_redir *redir);
 int					what_the_outfile(t_redir *redir);
 
 void				redirect_fd(int old_fd, int new_fd);

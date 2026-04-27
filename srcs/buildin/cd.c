@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:44 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/25 12:12:13 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/27 16:18:59 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,9 @@ void	buildin_cd(t_command *cmd)
 		buildin_cd_cut(cmd, home);
 	else if (chdir(cmd->av[1]))
 	{
+		write(2, "Minishell: cd: ", 16);
+		ft_putstr_fd(cmd->av[1], 2);
+		ft_putendl_fd(": Not a directory", 2);
 		pwd = NULL;
 		cmd->shell->exit_status = 1;
 		return ;
