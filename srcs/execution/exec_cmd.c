@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/27 18:16:20 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/27 18:27:44 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@
 /// the command
 /// @param node 
 /// @param str 
-static void	error_exec_cmd(t_shell *shell, char *str, char **env, int exit_status)
+static void	error_exec_cmd(t_shell *shell, char *str, char **env, int exit)
 {
 	free_tab(env);
 	ft_putstr_fd("minishell: ", 2);
 	if (str)
 		ft_putstr_fd(str, 2);
-	if (exit_status == 127)
+	if (exit == 127)
 		ft_putendl_fd(": command not found", 2);
 	else
 		ft_putendl_fd(" : Permission denied", 2);
-	shell->exit_status = exit_status;
+	shell->exit_status = exit;
 	exit_free_all(shell->free_the_token, shell->free_the_node, shell, NULL);
 }
 

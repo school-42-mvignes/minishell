@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:24:04 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/27 18:13:44 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/27 18:28:54 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,14 @@ static void	while_unset(t_command *cmd, t_env *tmp, t_env *preview)
 		{
 			i++;
 			tmp = cmd->shell->env;
-			continue;
+			continue ;
 		}
 		if (!ft_strncmp(cmd->av[i], tmp->key_var, len))
 		{
 			node_find(cmd, tmp, preview);
 			tmp = cmd->shell->env;
 			i++;
-			continue;
+			continue ;
 		}
 		preview = tmp;
 		tmp = tmp->next;

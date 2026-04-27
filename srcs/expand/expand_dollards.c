@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 17:41:51 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/24 18:24:19 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/27 18:34:18 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,20 @@ static void	interrogation_mark(t_token *token, int j, int *i, t_shell *shell)
 	free(m);
 }
 
+static void	i_was_missing_two_line(char **tmp, int *i, int *j)
+{
+	*tmp = NULL;
+	(*i)++;
+	*j = (*i);
+}
+
 static void	replace_dollards(t_token *token, int *i, t_shell *shell)
 {
 	int		j;
 	char	*tmp;
 	t_env	*true_value;
 
-	tmp = NULL;
-	(*i)++;
-	j = (*i);
+	i_was_missing_two_line(&tmp, i, &j);
 	if (token->value[(*i)] == '?')
 	{
 		interrogation_mark(token, j, i, shell);
