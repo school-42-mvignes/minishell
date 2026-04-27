@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:18:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/24 15:21:46 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/27 16:12:02 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,12 @@ static int	open_file_app(char *outfile)
 
 /// @brief Create and make the redirects of fd for the files called
 /// @param redir 
-void	create_and_redir_file(t_redir *redir)
+void	create_and_redir_file(t_node *node, t_redir *redir)
 {
-	int	fd;
+	int		fd;
+	t_shell	*s;
 
+	s = node->cmd->shell;
 	if (redir)
 	{
 		while (redir)
@@ -74,7 +76,8 @@ void	create_and_redir_file(t_redir *redir)
 			fd = what_the_outfile(redir);
 			if (fd == -1)
 			{
-				exit(EXIT_FAILURE);
+				s->exit_status = 1;
+				exit_free_all(s->free_the_token, s->free_the_node, s, NULL);
 			}
 			if (redir->type == REDIR_IN || redir->type == REDIR_HERE)
 				redirect_fd(STDIN_FILENO, fd);

@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:49 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/22 16:19:39 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/27 18:13:04 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /// @brief check if it’s a flag
 /// @param av 
 /// @return true == it’s a flag
-bool	check_flags(char *av)
+static bool	check_flags(char *av)
 {
 	int	i;
 
