@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 16:54:22 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/26 10:29:12 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/27 16:51:59 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,5 @@ int	exec_pipe(t_node *node)
 	waitpid(pid_left, NULL, 0);
 	waitpid(pid_right, &status, 0);
 	search_exit_status(call_shell(node), status, false);
-	return (status);
+	return (call_shell(node)->exit_status);
 }

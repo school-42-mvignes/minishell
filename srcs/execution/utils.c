@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 20:04:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/26 10:21:46 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/27 18:04:05 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,4 @@ void	redirect_fd(int old_fd, int new_fd)
 		perror("dup2");
 		exit(1);
 	}
-	// close(old_fd);
-	// close(new_fd);
 }

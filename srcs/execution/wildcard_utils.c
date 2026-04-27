@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 10:52:24 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/26 16:56:33 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/27 17:07:26 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,11 @@ char	**rebuild_av_for_wildcard(t_list *lst)
 	while (lst)
 	{
 		tab[i++] = ft_strdup(lst->content);
+		if (!tab)
+		{
+			free_tab(tab);
+			return (NULL);
+		}
 		lst = lst->next;
 	}
 	tab[i] = NULL;

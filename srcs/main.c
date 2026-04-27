@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/26 16:44:25 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/27 18:13:33 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,11 @@
 // valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-fds=yes ./minishell
 #include "../includes/minishell.h"
 
-static	int is_void(char *buf)
+static void	init_minishell(int ac, char **av)
 {
-	int i;
-
-	i = 0;
-	while (buf[i] == ' ')
-		i++;
-	return (buf[i] == '\0');
+	(void)ac;
+	(void)av;
+	init_signal();
 }
 
 t_shell	*ft_shellnew(char **env, t_token *token)
@@ -42,7 +39,7 @@ t_shell	*ft_shellnew(char **env, t_token *token)
 
 void	exit_free_all(t_token *lst, t_node *node, t_shell *shell, char *b)
 {
-	int status;
+	int	status;
 
 	status = shell->exit_status;
 	ft_envclear(&shell->env, free);
@@ -57,25 +54,22 @@ void	exit_free_all(t_token *lst, t_node *node, t_shell *shell, char *b)
 	close(STDOUT_FILENO);
 	close(STDIN_FILENO);
 	exit(status);
-	
 }
 
 /// @brief the 'hand' of the best project you have ever seen
-/// @param ac 
-/// @param av 
-/// @param env 
+/// @param ac
+/// @param av
+/// @param env
 /// @return exit_status
 int	main(int ac, char **av, char **env)
 {
 	char	*buf;
 	t_token	*cur;
 	t_token	token;
-	t_node *node;
+	t_node	*node;
 	t_shell	*shell;
 
-	(void)ac;
-	(void)av;
-	init_signal();
+	init_minishell(ac, av);
 	shell = ft_shellnew(env, &token);
 	if (!shell)
 		return (1);
@@ -85,51 +79,13 @@ int	main(int ac, char **av, char **env)
 		node = NULL;
 		shell->free_the_token = &token;
 		buf = readline("Minishell$ ");
-		if (buf == NULL)
-		{
-			write(2, "exit\n", 5);
-			exit_free_all(cur, node, shell, buf);
-		}
-		if (g_status == SIGINT)
-		{
-			shell->exit_status = 130;
-			g_status = 0;
-		}
-		if (is_void(buf))
-		{
-			free(buf);
+		if (verif_rl(cur, node, shell, buf))
 			continue ;
-		}
-		add_history(buf);
-		cur = lexer(buf, &token);
-		if (!cur)
-			shell->exit_status = 1;
-		shell->free_the_token = cur;
-		if (cur == NULL)
-		{
-			free(buf);
+		if (do_lexer(&cur, &token, shell, buf))
 			continue ;
-		}
 		expand(cur, shell);
-		node = parse_and_or(&cur, shell);
-		shell->free_the_node = node;
-		shell->exit_status = avenger_assemble(node, shell);
-		if (shell->exit_status == 0 && node)
-		shell->exit_status = exec_node(node);
-		if (shell->exit_status == 130)
-		{
-			free(node);
-			free_token_lst(cur);
-			free(buf);
-			rl_replace_line("", 0);
-			rl_on_new_line();
+		if (do_parser_exec(&cur, &node, shell, buf))
 			continue ;
-		}
-		free_node(node);
-		free(buf);
-		free_token_lst(shell->free_the_token);
-		shell->free_the_token = NULL;
-		cur = NULL;
-		node = NULL;
+		end_while(&node, &cur, shell, buf);
 	}
 }

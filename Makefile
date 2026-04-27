@@ -96,6 +96,7 @@ SRCS	= srcs/libft/ft_isalpha.c\
 		srcs/libft/get_next_line_utils.c\
 		\
 		srcs/main.c\
+		srcs/main_cut.c\
 		\
 		srcs/utils/lstenv.c\
 		srcs/utils/other_split.c\

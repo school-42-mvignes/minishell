@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 17:09:26 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/24 15:57:15 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/27 18:11:26 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,10 @@ void	init_signal(void)
 	rl_catch_signals = 0;
 	signal(SIGINT, controller);
 	signal(SIGQUIT, SIG_IGN);
+}
+
+void	heredoc_controller(int sig)
+{
+	(void)sig;
+	close (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_heredoc_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 17:08:23 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/27 11:51:40 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/27 18:04:12 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ static int	assemble_cut(t_redir *redir, t_shell *shell)
 	}
 	return (0);
 }
-
-
 
 int	avenger_assemble(t_node *node, t_shell *shell)
 {

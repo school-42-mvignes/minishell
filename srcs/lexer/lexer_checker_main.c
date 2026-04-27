@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_checker_main.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 14:17:16 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/27 11:50:55 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/27 16:42:12 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	lexer_checker(t_token *token)
 	// res |= is_sep_in_subshell(token);
 	// res |= is_subshell_empty(token);
 	// res |= sep_w_subshell(token);
-	if (res > 1)
+	if (res)
 	{
 		if (res == 1)
 			write(2, "Error syntax\n", 13);
