@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:24:04 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/27 16:56:53 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/27 18:00:09 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,11 @@ static void	ft_delete_envnode(t_env *preview_node, t_env *node)
 		free(node);
 }
 
-void	node_trouver(t_command *cmd, t_env *tmp, t_env *preview)
+/// @brief decides the actions when a variable has been found in while_unset
+/// @param cmd 
+/// @param tmp 
+/// @param preview 
+static void	node_find(t_command *cmd, t_env *tmp, t_env *preview)
 {
 	if (preview == NULL)
 	{
@@ -62,6 +66,10 @@ void	node_trouver(t_command *cmd, t_env *tmp, t_env *preview)
 		ft_delete_envnode(preview, tmp);
 }
 
+/// @brief loop to find the variables that want to be unset
+/// @param cmd 
+/// @param tmp 
+/// @param preview 
 void	while_unset(t_command *cmd, t_env *tmp, t_env *preview)
 {
 	int		i;
@@ -79,7 +87,7 @@ void	while_unset(t_command *cmd, t_env *tmp, t_env *preview)
 		}
 		if (!ft_strncmp(cmd->av[i], tmp->key_var, len))
 		{
-			node_trouver(cmd, tmp, preview);
+			node_find(cmd, tmp, preview);
 			tmp = cmd->shell->env;
 			i++;
 			continue;

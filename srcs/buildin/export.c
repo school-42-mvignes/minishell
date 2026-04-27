@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:57 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/27 16:26:40 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/27 17:57:24 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /// @brief write error export
 /// @param cmd 
-void	error_export(t_command *cmd)
+static void	error_export(t_command *cmd)
 {
 	char	*msg;
 
@@ -28,7 +28,7 @@ void	error_export(t_command *cmd)
 
 /// @brief create node var empty for export
 /// @param cmd 
-t_env	*create_node_var_empty(char *av)
+static t_env	*create_node_var_empty(char *av)
 {
 	t_env	*new;
 	char	**tab;
@@ -51,7 +51,7 @@ t_env	*create_node_var_empty(char *av)
 
 /// @brief edit var in list t_env
 /// @param cmd 
-void	edit_var(char *av, t_env *node, t_shell *shell)
+static void	edit_var(char *av, t_env *node, t_shell *shell)
 {
 	char	**tab;
 	
@@ -69,7 +69,7 @@ void	edit_var(char *av, t_env *node, t_shell *shell)
 
 /// @brief create or edit the var in list t_env
 /// @param cmd 
-void	create_or_edit_var(char *av, t_shell *shell)
+static void	create_or_edit_var(char *av, t_shell *shell)
 {
 	t_env	*node;
 
@@ -87,22 +87,6 @@ void	create_or_edit_var(char *av, t_shell *shell)
 			return ;
 		ft_envadd_back(&shell->env, node);
 	}
-}
-
-bool	dont_dash_in_key_var(char	*str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '=')
-			return (true);
-		else if (str[i] == '-')
-			return (false);
-		i++;
-	}
-	return (true);
 }
 
 /// @brief check write env export or create / edit var or error

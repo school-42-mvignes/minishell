@@ -6,28 +6,37 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:44 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/27 16:18:59 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/27 17:52:16 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/// @brief check if there are any errors
+/// @param cmd 
+/// @return bool true == error
 static bool	error_cd(t_command *cmd)
 {
-	if (!cmd->av[1] || cmd->av[1][0] == '\0')
+	if (cmd->av[1])
 	{
-		cmd->shell->exit_status = 0;
-		return (true);
-	}
-	if (cmd->av[2])
-	{
-		ft_putendl_fd("cd: too many arguments", 2);
-		cmd->shell->exit_status = 1;
-		return (true);
+		if (cmd->av[1][0] == '\0')
+		{
+			cmd->shell->exit_status = 0;
+			return (true);
+		}
+		if (cmd->av[2])
+		{
+			ft_putendl_fd("cd: too many arguments", 2);
+			cmd->shell->exit_status = 1;
+			return (true);
+		}
 	}
 	return (false);
 }
 
+/// @brief Function that will create the last pwd variable
+/// @param loc 
+/// @return t_env, node of the lastpwd
 static t_env	*create_last_pwd(char *loc)
 {
 	t_env	*new;
@@ -49,6 +58,9 @@ static t_env	*create_last_pwd(char *loc)
 	return (new);
 }
 
+/// @brief Function that will edit the last pwd of the already existing variable
+/// @param env 
+/// @param pwd 
 static void	edit_last_pwd(t_env *env, t_env *pwd)
 {
 	t_env	*last_pwd;
@@ -68,6 +80,22 @@ static void	edit_last_pwd(t_env *env, t_env *pwd)
 	pwd->var = new_localisation;
 }
 
+/// @brief Function that redirection to the home
+/// @param cmd 
+/// @param home 
+static void	redirection_to_the_home(t_command *cmd, t_env *home)
+{
+	home = search_key_var(cmd->shell->env, "HOME");
+	if (home == NULL)
+	{
+		write(2, "HOME not set\n", 13);
+		return ;
+	}
+	chdir(home->var);
+}
+
+/// @brief Function that distributes the work for the different CD actions
+/// @param cmd 
 void	buildin_cd(t_command *cmd)
 {
 	t_env	*pwd;
@@ -80,7 +108,7 @@ void	buildin_cd(t_command *cmd)
 	if (!pwd)
 		return ;
 	if (cmd->av[1] == NULL)
-		buildin_cd_cut(cmd, home);
+		redirection_to_the_home(cmd, home);
 	else if (chdir(cmd->av[1]))
 	{
 		write(2, "Minishell: cd: ", 16);
@@ -91,15 +119,4 @@ void	buildin_cd(t_command *cmd)
 		return ;
 	}
 	edit_last_pwd(cmd->shell->env, pwd);
-}
-
-void	buildin_cd_cut(t_command *cmd, t_env *home)
-{
-	home = search_key_var(cmd->shell->env, "HOME");
-	if (home == NULL)
-	{
-		write(2, "HOME not set\n", 13);
-		return ;
-	}
-	chdir(home->var);
 }
