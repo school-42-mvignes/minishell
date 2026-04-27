@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 20:04:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/24 15:37:19 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/26 10:21:46 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,32 +52,6 @@ void	redirect_fd(int old_fd, int new_fd)
 		perror("dup2");
 		exit(1);
 	}
-}
-
-/// @brief wait exit status
-/// @param node 
-/// @param status 
-void	search_exit_status(t_shell *shell, int status, bool loc)
-{
-	if (loc)
-	{
-		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-			write(1, "\n", 1);
-		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
-			write(1, "Quit (core dumped)\n", 19);
-		signal(SIGINT, controller);
-		signal(SIGQUIT, SIG_IGN);
-	}
-	if (WIFEXITED(status))
-		shell->exit_status = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
-		shell->exit_status = 128 + WTERMSIG(status);
-}
-
-/// @brief write message error
-/// @param message 
-void	error_message(char *message)
-{
-	ft_putendl_fd(message, 2);
-	exit (1);
+	// close(old_fd);
+	// close(new_fd);
 }

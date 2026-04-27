@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/24 18:03:10 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/25 12:39:57 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void	child_exec_cmd(t_node *node)
 	signal(SIGQUIT, SIG_DFL);
 	create_and_redir_file(node->cmd->redir);
 	if (is_one_buildin(node))
-		exec_the_buildin(node);
+		exec_the_buildin(node, node->cmd->shell);
 	else
 		exec_cmd(node, node->cmd->av, rebuild_env(&node->cmd->shell->env));
 }
@@ -112,12 +112,6 @@ int	exec_node_cmd(t_node *node)
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
 		waitpid(pid, &status, 0);
-		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-			write(1, "\n", 1);
-		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
-			write(1, "Quit (core dumped)\n", 19);
-		signal(SIGINT, controller);
-		signal(SIGQUIT, SIG_IGN);
 		search_exit_status(node->cmd->shell, status, true);
 	}
 	return (node->cmd->shell->exit_status);

@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 17:08:23 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/24 12:09:18 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/27 11:51:40 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static int	assemble_cut(t_redir *redir, t_shell *shell)
 	return (0);
 }
 
+
+
 int	avenger_assemble(t_node *node, t_shell *shell)
 {
 	t_redir	*redir;
@@ -45,6 +47,8 @@ int	avenger_assemble(t_node *node, t_shell *shell)
 	if (node->type == NODE_CMD)
 	{
 		redir = node->cmd->redir;
+		if (redir)
+			redir->do_not_expand = 0;
 		ret = assemble_cut(redir, shell);
 		if (ret == 130)
 			return (130);

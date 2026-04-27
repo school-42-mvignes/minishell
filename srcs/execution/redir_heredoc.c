@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 14:57:48 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/24 14:24:28 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/26 17:06:52 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	do_heredoc_whileception(t_shell *shell, char *line, int flag,
 	ft_memset(&tmp, 0, sizeof(t_token));
 	tmp.value = line;
 	tmp.type = WORD;
-	if (flag == 0)
+	if (flag == 0) // flag n'a jamais etait init
 		search_dollards(&tmp, shell);
 	write(fd[1], tmp.value, ft_strlen(tmp.value));
 	free(tmp.value);
@@ -58,7 +58,8 @@ static void	do_heredoc_cut(t_shell *shell, char *lim, int flag, int fd[2])
 	close(fd[0]);
 	do_heredoc_while(lim, shell, flag, fd);
 	close(fd[1]);
-	exit(0);
+	shell->exit_status = 0;
+	exit_free_all(shell->free_the_token, shell->free_the_node, shell, NULL);
 }
 
 int	do_heredoc(char *lim, t_shell *shell, int flag)
