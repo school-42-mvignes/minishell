@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
 /*   Updated: 2026/04/27 18:16:20 by mvignes          ###   ########.fr       */
@@ -40,7 +40,7 @@ void	exec_cmd(t_node *node, char **args, char **envp)
 	char	*tmp;
 
 	tmp = args[0];
-	if (!args || !args[0])
+	if (!args || !args[0] || args[0][0] == '\0')
 		error_exec_cmd(node->cmd->shell, tmp, envp, 127);
 	cmd_path = find_path(args[0], envp);
 	if (!cmd_path)
@@ -68,7 +68,10 @@ char	**rebuild_env(t_env **env)
 		str_tmp = ft_strjoin(tmp->key_var, "=");
 		tab[i] = ft_strjoin_gnl(str_tmp, tmp->var);
 		if (!tab[i])
+		{
+			free_tab(tab);
 			return (NULL);
+		}
 		i++;
 		tmp = tmp->next;
 	}
