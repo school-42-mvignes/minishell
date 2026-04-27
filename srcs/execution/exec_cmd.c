@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/27 17:14:39 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/27 18:16:20 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /// the command
 /// @param node 
 /// @param str 
-void	error_exec_cmd(t_shell *shell, char *str, char **env, int exit_status)
+static void	error_exec_cmd(t_shell *shell, char *str, char **env, int exit_status)
 {
 	free_tab(env);
 	ft_putstr_fd("minishell: ", 2);

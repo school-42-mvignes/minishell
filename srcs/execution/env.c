@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 16:46:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/24 16:02:54 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/27 18:15:26 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /// @brief init the list for env in the form of a linked list
 /// @param lst 
 /// @param env 
-void	init_lst_env(t_list *lst, t_env **env)
+static void	init_lst_env(t_list *lst, t_env **env)
 {
 	char	**tab;
 	t_env	*new;

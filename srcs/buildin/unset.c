@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:24:04 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/27 18:00:09 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/27 18:13:44 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void	node_find(t_command *cmd, t_env *tmp, t_env *preview)
 /// @param cmd 
 /// @param tmp 
 /// @param preview 
-void	while_unset(t_command *cmd, t_env *tmp, t_env *preview)
+static void	while_unset(t_command *cmd, t_env *tmp, t_env *preview)
 {
 	int		i;
 	int		len;
