@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/26 16:41:56 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/24 14:30:28 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/27 15:59:26 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	free_node(t_node *node)
 			{
 				tmp = node->cmd->redir;
 				free(tmp->file);
+				if (tmp->heredoc_fd > 0)
+					close(tmp->heredoc_fd);
 				node->cmd->redir = node->cmd->redir->next;
 				free(tmp);
 			}

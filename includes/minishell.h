@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/27 11:45:35 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/27 17:31:28 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,13 @@ typedef struct s_node
 t_shell		*call_shell(t_node *node);
 void		init_signal(void);
 void		controller(int sig);
-void		controller_for_heredoc(int sig);
+void		heredoc_controller(int sig);
 void		exit_free_all(t_token *lst, t_node *node, t_shell *shell, char *b);
+
 int			main(int ac, char **av, char **env);
+int			verif_rl(t_token *cur, t_node *node, t_shell *shell, char *buf);
+int			do_lexer(t_token **cur, t_token *token, t_shell *shell, char *buf);
+int			do_parser_exec(t_token **cur, t_node **node, t_shell *shell, char *buf);
+void		end_while(t_node **node, t_token **cur, t_shell *shell, char *buf);
 
 #endif

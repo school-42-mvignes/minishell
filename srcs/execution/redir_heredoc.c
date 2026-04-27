@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 14:57:48 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/26 17:06:52 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/27 18:06:30 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	do_heredoc_whileception(t_shell *shell, char *line, int flag,
 	ft_memset(&tmp, 0, sizeof(t_token));
 	tmp.value = line;
 	tmp.type = WORD;
-	if (flag == 0) // flag n'a jamais etait init
+	if (flag == 0)
 		search_dollards(&tmp, shell);
 	write(fd[1], tmp.value, ft_strlen(tmp.value));
 	free(tmp.value);
@@ -53,13 +53,19 @@ static void	do_heredoc_while(char *lim, t_shell *shell, int flag, int fd[2])
 
 static void	do_heredoc_cut(t_shell *shell, char *lim, int flag, int fd[2])
 {
-	signal(SIGINT, SIG_DFL);
+	signal(SIGINT, heredoc_controller);
 	signal(SIGQUIT, SIG_IGN);
 	close(fd[0]);
 	do_heredoc_while(lim, shell, flag, fd);
 	close(fd[1]);
-	shell->exit_status = 0;
+	shell->exit_status = 130;
 	exit_free_all(shell->free_the_token, shell->free_the_node, shell, NULL);
+}
+
+static void	i_was_missing_a_line(int fd[2])
+{
+	write(1, "\n", 1);
+	close(fd[0]);
 }
 
 int	do_heredoc(char *lim, t_shell *shell, int flag)
@@ -71,20 +77,20 @@ int	do_heredoc(char *lim, t_shell *shell, int flag)
 
 	tcgetattr(STDIN_FILENO, &saved);
 	pipe(fd);
+	signal(SIGINT, SIG_IGN);
 	pid = fork();
 	if (pid == 0)
 	{
 		do_heredoc_cut(shell, lim, flag, fd);
 	}
 	close(fd[1]);
-	signal(SIGINT, SIG_IGN);
 	waitpid(pid, &status, 0);
 	signal(SIGINT, controller);
 	tcsetattr(STDIN_FILENO, TCSANOW, &saved);
-	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+	if ((WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+		|| (WIFEXITED(status) && WEXITSTATUS(status) == 130))
 	{
-		write(1, "\n", 1);
-		close(fd[0]);
+		i_was_missing_a_line(fd);
 		g_status = SIGINT;
 		return (-1);
 	}

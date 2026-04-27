@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/25 12:39:57 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/27 16:54:39 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,10 @@ char	**rebuild_env(t_env **env)
 		str_tmp = ft_strjoin(tmp->key_var, "=");
 		tab[i] = ft_strjoin_gnl(str_tmp, tmp->var);
 		if (!tab[i])
+		{
+			free_tab(tab);
 			return (NULL);
+		}
 		i++;
 		tmp = tmp->next;
 	}

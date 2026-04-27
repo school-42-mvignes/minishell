@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 14:52:18 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/24 18:35:18 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/27 16:42:51 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,8 @@ t_token	*lexer(char *str, t_token *token)
 		if (status == 1)
 			return (NULL);
 	}
-	// printf("print avant done:\n\n");
-	// print_token(t_lst);
 	if (do_none(&t_lst, str, i, &status) == 1)
 		return (NULL);
-	// printf("print apres done:\n\n");
-	// print_token(t_lst);
 	check_quote_heredoc(t_lst);
 	return (t_lst);
 }

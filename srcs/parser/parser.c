@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 11:51:04 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/24 14:29:55 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/27 16:48:25 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_node	*parse_and_or(t_token **token, t_shell *shell)
 	{
 		node = malloc(sizeof(t_node));
 		if (!node)
-			return (NULL);
+			return (free_node(left), NULL);
 		ft_memset(node, 0, sizeof(t_node));
 		node->left = left;
 		if ((*token)->type == SP_AND)
@@ -50,7 +50,7 @@ t_node	*parse_pipe(t_token **token, t_shell *shell)
 	{
 		node = malloc(sizeof(t_node));
 		if (!node)
-			return (NULL);
+			return (free_node(left), NULL);
 		ft_memset(node, 0, sizeof(t_node));
 		node->left = left;
 		node->type = NODE_PIPE;
