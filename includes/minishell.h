@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/26 16:38:37 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/27 11:45:35 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ typedef struct s_node
 // typedef struct s_init
 // {
 // 	t_token			*cur;
-// 	t_token			token;
+// 	t_token			*token;
 // 	t_node			*node;
 // }					t_init;
 

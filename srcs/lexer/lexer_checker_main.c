@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 14:17:16 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/26 15:21:50 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/27 11:50:55 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,14 @@ int	lexer_checker(t_token *token)
 	res |= double_sep(token);
 	res |= redir_file(token);
 	res |= is_bracket_balance(token);
-	// res |= is_multi_subshell(token);
+	res |= is_multi_subshell(token);
 	// res |= is_sep_in_subshell(token);
 	// res |= is_subshell_empty(token);
 	// res |= sep_w_subshell(token);
-	if (res == 1)
+	if (res > 1)
 	{
-		write(2, "Error syntax\n", 13);
+		if (res == 1)
+			write(2, "Error syntax\n", 13);
 		free_token_lst(token);
 		return (1);
 	}
