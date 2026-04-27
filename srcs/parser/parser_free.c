@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/26 16:41:56 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/27 18:28:32 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/27 18:36:10 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	free_node(t_node *node)
 			free_tab(node->cmd->av);
 			while (node->cmd->redir)
 			{
-				free_node_cut(node);
+				free_redir(node);
 			}
 			free(node->cmd);
 		}
