@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:25:03 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/24 15:15:18 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/25 12:39:10 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ FAUT REVOIR CA PARCE QUE CA VA PAS, ON RETURN L EXIT STATUS ET 1 EN CAS D'EXIT
 /// @brief perform the correct buildin
 /// @param node 
 /// @return 
-int	exec_the_buildin(t_node *node)
+int	exec_the_buildin(t_node *node, t_shell *shell)
 {
 	int	status;
 
@@ -61,11 +61,10 @@ int	exec_the_buildin(t_node *node)
 		buildin_unset(node->cmd);
 	else if (!ft_strncmp(EXIT, node->cmd->av[0], 5))
 		if (buildin_exit(node->cmd))
-			return (node->cmd->shell->exit_status);
-	node->cmd->shell->exit_status = 0;
-	status = node->cmd->shell->exit_status;
-	free_token_lst(node->cmd->shell->free_the_token);
-	free_node(node);
+			return (shell->exit_status);
+	shell->exit_status = 0;
+	status = shell->exit_status;
+	exit_free_all(shell->free_the_token, shell->free_the_node, shell, NULL);
 	exit(status);
 }
 

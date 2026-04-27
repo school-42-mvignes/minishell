@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:44 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/24 15:05:10 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/25 12:12:13 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,14 @@ static t_env	*create_last_pwd(char *loc)
 		return (NULL);
 	tab[0] = ft_strdup("OLDPWD");
 	if (!tab)
-	{
-		free_tab(tab);
-		return (NULL);
-	}
-	tab[0] = ft_strdup(loc);
+		return (free_tab(tab), NULL);
+	tab[1] = ft_strdup(loc);
 	if (!tab)
-	{
-		free_tab(tab);
-		return (NULL);
-	}
+		return (free_tab(tab), NULL);
 	tab[2] = NULL;
 	new = ft_envnew(tab);
 	if (!new)
-	{
 		free_tab(tab);
-	}
 	return (new);
 }
 

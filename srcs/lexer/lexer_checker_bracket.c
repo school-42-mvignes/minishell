@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_checker_bracket.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 16:19:51 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/07 14:46:42 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/27 11:50:49 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	is_multi_subshell(t_token *token)
 		token = token->next;
 	}
 	if (i != 0)
-		return (1);
+		return (2);
 	else
 		return (0);
 }
