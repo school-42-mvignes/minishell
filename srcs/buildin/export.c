@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:57 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/27 18:28:11 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/28 12:56:56 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 /// @brief write error export
 /// @param cmd 
-static void	error_export(t_command *cmd)
+static void	error_export(t_command *cmd, int i)
 {
 	char	*msg;
 
 	msg = ft_strjoin("Minishell: export:", "`");
-	msg = ft_strjoin_gnl(msg, cmd->av[1]);
+	msg = ft_strjoin_gnl(msg, cmd->av[i]);
 	msg = ft_strjoin_gnl(msg, "': not a valid identifier");
 	ft_putendl_fd(msg, 2);
 	free(msg);
@@ -108,7 +108,7 @@ void	buildin_export(t_command *cmd)
 			&& dont_dash_in_key_var(cmd->av[i]))
 				create_or_edit_var(cmd->av[i], cmd->shell);
 			else
-				error_export(cmd);
+				error_export(cmd, i);
 			i++;
 		}
 	}
