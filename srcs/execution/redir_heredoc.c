@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 14:57:48 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/28 11:38:38 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/28 13:58:19 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ static void	do_heredoc_while(char *lim, t_shell *shell, int flag, int fd[2])
 			if (g_status != SIGINT)
 			{
 				ft_putstr_fd("minishell: warning: here-document ", 2);
-				ft_putstr_fd("at line 21 delimited by end-of-file (wanted '", 2);
+				ft_putstr_fd("at line 21 delimited by end-of-file (wanted '",
+					2);
 				ft_putstr_fd(lim, 2);
 				ft_putstr_fd("')\n", 2);
 			}

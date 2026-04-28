@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_cut.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 13:20:30 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/27 18:13:57 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/28 14:03:50 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	do_lexer(t_token **cur, t_token *token, t_shell *shell, char *buf)
 	return (0);
 }
 
-int	do_parser_exec(t_token **cur, t_node **node, t_shell *shell, char *buf)
+int	do_parser(t_token **cur, t_node **node, t_shell *shell, char *buf)
 {
 	*node = parse_and_or(cur, shell);
 	shell->free_the_node = *node;

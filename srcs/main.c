@@ -3,16 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/27 18:13:33 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/28 14:03:37 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell
-// funcheck ./minishell -c "ls | ls"
-// valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-fds=yes ./minishell
 #include "../includes/minishell.h"
 
 static void	init_minishell(int ac, char **av)
@@ -84,7 +81,7 @@ int	main(int ac, char **av, char **env)
 		if (do_lexer(&cur, &token, shell, buf))
 			continue ;
 		expand(cur, shell);
-		if (do_parser_exec(&cur, &node, shell, buf))
+		if (do_parser(&cur, &node, shell, buf))
 			continue ;
 		end_while(&node, &cur, shell, buf);
 	}

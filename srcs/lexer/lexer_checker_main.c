@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_checker_main.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 14:17:16 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/27 16:42:12 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/28 14:04:43 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@ int	lexer_checker(t_token *token)
 	res |= redir_file(token);
 	res |= is_bracket_balance(token);
 	res |= is_multi_subshell(token);
-	// res |= is_sep_in_subshell(token);
-	// res |= is_subshell_empty(token);
-	// res |= sep_w_subshell(token);
 	if (res)
 	{
 		if (res == 1)
@@ -46,9 +43,8 @@ t_token	*next_token(t_token *token)
 
 int	is_sep(t_token *token)
 {
-	if (token->type == SP_AND || token->type == SP_OR || token->type == SP_PIPE
-		/* || token->type == REDIR_APP || token->type == REDIR_HERE
-		|| token->type == REDIR_IN || token->type == REDIR_OUT */)
+	if (token->type == SP_AND || token->type == SP_OR
+		|| token->type == SP_PIPE)
 		return (1);
 	return (0);
 }
