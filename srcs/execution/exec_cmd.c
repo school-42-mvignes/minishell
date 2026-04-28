@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/28 11:18:32 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/28 13:56:23 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,12 @@ static void	error_exec_cmd(t_shell *shell, char *str, char **env, int exit)
 	if (exit == 127)
 		ft_putendl_fd(": command not found", 2);
 	else
-		ft_putendl_fd(" : Permission denied", 2);
+	{
+		if (access(str, X_OK) != 0)
+			ft_putendl_fd(": Permission denied", 2);
+		else
+			ft_putendl_fd(": Is a directory", 2);
+	}
 	shell->exit_status = exit;
 	exit_free_all(shell->free_the_token, shell->free_the_node, shell, NULL);
 }
