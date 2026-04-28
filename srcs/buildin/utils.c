@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:24:04 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/26 11:32:09 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/27 17:54:33 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,23 @@ int	is_num(char *str)
 		i++;
 	}
 	return (1);
+}
+
+/// @brief check if there is no dash
+/// @param str 
+/// @return bool false == dash in the string
+bool	dont_dash_in_key_var(char	*str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '=')
+			return (true);
+		else if (str[i] == '-')
+			return (false);
+		i++;
+	}
+	return (true);
 }

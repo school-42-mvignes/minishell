@@ -6,13 +6,13 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:24:01 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/22 16:38:20 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/27 17:56:48 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/// @brief write path
+/// @brief write path or the message error
 /// @param cmd 
 void	buildin_pwd(t_command *cmd)
 {

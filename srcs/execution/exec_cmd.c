@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/27 16:54:39 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/28 13:56:23 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,22 @@
 /// the command
 /// @param node 
 /// @param str 
-void	error_exec_cmd(t_shell *shell, char *str, char **env, int exit_status)
+static void	error_exec_cmd(t_shell *shell, char *str, char **env, int exit)
 {
 	free_tab(env);
 	ft_putstr_fd("minishell: ", 2);
 	if (str)
 		ft_putstr_fd(str, 2);
-	if (exit_status == 127)
+	if (exit == 127)
 		ft_putendl_fd(": command not found", 2);
 	else
-		ft_putendl_fd(" : Permission denied", 2);
-	shell->exit_status = exit_status;
+	{
+		if (access(str, X_OK) != 0)
+			ft_putendl_fd(": Permission denied", 2);
+		else
+			ft_putendl_fd(": Is a directory", 2);
+	}
+	shell->exit_status = exit;
 	exit_free_all(shell->free_the_token, shell->free_the_node, shell, NULL);
 }
 
@@ -85,7 +90,7 @@ static void	child_exec_cmd(t_node *node)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
-	create_and_redir_file(node->cmd->redir);
+	create_and_redir_file(node, node->cmd->redir);
 	if (is_one_buildin(node))
 		exec_the_buildin(node, node->cmd->shell);
 	else

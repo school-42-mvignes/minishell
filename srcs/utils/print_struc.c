@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 04:14:38 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/25 17:37:40 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/27 18:08:01 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	print_env(t_env *lst)
 		{
 			msg = ft_strjoin(tmp->key_var, "=");
 			if (tmp->var[0])
-				msg =ft_strjoin_gnl(msg, tmp->var);
+				msg = ft_strjoin_gnl(msg, tmp->var);
 			ft_putendl_fd(msg, 1);
 			free(msg);
 		}

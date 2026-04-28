@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/27 17:31:28 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/28 14:03:25 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void		exit_free_all(t_token *lst, t_node *node, t_shell *shell, char *b);
 int			main(int ac, char **av, char **env);
 int			verif_rl(t_token *cur, t_node *node, t_shell *shell, char *buf);
 int			do_lexer(t_token **cur, t_token *token, t_shell *shell, char *buf);
-int			do_parser_exec(t_token **cur, t_node **node, t_shell *shell, char *buf);
+int			do_parser(t_token **cur, t_node **node, t_shell *shell, char *buf);
 void		end_while(t_node **node, t_token **cur, t_shell *shell, char *buf);
 
 #endif

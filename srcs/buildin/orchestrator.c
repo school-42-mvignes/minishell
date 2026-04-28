@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:25:03 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/25 12:39:10 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/27 17:56:29 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,6 @@ t_env	*search_key_var(t_env *env, char *key)
 	return (NULL);
 }
 
-/*
-==============================================================================
-FAUT REVOIR CA PARCE QUE CA VA PAS, ON RETURN L EXIT STATUS ET 1 EN CAS D'EXIT
-==============================================================================
-*/
 /// @brief perform the correct buildin
 /// @param node 
 /// @return 
