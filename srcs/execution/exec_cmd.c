@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/28 11:18:32 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/28 15:54:54 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,20 @@ static void	error_exec_cmd(t_shell *shell, char *str, char **env, int exit)
 	ft_putstr_fd("minishell: ", 2);
 	if (str)
 		ft_putstr_fd(str, 2);
-	if (exit == 127)
-		ft_putendl_fd(": command not found", 2);
+	if (!ft_strncmp(str, ".", 2))
+	{
+		ft_putendl_fd(": filename argument required", 2);
+		exit = 2;
+	}
+	else if (exit == 127 || !ft_strncmp(str, "..", 3))
+		(ft_putendl_fd(": command not found", 2), exit = 127);
 	else
-		ft_putendl_fd(" : Permission denied", 2);
+	{
+		if (access(str, X_OK) != 0)
+			ft_putendl_fd(": Permission denied", 2);
+		else
+			ft_putendl_fd(": Is a directory", 2);
+	}
 	shell->exit_status = exit;
 	exit_free_all(shell->free_the_token, shell->free_the_node, shell, NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 16:46:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/27 18:15:26 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/28 14:44:54 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static char	**build_env_since_then_nothing(void)
 	tmp = getcwd(NULL, 0);
 	tab = malloc(sizeof(char *) * 4);
 	tab[0] = ft_strjoin("PWD=", tmp);
-	tab[1] = ft_strjoin("SHLVL=", "1");
+	tab[1] = ft_strjoin("SHLVL=", "0");
 	tab[2] = ft_strjoin("_=", "/usr/bin/env");
 	tab[3] = NULL;
 	free(tmp);

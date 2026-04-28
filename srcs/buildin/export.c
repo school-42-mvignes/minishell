@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:57 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/28 12:56:56 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/28 15:16:17 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,12 @@ static void	edit_var(char *av, t_env *node, t_shell *shell)
 		node = ft_envnew(tab);
 		ft_envadd_back(&shell->env, node);
 		free(tab);
+	}
+	else
+	{
+		free(node->var);
+		node->var = ft_strdup(tab[1]);
+		free_tab(tab);
 	}
 }
 
