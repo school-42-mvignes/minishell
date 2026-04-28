@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:57 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/27 17:57:24 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/27 18:28:11 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static t_env	*create_node_var_empty(char *av)
 static void	edit_var(char *av, t_env *node, t_shell *shell)
 {
 	char	**tab;
-	
+
 	tab = split_in_two(av, '=');
 	if (!tab)
 		return ;
@@ -102,7 +102,7 @@ void	buildin_export(t_command *cmd)
 	else
 	{
 		i = 1;
-		while(cmd->av[i])
+		while (cmd->av[i])
 		{
 			if ((ft_isalpha(cmd->av[i][0]) || cmd->av[i][0] == '_')
 			&& dont_dash_in_key_var(cmd->av[i]))
