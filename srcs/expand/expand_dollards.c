@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 17:41:51 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/27 18:34:18 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/29 14:31:30 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,11 @@ void	search_dollards(t_token *token, t_shell *shell)
 	{
 		i = 0;
 		if (token->type != WORD && token->type != D_QUOTE)
+		{
+			token = token->next;
+			continue ;
+		}
+		if (token->do_not_expand == 1)
 		{
 			token = token->next;
 			continue ;

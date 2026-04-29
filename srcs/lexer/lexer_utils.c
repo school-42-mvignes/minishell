@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 13:20:34 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/26 17:05:23 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/28 16:06:30 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_token	*create_token(t_type token, char *value, int n)
 	new = malloc(sizeof(t_token));
 	if (!new)
 		return (NULL);
+	ft_memset(new, 0, sizeof(t_token));
 	tmp = malloc(sizeof(char) * (n + 1));
 	if (!tmp)
 		return (free(new), NULL);
@@ -44,7 +45,6 @@ t_token	*create_token(t_type token, char *value, int n)
 		i++;
 	}
 	new->value = tmp;
-	new->next = NULL;
 	return (new);
 }
 

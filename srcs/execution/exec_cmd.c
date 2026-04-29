@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
 /*   Updated: 2026/04/29 11:19:27 by mvignes          ###   ########.fr       */
@@ -96,6 +96,7 @@ static void	child_exec_cmd(t_node *node)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
+	signal(SIGPIPE, SIG_DFL);
 	create_and_redir_file(node, node->cmd->redir);
 	if (is_one_buildin(node))
 		exec_the_buildin(node, node->cmd->shell);

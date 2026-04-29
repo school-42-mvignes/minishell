@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
 /*   Updated: 2026/04/29 14:33:07 by mvignes          ###   ########.fr       */
@@ -13,7 +13,7 @@
 #include "../includes/minishell.h"
 
 static void	init_minishell(int ac, char **av)
-{
+{	
 	(void)ac;
 	(void)av;
 	init_signal();
@@ -31,14 +31,17 @@ t_shell	*ft_shellnew(char **env, t_token *token)
 	element->free_the_token = token;
 	element->env = call_env(env);
 	element->exit_status = status;
+	tcgetattr(STDIN_FILENO, &element->termios_save);
 	return (element);
 }
 
 void	exit_free_all(t_token *lst, t_node *node, t_shell *shell, char *b)
 {
 	int	status;
+	struct termios saved;
 
 	status = shell->exit_status;
+	saved = shell->termios_save;
 	ft_envclear(&shell->env, free);
 	free(shell);
 	if (lst)
@@ -48,6 +51,7 @@ void	exit_free_all(t_token *lst, t_node *node, t_shell *shell, char *b)
 	rl_clear_history();
 	if (b)
 		free(b);
+	tcsetattr(STDIN_FILENO, TCSANOW, &saved);
 	exit(status);
 }
 
