@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_checker_bracket.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 16:19:51 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/27 11:50:49 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/29 11:47:08 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	is_multi_subshell(t_token *token)
 		token = token->next;
 	}
 	if (i != 0)
-		return (2);
+		return (1);
 	else
 		return (0);
 }
@@ -87,7 +87,8 @@ int	is_subshell_empty(t_token *token)
 			token = token->next;
 			while (token->type != R_BRACKET && token->next)
 			{
-				if (token->type != SPACES)
+				if (token->type != SPACES && is_sep(token) == 0
+					&& is_redir(token) == 0)
 					res = 1;
 				token = token->next;
 			}

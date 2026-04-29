@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 14:52:18 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/27 16:42:51 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/29 14:18:30 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ t_token	*lexer(char *str, t_token *token)
 			continue ;
 		i = lexer_while(token, str, i);
 		if (i == -1)
-			return (free_token_lst(token), free_token_lst(t_lst), NULL);
+			return (free_token_lst(t_lst), NULL);
 		add_token(&t_lst, create_token(token->type, str + j, i - j), &status);
 		if (status == 1)
 			return (NULL);
