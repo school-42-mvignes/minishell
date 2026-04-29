@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:24:01 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/27 17:56:48 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/29 11:13:40 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,18 @@
 /// @param cmd 
 void	buildin_pwd(t_command *cmd)
 {
+	t_env	*pwd;
 	char	*path;
 
-	(void)cmd;
 	path = getcwd(NULL, 0);
+	pwd = search_key_var(cmd->shell->env, "PWD");
+	if (!pwd)
+	{
+		pwd = create_var("PWD", path);
+		if (!pwd)
+			return ;
+		ft_envadd_back(&cmd->shell->env, pwd);
+	}
 	if (path)
 		ft_putendl_fd(path, 1);
 	else

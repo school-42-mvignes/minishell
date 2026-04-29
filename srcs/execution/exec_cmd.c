@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/29 14:53:47 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/29 11:19:27 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,14 @@ static void	error_exec_cmd(t_shell *shell, char *str, char **env, int exit)
 	ft_putstr_fd("minishell: ", 2);
 	if (str)
 		ft_putstr_fd(str, 2);
-	if (exit == 127)
-		ft_putendl_fd(": command not found", 2);
+	if (!ft_strncmp(str, ".", 2))
+	{
+		ft_putendl_fd(": filename argument required", 2);
+		ft_putendl_fd(".: usage: . filename [arguments]", 2);
+		exit = 2;
+	}
+	else if (exit == 127 || !ft_strncmp(str, "..", 3))
+		(ft_putendl_fd(": command not found", 2), exit = 127);
 	else
 	{
 		if (access(str, X_OK) != 0)
