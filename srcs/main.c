@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/29 12:03:52 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/29 14:33:07 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	exit_free_all(t_token *lst, t_node *node, t_shell *shell, char *b)
 	rl_clear_history();
 	if (b)
 		free(b);
-	// if ()
 	exit(status);
 }
 

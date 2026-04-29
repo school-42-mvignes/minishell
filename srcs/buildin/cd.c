@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:44 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/29 14:28:56 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/29 14:32:50 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,41 +34,12 @@ static bool	error_cd(t_command *cmd)
 	return (false);
 }
 
-/* /// @brief Function that will edit the last pwd of the already existing variable
-/// @param env 
-/// @param pwd 
-static void	create_node_loc(t_env *env, t_env *pwd, char *key, char *path)
-{
-	pwd = create_var(key, path);
-	if (!pwd)
-		return ;
-	free(path);
-	ft_envadd_back(&env, pwd);
-	return ;
-} */
-
-/// @brief Function that will edit the last pwd of the already existing variable
+/// @brief Function that will edit the pwd of the already existing variable
 /// @param env 
 /// @param pwd 
 static void	edit_pwd(t_env *env, t_env *node_env_pwd)
 {
-	t_env	*last_pwd;
 	char	*new_localisation;
-
-
-	last_pwd = search_key_var(env, "OLDPWD");
-	if (!last_pwd)
-	{
-		last_pwd = create_var("OLDPWD", node_env_pwd->var);
-		if (!last_pwd)
-			return ;
-		ft_envadd_back(&env, last_pwd);
-	}
-	else
-	{
-		free(last_pwd->var);
-		last_pwd->var = ft_strdup(node_env_pwd->var);
-	}
 
 	new_localisation = getcwd(NULL, 0);
 	if (!node_env_pwd)
@@ -85,6 +56,28 @@ static void	edit_pwd(t_env *env, t_env *node_env_pwd)
 		if (node_env_pwd->var)
 			free(node_env_pwd->var);
 		node_env_pwd->var = new_localisation;
+	}
+}
+
+/// @brief Function that will edit the last pwd of the already existing variable
+/// @param env 
+/// @param pwd 
+static void	edit_last_pwd(t_env *env, t_env *node_env_pwd)
+{
+	t_env	*last_pwd;
+
+	last_pwd = search_key_var(env, "OLDPWD");
+	if (!last_pwd)
+	{
+		last_pwd = create_var("OLDPWD", node_env_pwd->var);
+		if (!last_pwd)
+			return ;
+		ft_envadd_back(&env, last_pwd);
+	}
+	else
+	{
+		free(last_pwd->var);
+		last_pwd->var = ft_strdup(node_env_pwd->var);
 	}
 }
 
@@ -126,6 +119,7 @@ void	buildin_cd(t_command *cmd)
 		cmd->shell->exit_status = 1;
 		return ;
 	}
+	edit_last_pwd(cmd->shell->env, pwd);
 	edit_pwd(cmd->shell->env, pwd);
 	cmd->shell->exit_status = 0;
 }
