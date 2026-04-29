@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 17:08:23 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/28 16:05:44 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/29 14:27:58 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	check_quote_heredoc(t_token *token)
 			next = next_token(tmp);
 			if (next->type == S_QUOTE || next->type == D_QUOTE)
 				tmp->do_not_expand = 1;
+			next->do_not_expand = 1;
 		}
 		tmp = tmp->next;
 	}
