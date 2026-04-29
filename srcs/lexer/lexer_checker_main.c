@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_checker_main.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 14:17:16 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/28 14:04:43 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/29 11:52:13 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,12 @@ int	lexer_checker(t_token *token)
 	res |= double_sep(token);
 	res |= redir_file(token);
 	res |= is_bracket_balance(token);
+	res |= is_subshell_empty(token);
 	res |= is_multi_subshell(token);
 	if (res)
 	{
 		if (res == 1)
-			write(2, "Error syntax\n", 13);
+			write(2, "Minishell: syntax error near unexpected token\n", 46);
 		free_token_lst(token);
 		return (1);
 	}
