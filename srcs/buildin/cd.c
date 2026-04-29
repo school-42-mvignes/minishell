@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:44 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/28 11:58:59 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/29 12:52:32 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,30 +34,6 @@ static bool	error_cd(t_command *cmd)
 	return (false);
 }
 
-/// @brief Function that will create the last pwd variable
-/// @param loc 
-/// @return t_env, node of the lastpwd
-static t_env	*create_last_pwd(char *loc)
-{
-	t_env	*new;
-	char	**tab;
-
-	tab = malloc(sizeof(char *) * 3);
-	if (!tab)
-		return (NULL);
-	tab[0] = ft_strdup("OLDPWD");
-	if (!tab)
-		return (free_tab(tab), NULL);
-	tab[1] = ft_strdup(loc);
-	if (!tab)
-		return (free_tab(tab), NULL);
-	tab[2] = NULL;
-	new = ft_envnew(tab);
-	if (!new)
-		free_tab(tab);
-	return (new);
-}
-
 /// @brief Function that will edit the last pwd of the already existing variable
 /// @param env 
 /// @param pwd 
@@ -70,10 +46,12 @@ static void	edit_last_pwd(t_env *env, t_env *pwd)
 	last_pwd = search_key_var(env, "OLDPWD");
 	if (!last_pwd)
 	{
-		last_pwd = create_last_pwd(new_localisation);
+		last_pwd = create_var("OLDPWD", new_localisation);
 		if (!last_pwd)
 			return ;
+		free(new_localisation);
 		ft_envadd_back(&env, last_pwd);
+		return ;
 	}
 	free(last_pwd->var);
 	last_pwd->var = pwd->var;

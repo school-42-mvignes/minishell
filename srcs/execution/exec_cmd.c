@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/28 15:54:54 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/29 11:19:27 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	error_exec_cmd(t_shell *shell, char *str, char **env, int exit)
 	if (!ft_strncmp(str, ".", 2))
 	{
 		ft_putendl_fd(": filename argument required", 2);
+		ft_putendl_fd(".: usage: . filename [arguments]", 2);
 		exit = 2;
 	}
 	else if (exit == 127 || !ft_strncmp(str, "..", 3))

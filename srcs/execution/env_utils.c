@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 15:50:37 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/24 15:51:10 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/29 12:56:17 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,29 @@ char	**shell_lvl(char **tab)
 	new_tab[2] = NULL;
 	free_tab(tab);
 	return (new_tab);
+}
+
+/// @brief Function that will create variable which key var and var
+/// @param loc 
+/// @return t_env, node create
+t_env	*create_var(char *key, char *var)
+{
+	t_env	*new;
+	char	**tab;
+
+	tab = malloc(sizeof(char *) * 3);
+	if (!tab)
+		return (NULL);
+	tab[0] = ft_strdup(key);
+	if (!tab)
+		return (free_tab(tab), NULL);
+	tab[1] = ft_strdup(var);
+	if (!tab)
+		return (free_tab(tab), NULL);
+	tab[2] = NULL;
+	new = ft_envnew(tab);
+	if (!new)
+		free_tab(tab);
+	free(tab);
+	return (new);
 }
