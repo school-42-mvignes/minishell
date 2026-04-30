@@ -180,9 +180,6 @@ $(NAME): $(OBJS)
 		$(MAKE) name_ascii; \
 		$(MAKE) user42; \
 		printf "$(GREEN)$(GRAS)👌 Compilation terminée !$(RESET)\n\n"; \
-	else \
-		printf "\n$(RED)$(GRAS)Erreur de compilation !$(RESET)\n\n"; \
-		exit 1; \
 	fi
 
 clean:
