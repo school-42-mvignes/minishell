@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:57 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/29 15:26:07 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/30 15:23:12 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static t_env	*create_node_var_empty(char *av)
 	new = ft_envnew(tab);
 	if (!new)
 		free_tab(tab);
+	free(tab);
+	new->egal_init = false;
 	return (new);
 }
 
@@ -58,7 +60,7 @@ static void	edit_var(char *av, t_env *node, t_shell *shell)
 	tab = split_in_two(av, '=');
 	if (!tab)
 		return ;
-	node = search_key_var(shell->env, tab[0]);
+	node = search_key_var(shell->env, tab[0], false);
 	if (!node)
 	{
 		node = ft_envnew(tab);
@@ -75,21 +77,59 @@ static void	edit_var(char *av, t_env *node, t_shell *shell)
 	}
 }
 
+/// @brief edit var in list t_env
+/// @param cmd 
+static void	edit_add_value_var(char *av, t_env *node, t_shell *shell)
+{
+	char	**tab;
+
+	tab = split_in_two(av, '=');
+	if (!tab)
+		return ;
+	node = search_key_var(shell->env, tab[0], true);
+	if (!node)
+	{
+		node = ft_envnew(tab);
+		node->egal_init = true;
+		ft_envadd_back(&shell->env, node);
+		free(tab);
+	}
+	else
+	{
+		node->var = ft_strjoin_gnl(node->var, tab[1]);
+		node->egal_init = true;
+		free_tab(tab);
+	}
+}
+
 /// @brief create or edit the var in list t_env
 /// @param cmd 
 static void	create_or_edit_var(char *av, t_shell *shell)
 {
 	t_env	*node;
+	char	*tmp;
 
 	node = NULL;
+	tmp = strchr(av, '+');
 	if (strchr(av, '='))
 	{
-		edit_var(av, node, shell);
+		if (ft_strlen(tmp) - 1 == ft_strlen(strchr(av, '=')))
+			edit_add_value_var(av, node, shell);
+		else
+			edit_var(av, node, shell);
 		if (node)
 			return ;
 	}
 	else
 	{
+		node = search_key_var(shell->env, av, false);
+		if (node)
+			if (node->var)
+			{
+				free(node->var);
+				node->var = ft_strdup("");
+				return ;
+			}
 		node = create_node_var_empty(av);
 		if (!node)
 			return ;

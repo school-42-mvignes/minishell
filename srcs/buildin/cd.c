@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:44 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/29 14:32:50 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/30 14:35:58 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void	edit_last_pwd(t_env *env, t_env *node_env_pwd)
 {
 	t_env	*last_pwd;
 
-	last_pwd = search_key_var(env, "OLDPWD");
+	last_pwd = search_key_var(env, "OLDPWD", false);
 	if (!last_pwd)
 	{
 		last_pwd = create_var("OLDPWD", node_env_pwd->var);
@@ -88,7 +88,7 @@ static void	redirection_to_the_home(t_command *cmd)
 {
 	t_env	*home;
 
-	home = search_key_var(cmd->shell->env, "HOME");
+	home = search_key_var(cmd->shell->env, "HOME", false);
 	if (home == NULL)
 	{
 		write(2, "HOME not set\n", 13);
@@ -105,7 +105,7 @@ void	buildin_cd(t_command *cmd)
 
 	if (error_cd(cmd))
 		return ;
-	pwd = search_key_var(cmd->shell->env, "PWD");
+	pwd = search_key_var(cmd->shell->env, "PWD", false);
 	if (!pwd)
 		return ;
 	if (cmd->av[1] == NULL)

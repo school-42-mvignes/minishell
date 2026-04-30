@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:25:03 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/27 17:56:29 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/30 15:11:01 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@
 /// @param env 
 /// @param key 
 /// @return return the node search or returns NULL
-t_env	*search_key_var(t_env *env, char *key)
+t_env	*search_key_var(t_env *env, char *key, bool least)
 {
 	t_env	*tmp;
 	int		len;
 
 	len = (ft_strlen(key) + 1);
+	if (least)
+		len -= 3;
 	tmp = env;
 	while (tmp)
 	{

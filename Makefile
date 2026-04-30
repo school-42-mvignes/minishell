@@ -171,7 +171,7 @@ INCLUDES	= -I ./includes
 TOTAL	= $(words $(SRCS) $(SRCS_BONUS))
 
 all:
-	@$(MAKE) $(NAME)
+	@$(MAKE) -j12 $(NAME)
 
 $(NAME): $(OBJS)
 	@printf "\n"
