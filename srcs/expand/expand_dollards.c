@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_dollards.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 17:41:51 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/29 14:31:30 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/30 14:36:33 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void	replace_dollards(t_token *token, int *i, t_shell *shell)
 	while (ft_isalnum(token->value[*i]) || token->value[*i] == '_')
 		(*i)++;
 	tmp = ft_substr(token->value, j, (*i - j));
-	true_value = search_key_var(shell->env, tmp);
+	true_value = search_key_var(shell->env, tmp, false);
 	free(tmp);
 	if (true_value)
 		tmp = true_value->var;

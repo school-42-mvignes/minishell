@@ -109,6 +109,7 @@ SRCS	= \
 		srcs/buildin/env.c\
 		srcs/buildin/exit.c\
 		srcs/buildin/export.c\
+		srcs/buildin/export_utils.c\
 		srcs/buildin/orchestrator.c\
 		srcs/buildin/pwd.c\
 		srcs/buildin/unset.c\
@@ -171,7 +172,7 @@ INCLUDES	= -I ./includes
 TOTAL	= $(words $(SRCS) $(SRCS_BONUS))
 
 all:
-	@$(MAKE) $(NAME)
+	@$(MAKE) -j12 $(NAME)
 
 $(NAME): $(OBJS)
 	@printf "\n"
