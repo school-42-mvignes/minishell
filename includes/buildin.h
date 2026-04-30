@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 14:09:56 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/30 15:50:28 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/30 16:14:17 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void				buildin_cd_cut(t_command *cmd, t_env *home);
 void				buildin_echo(t_command *cmd);
 int					buildin_exit(t_command *cmd);
 
+void				empty_var(char *av, t_env *node, t_env *env);
 bool				exec_without_fork(t_node *node);
 bool				is_one_buildin(t_node *node);
 t_env				*search_key_var(t_env *env, char *key, bool least);
