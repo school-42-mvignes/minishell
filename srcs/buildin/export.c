@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:57 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/29 15:26:07 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/30 16:13:52 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,29 +26,6 @@ static void	error_export(t_command *cmd, int i)
 	cmd->shell->exit_status = 1;
 }
 
-/// @brief create node var empty for export
-/// @param cmd 
-static t_env	*create_node_var_empty(char *av)
-{
-	t_env	*new;
-	char	**tab;
-
-	tab = malloc(sizeof(char *) * 3);
-	if (!tab)
-		return (NULL);
-	tab[0] = ft_strdup(av);
-	if (!tab)
-		return (free_tab(tab), NULL);
-	tab[1] = ft_strdup("");
-	if (!tab)
-		return (free_tab(tab), NULL);
-	tab[2] = NULL;
-	new = ft_envnew(tab);
-	if (!new)
-		free_tab(tab);
-	return (new);
-}
-
 /// @brief edit var in list t_env
 /// @param cmd 
 static void	edit_var(char *av, t_env *node, t_shell *shell)
@@ -58,7 +35,7 @@ static void	edit_var(char *av, t_env *node, t_shell *shell)
 	tab = split_in_two(av, '=');
 	if (!tab)
 		return ;
-	node = search_key_var(shell->env, tab[0]);
+	node = search_key_var(shell->env, tab[0], false);
 	if (!node)
 	{
 		node = ft_envnew(tab);
@@ -75,26 +52,51 @@ static void	edit_var(char *av, t_env *node, t_shell *shell)
 	}
 }
 
+/// @brief edit var in list t_env
+/// @param cmd 
+static void	edit_add_value_var(char *av, t_env *node, t_shell *shell)
+{
+	char	**tab;
+
+	tab = split_in_two(av, '=');
+	if (!tab)
+		return ;
+	node = search_key_var(shell->env, tab[0], true);
+	if (!node)
+	{
+		node = ft_envnew(tab);
+		node->egal_init = true;
+		ft_envadd_back(&shell->env, node);
+		free(tab);
+	}
+	else
+	{
+		node->var = ft_strjoin_gnl(node->var, tab[1]);
+		node->egal_init = true;
+		free_tab(tab);
+	}
+}
+
 /// @brief create or edit the var in list t_env
 /// @param cmd 
 static void	create_or_edit_var(char *av, t_shell *shell)
 {
 	t_env	*node;
+	char	*tmp;
 
 	node = NULL;
+	tmp = strchr(av, '+');
 	if (strchr(av, '='))
 	{
-		edit_var(av, node, shell);
+		if (ft_strlen(tmp) - 1 == ft_strlen(strchr(av, '=')))
+			edit_add_value_var(av, node, shell);
+		else
+			edit_var(av, node, shell);
 		if (node)
 			return ;
 	}
 	else
-	{
-		node = create_node_var_empty(av);
-		if (!node)
-			return ;
-		ft_envadd_back(&shell->env, node);
-	}
+		empty_var(av, node, shell->env);
 }
 
 /// @brief check write env export or create / edit var or error
