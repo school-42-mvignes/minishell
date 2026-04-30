@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/29 11:19:27 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/30 15:18:03 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,10 @@ int	exec_node_cmd(t_node *node)
 	{
 		pid = create_fork();
 		if (pid == 0)
+		{
+			node->cmd->shell->forking = 1;
 			child_exec_cmd(node);
+		}
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
 		waitpid(pid, &status, 0);
