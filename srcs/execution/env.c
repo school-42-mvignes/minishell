@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 16:46:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/29 15:29:47 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/30 09:37:55 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ t_env	*call_env(char **env)
 
 	lst = NULL;
 	ft_memset(&lst_env, 0, (sizeof(t_env)));
-	// lst_env = NULL;
 	env_build = false;
 	if (env[0])
 		split_tab_to_list(env, &lst);
