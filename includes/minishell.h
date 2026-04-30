@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/28 15:43:55 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/30 09:38:53 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct s_shell
 	t_token			*free_the_token;
 	t_node			*free_the_node;
 	int				exit_status;
-	struct termios termios_save;
+	struct termios	termios_save;
 }					t_shell;
 
 typedef struct s_command
@@ -70,13 +70,6 @@ typedef struct s_node
 	struct s_node	*right;
 	pid_t			last_pid;
 }					t_node;
-
-// typedef struct s_init
-// {
-// 	t_token			*cur;
-// 	t_token			*token;
-// 	t_node			*node;
-// }					t_init;
 
 t_shell		*call_shell(t_node *node);
 void		init_signal(void);

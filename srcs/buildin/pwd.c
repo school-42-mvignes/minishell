@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:24:01 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/29 11:13:40 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/30 13:13:22 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,20 @@ void	buildin_pwd(t_command *cmd)
 	char	*path;
 
 	path = getcwd(NULL, 0);
-	pwd = search_key_var(cmd->shell->env, "PWD");
-	if (!pwd)
+	if (!path)
 	{
-		pwd = create_var("PWD", path);
+		pwd = search_key_var(cmd->shell->env, "PWD");
 		if (!pwd)
-			return ;
-		ft_envadd_back(&cmd->shell->env, pwd);
+		{
+			pwd = create_var("PWD", path);
+			if (!pwd)
+				return ;
+			ft_envadd_back(&cmd->shell->env, pwd);
+			ft_putendl_fd(pwd->var, 1);
+		}
+		if (pwd)
+			ft_putendl_fd(pwd->var, 1);
 	}
-	if (path)
-		ft_putendl_fd(path, 1);
 	else
 	{
 		ft_putstr_fd("error retrieving current directory: getcwd: cannot", 2);

@@ -6,14 +6,14 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/29 15:52:16 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/30 09:38:30 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 static void	init_minishell(int ac, char **av)
-{	
+{
 	(void)ac;
 	(void)av;
 	init_signal();
@@ -37,8 +37,8 @@ t_shell	*ft_shellnew(char **env, t_token *token)
 
 void	exit_free_all(t_token *lst, t_node *node, t_shell *shell, char *b)
 {
-	int	status;
-	struct termios saved;
+	int				status;
+	struct termios	saved;
 
 	status = shell->exit_status;
 	saved = shell->termios_save;

@@ -39,7 +39,8 @@ RESET		= \033[0m
 SRCS_DIR	= srcs
 OBJS_DIR	= .objects
 
-SRCS	= srcs/libft/ft_isalpha.c\
+SRCS	= \
+		srcs/libft/ft_isalpha.c\
 		srcs/libft/ft_isdigit.c\
 		srcs/libft/ft_isalnum.c\
 		srcs/libft/ft_isascii.c\
@@ -149,7 +150,7 @@ SRCS	= srcs/libft/ft_isalpha.c\
 
 SRCS_BONUS	= \
 
-OBJS		= $(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS))
+OBJS		= $(SRCS:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 OBJS_BONUS	= $(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS_BONUS))
 
 
@@ -167,11 +168,10 @@ INCLUDES	= -I ./includes
 #           |___/             	||
 #================================#
 
-
-TOTAL = $(words $(OBJS), $(OBJS_BONUS))
+TOTAL	= $(words $(SRCS) $(SRCS_BONUS))
 
 all:
-	@$(MAKE) -j12 $(NAME)
+	@$(MAKE) $(NAME)
 
 $(NAME): $(OBJS)
 	@printf "\n"
@@ -181,7 +181,6 @@ $(NAME): $(OBJS)
 		printf "$(GREEN)$(GRAS)👌 Compilation terminée !$(RESET)\n\n"; \
 	else \
 		printf "\n$(RED)$(GRAS)Erreur de compilation !$(RESET)\n\n"; \
-		$(MAKE) error_ascii; \
 		exit 1; \
 	fi
 
@@ -222,14 +221,9 @@ endef
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	@mkdir -p $(dir $@)
-	$(eval INDEX=$(shell echo $$(($(INDEX)+1))))
+	@$(eval INDEX=$(shell echo $$(($(INDEX)+1))))
 	@printf "\r$(BLUE)$(GRAS)[$(INDEX)/$(TOTAL)]$(RESET) $(GRAS)Compilation: %-30s$(RESET)" "$(notdir $<)"
-	@if ! $(CC) $(CFLAGS) -c $< -o $@; then \
-		printf "\n$(RED)$(GRAS)Erreur dans: $(notdir $<)$(RESET)\n"; \
-		$(CC) $(CFLAGS) -c $< -o $@ 2>&1 | head -10; \
-		$(MAKE) error_ascii; \
-		exit 1; \
-	fi
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 #============================#
 # _____       _   _ _     	||
