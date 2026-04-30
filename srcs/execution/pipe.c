@@ -6,7 +6,7 @@
 /*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 16:54:22 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/30 15:24:24 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/04/30 17:15:41 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 /// @param pipe 
 static void	exec_left(t_node *node, t_shell *shell, int *pipe)
 {
+	shell->forking = 1;
 	close(pipe[0]);
 	redirect_fd(STDOUT_FILENO, pipe[1]);
 	close(pipe[1]);
@@ -32,6 +33,7 @@ static void	exec_left(t_node *node, t_shell *shell, int *pipe)
 /// @param pipe 
 static void	exec_right(t_node *node, t_shell *shell, int *pipe)
 {
+	shell->forking = 1;
 	close(pipe[1]);
 	redirect_fd(STDIN_FILENO, pipe[0]);
 	close(pipe[0]);
@@ -56,16 +58,10 @@ int	exec_pipe(t_node *node)
 		error_message("error : during the creation of the pipe\n");
 	pid_left = create_fork();
 	if (pid_left == 0)
-	{
-		node->cmd->shell->forking = 1;
 		exec_left(node, call_shell(node), pipe);
-	}
 	pid_right = create_fork();
 	if (pid_right == 0)
-	{
-		node->cmd->shell->forking = 1;
 		exec_right(node, call_shell(node), pipe);
-	}
 	close(pipe[0]);
 	close(pipe[1]);
 	waitpid(pid_left, NULL, 0);
