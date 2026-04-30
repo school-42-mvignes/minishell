@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_heredoc_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 17:08:23 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/29 15:34:37 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/30 16:53:47 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int	avenger_assemble(t_node *node, t_shell *shell)
 	if (node->type == NODE_CMD)
 	{
 		redir = node->cmd->redir;
-		if (redir)
-			redir->do_not_expand = 0;
+		// if (redir)
+		// 	redir->do_not_expand = 0;
 		ret = assemble_cut(redir, shell);
 		if (ret == 130)
 			return (130);
@@ -71,10 +71,10 @@ void	check_quote_heredoc(t_token *token)
 	{
 		if (tmp->type == REDIR_HERE)
 		{
+			tmp->do_not_expand = 0;
 			next = next_token(tmp);
 			if (next->type == S_QUOTE || next->type == D_QUOTE)
 				tmp->do_not_expand = 1;
-			next->do_not_expand = 1;
 		}
 		tmp = tmp->next;
 	}

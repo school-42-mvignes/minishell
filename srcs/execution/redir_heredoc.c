@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 14:57:48 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/30 11:58:12 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/30 15:20:43 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,10 @@ static void	do_heredoc_cut(t_shell *shell, char *lim, int flag, int fd[2])
 	exit_free_all(shell->free_the_token, shell->free_the_node, shell, NULL);
 }
 
-static void	i_was_missing_a_line(int fd[2])
+static void	i_was_missing_a_line(t_shell *shell, int fd[2], char *lim, int flag)
 {
-	close(fd[0]);
+	shell->forking = 1;
+	do_heredoc_cut(shell, lim, flag, fd);
 }
 
 int	do_heredoc(char *lim, t_shell *shell, int flag)
@@ -85,9 +86,7 @@ int	do_heredoc(char *lim, t_shell *shell, int flag)
 	pipe(fd);
 	pid = fork();
 	if (pid == 0)
-	{
-		do_heredoc_cut(shell, lim, flag, fd);
-	}
+		i_was_missing_a_line(shell, fd, lim, flag);
 	close(fd[1]);
 	signal(SIGINT, SIG_IGN);
 	waitpid(pid, &status, 0);
@@ -96,7 +95,7 @@ int	do_heredoc(char *lim, t_shell *shell, int flag)
 	if ((WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 		|| (WIFEXITED(status) && WEXITSTATUS(status) == 130))
 	{
-		i_was_missing_a_line(fd);
+		close(fd[0]);
 		g_status = SIGINT;
 		return (-1);
 	}

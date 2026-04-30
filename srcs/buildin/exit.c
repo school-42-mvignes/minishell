@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:53 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/24 15:05:29 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/30 15:31:36 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,17 +89,18 @@ int	buildin_exit(t_command *cmd)
 
 	status = 0;
 	error = 0;
-	write(2, "exit\n", 5);
-	if (cmd->av[1] && cmd->av[2])
+	if (cmd->shell->forking == 0)
+		write(2, "exit\n", 5);
+	if (cmd->av[1] && !is_num(cmd->av[1]))
+		not_num_exit(cmd);
+	else if (cmd->av[1] && cmd->av[2])
 	{
 		write(2, "minishell: exit: ", 17);
 		write(2, "too many arguments\n", 19);
 		cmd->shell->exit_status = 1;
 		return (1);
 	}
-	if (cmd->av[1] && !is_num(cmd->av[1]))
-		not_num_exit(cmd);
-	if (cmd->av[1])
+	else if (cmd->av[1])
 		do_atoll(cmd, &error, &status);
 	status = cmd->shell->exit_status;
 	free_exit(cmd);
