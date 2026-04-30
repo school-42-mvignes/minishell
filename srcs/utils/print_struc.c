@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 04:14:38 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/29 15:28:12 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/30 09:37:43 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,8 @@ void	print_env(t_env *lst)
 	tmp = lst;
 	while (tmp)
 	{
-		if (tmp->egal_init) // tmp->var[0] != '\0'
+		if (tmp->egal_init)
 		{
-			// if (tmp->egal_init)
-			// 	msg = ft_strjoin(tmp->key_var, "=");
-			// else
 			msg = ft_strjoin(tmp->key_var, "=");
 			if (tmp->var[0])
 				msg = ft_strjoin_gnl(msg, tmp->var);
