@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:57 by mvignes           #+#    #+#             */
-/*   Updated: 2026/05/01 11:14:14 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/05/01 12:08:29 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	edit_add_value_var(char *av, t_env *node, t_shell *shell)
 
 	tab = split_in_two(av, '=');
 	if (!tab)
-	return ;
+		return ;
 	node = search_key_var(shell->env, tab[0], true);
 	if (!node)
 		tronc_var(node, shell, tab);
