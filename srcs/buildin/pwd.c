@@ -6,12 +6,18 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:24:01 by mvignes           #+#    #+#             */
-/*   Updated: 2026/05/01 09:37:30 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/05/01 09:43:05 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/// @brief write the good msg error for pwd or cd, exit this the child
+/// for they still reachable
+/// @param shell 
+/// @param str 
+/// @param pwd 
+/// @param first 
 void	error_getcwd(t_shell *shell, char *str, bool pwd, bool first)
 {
 	char	*para;
@@ -24,8 +30,8 @@ void	error_getcwd(t_shell *shell, char *str, bool pwd, bool first)
 			para = ft_strdup("pwd: ");
 		else
 			para = ft_strdup("chdir: ");
-		msg = ft_strjoin_gnl(para, "error retrieving current directory: getcwd: ");
-		msg = ft_strjoin_gnl(msg, "cannot access parent directories:");
+		msg = ft_strjoin_gnl(para, "error retrieving current directory: ");
+		msg = ft_strjoin_gnl(msg, "getcwd: cannot access parent directories:");
 		msg = ft_strjoin_gnl(msg, " No such file or directory");
 		ft_putendl_fd(msg, 2);
 		free(msg);
@@ -56,10 +62,5 @@ void	buildin_pwd(t_command *cmd)
 	}
 	if (path)
 		ft_putendl_fd(path, 1);
-	// else
-	// {
-	// 	ft_putstr_fd("error retrieving current directory: getcwd: cannot", 2);
-	// 	error_message(" access parent directories: No such file or directory");
-	// }
 	free(path);
 }
