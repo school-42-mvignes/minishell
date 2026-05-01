@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 14:09:56 by mvignes           #+#    #+#             */
-/*   Updated: 2026/05/01 09:43:27 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/05/01 10:28:32 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,7 @@ t_env			*search_key_var(t_env *env, char *key, bool least);
 void			free_exit(t_command *cmd);
 int				is_num(char *str);
 bool			dont_dash_in_key_var(char	*str);
+
+bool			good_key_var_name(char *av);
 
 #endif

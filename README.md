@@ -32,6 +32,7 @@ minishell/
 │   |   ├── echo.c
 │   |   ├── env.c
 │   |   ├── exit.c
+│   |   ├── export_utils.c
 │   |   ├── export.c
 │   |   ├── orchestrator.c
 │   |   ├── pwd.c
@@ -46,8 +47,10 @@ minishell/
 │   |   ├── or.c
 │   |   ├── path.c
 │   |   ├── pipe.c
+│   |   ├── redir_heredoc_utils.c
 │   |   ├── redir_heredoc.c
 │   |   ├── redir.c
+│   |   ├── utils.c
 │   |   ├── wildcard_utils.c
 │   |   └── wildcard.c
 │   ├── expand/
@@ -76,6 +79,7 @@ minishell/
 │   |   ├── other_split.c
 │   |   ├── print_struc.c
 │   |   └── utils.c
+│   ├── main_cut.c
 │   └── main.c
 ├── .objects/            # .o files
 │   ├── buildin/
@@ -83,6 +87,7 @@ minishell/
 │   |   ├── echo.o
 │   |   ├── env.o
 │   |   ├── exit.o
+│   |   ├── export_utils.o
 │   |   ├── export.o
 │   |   ├── orchestrator.o
 │   |   ├── pwd.o
@@ -97,8 +102,10 @@ minishell/
 │   |   ├── or.o
 │   |   ├── path.o
 │   |   ├── pipe.o
+│   |   ├── redir_heredoc_utils.o
 │   |   ├── redir_heredoc.o
 │   |   ├── redir.o
+│   |   ├── utils.o
 │   |   ├── wildcard_utils.o
 │   |   └── wildcard.o
 │   ├── expand/
@@ -127,6 +134,7 @@ minishell/
 │   |   ├── other_split.o
 │   |   ├── print_struc.o
 │   |   └── utils.o
+│   ├── main_cut.o
 │   └── main.o
 ├── .readline.supp         # file for removes memory leaks coming from readline
 ├── .last_colors          # Stores the last color used for compilation
@@ -147,13 +155,13 @@ make
 ./minishell
 ```
 
-### Execution / Testing
-```bash
-make val
-```
-
 ### Manual Testing
-
+```bash
+./minishell
+ls | grep mi
+cd srcs/
+...
+```
 
 ---
 

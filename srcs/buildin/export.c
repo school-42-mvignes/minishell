@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:57 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/30 16:13:52 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/05/01 10:20:39 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,7 @@ void	buildin_export(t_command *cmd)
 		i = 1;
 		while (cmd->av[i])
 		{
-			if ((ft_isalpha(cmd->av[i][0]) || cmd->av[i][0] == '_')
-			&& dont_dash_in_key_var(cmd->av[i]))
+			if (good_key_var_name(cmd->av[i]))
 				create_or_edit_var(cmd->av[i], cmd->shell);
 			else
 				error_export(cmd, i);

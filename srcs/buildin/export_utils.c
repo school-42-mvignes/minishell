@@ -6,11 +6,30 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 16:13:08 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/30 16:30:00 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/05/01 10:29:23 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+/// @brief check is the good name for the key var
+/// @param av 
+/// @return true == good name, false == caractere not good
+bool	good_key_var_name(char *av)
+{
+	int	i;
+
+	i = 0;
+	if (!(ft_isalpha(av[i]) || av[i] == '_'))
+		return (false);
+	while ((ft_isalnum(av[i]) || av[i] == '_'))
+		i++;
+	if (av[i] == '=' || av[i] == '\0')
+		return (true);
+	if (av[i] == '+' && av[i + 1] == '=')
+		return (true);
+	return (false);
+}
 
 /// @brief create node var empty for export
 /// @param cmd 
