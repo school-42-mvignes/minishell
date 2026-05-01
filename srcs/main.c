@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:20:10 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/30 09:38:30 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/30 15:15:47 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_shell	*ft_shellnew(char **env, t_token *token)
 	element->free_the_token = token;
 	element->env = call_env(env);
 	element->exit_status = status;
+	element->forking = 0;
 	tcgetattr(STDIN_FILENO, &element->termios_save);
 	return (element);
 }

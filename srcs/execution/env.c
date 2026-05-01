@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 16:46:23 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/30 10:11:47 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/05/01 12:13:29 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static void	init_lst_env(t_list *lst, t_env **env)
 		if (!ft_strncmp("SHLVL", tab[0], 6))
 			tab = shell_lvl(tab);
 		new = ft_envnew(tab);
+		if (!new)
+			return ;
 		new->egal_init = true;
 		ft_envadd_back(env, new);
 		lst = lst->next;

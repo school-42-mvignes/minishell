@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 17:41:51 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/30 14:36:33 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/04/30 14:02:36 by mmusquer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	interrogation_mark(t_token *token, int j, int *i, t_shell *shell)
 
 	(*i)++;
 	m = ft_itoa(shell->exit_status % 255);
-	create_new_value(token, j - 1, *i, m);
+	(*i) = create_new_value(token, j - 1, *i, m);
 	free(m);
 }
 
@@ -82,6 +82,7 @@ static void	replace_dollards(t_token *token, int *i, t_shell *shell)
 }
 
 void	search_dollards(t_token *token, t_shell *shell)
+
 {
 	int	i;
 

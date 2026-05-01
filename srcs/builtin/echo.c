@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:49 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/27 18:13:04 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/05/01 10:36:02 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static bool	check_flags(char *av)
 
 /// @brief writes the requested text
 /// @param cmd 
-void	buildin_echo(t_command *cmd)
+void	builtin_echo(t_command *cmd)
 {
 	int		i;
 	bool	new_line;

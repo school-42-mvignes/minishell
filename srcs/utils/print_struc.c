@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 04:14:38 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/30 09:37:43 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/05/01 10:36:28 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	print_env(t_env *lst)
 	}
 }
 
-/// @brief writes the entire linked list "t_env"  for thebuildin export
+/// @brief writes the entire linked list "t_env"  for thebuiltin export
 /// @param lst 
 void	print_export(t_env *lst)
 {

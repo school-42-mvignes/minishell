@@ -6,16 +6,16 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:24:04 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/27 17:54:33 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/05/01 10:36:16 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/// @brief check if he’s a buildin
+/// @brief check if he’s a builtin
 /// @param node 
 /// @return true or false
-bool	is_one_buildin(t_node *node)
+bool	is_one_builtin(t_node *node)
 {
 	if (!ft_strncmp(ECHOS, node->cmd->av[0], 5)
 		|| !ft_strncmp(CD, node->cmd->av[0], 3)
@@ -29,7 +29,7 @@ bool	is_one_buildin(t_node *node)
 }
 
 /// @brief Check if he is in a trap and whether to launch a fork
-/// or not on the buildin cd, export, unset
+/// or not on the builtin cd, export, unset
 /// @param node 
 /// @return true = exec_without_fork, false exec_with_fork
 bool	exec_without_fork(t_node *node)
@@ -69,23 +69,4 @@ int	is_num(char *str)
 		i++;
 	}
 	return (1);
-}
-
-/// @brief check if there is no dash
-/// @param str 
-/// @return bool false == dash in the string
-bool	dont_dash_in_key_var(char	*str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '=')
-			return (true);
-		else if (str[i] == '-')
-			return (false);
-		i++;
-	}
-	return (true);
 }

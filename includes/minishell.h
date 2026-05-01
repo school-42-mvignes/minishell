@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/30 16:07:11 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/05/01 10:35:59 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // # define DEFAULT_SOURCES
 # include "libft.h"
 # include <stdbool.h>
-# include "buildin.h"
+# include "builtin.h"
 # include "env.h"
 # include "lexer.h"
 # include <signal.h>
@@ -50,6 +50,7 @@ typedef struct s_shell
 	t_node			*free_the_node;
 	int				exit_status;
 	struct termios	termios_save;
+	int				forking;
 }					t_shell;
 
 typedef struct s_command

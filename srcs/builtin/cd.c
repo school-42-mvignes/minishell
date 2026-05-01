@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:44 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/30 14:35:58 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/05/01 10:36:01 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@
 /// @return bool true == error
 static bool	error_cd(t_command *cmd)
 {
+	char	*new_localisation;
+
+	new_localisation = getcwd(NULL, 0);
+	if (!new_localisation)
+		error_getcwd(cmd->shell, new_localisation, false, true);
+	free(new_localisation);
 	if (cmd->av[1])
 	{
 		if (cmd->av[1][0] == '\0')
@@ -37,11 +43,13 @@ static bool	error_cd(t_command *cmd)
 /// @brief Function that will edit the pwd of the already existing variable
 /// @param env 
 /// @param pwd 
-static void	edit_pwd(t_env *env, t_env *node_env_pwd)
+static void	edit_pwd(t_shell *shell, t_env *env, t_env *node_env_pwd)
 {
 	char	*new_localisation;
 
 	new_localisation = getcwd(NULL, 0);
+	if (!new_localisation)
+		error_getcwd(shell, new_localisation, false, false);
 	if (!node_env_pwd)
 	{
 		node_env_pwd = create_var("PWD", new_localisation);
@@ -49,7 +57,6 @@ static void	edit_pwd(t_env *env, t_env *node_env_pwd)
 			return ;
 		free(new_localisation);
 		ft_envadd_back(&env, node_env_pwd);
-		return ;
 	}
 	else
 	{
@@ -99,7 +106,7 @@ static void	redirection_to_the_home(t_command *cmd)
 
 /// @brief Function that distributes the work for the different CD actions
 /// @param cmd 
-void	buildin_cd(t_command *cmd)
+void	builtin_cd(t_command *cmd)
 {
 	t_env	*pwd;
 
@@ -120,6 +127,6 @@ void	buildin_cd(t_command *cmd)
 		return ;
 	}
 	edit_last_pwd(cmd->shell->env, pwd);
-	edit_pwd(cmd->shell->env, pwd);
+	edit_pwd(cmd->shell, cmd->shell->env, pwd);
 	cmd->shell->exit_status = 0;
 }
