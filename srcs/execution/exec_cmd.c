@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:04:41 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/30 15:18:03 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/05/01 10:36:24 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,13 +98,13 @@ static void	child_exec_cmd(t_node *node)
 	signal(SIGQUIT, SIG_DFL);
 	signal(SIGPIPE, SIG_DFL);
 	create_and_redir_file(node, node->cmd->redir);
-	if (is_one_buildin(node))
-		exec_the_buildin(node, node->cmd->shell);
+	if (is_one_builtin(node))
+		exec_the_builtin(node, node->cmd->shell);
 	else
 		exec_cmd(node, node->cmd->av, rebuild_env(&node->cmd->shell->env));
 }
 
-/// @brief executes the command found or buildin in the node command
+/// @brief executes the command found or builtin in the node command
 /// @param node 
 /// @return exit_status
 int	exec_node_cmd(t_node *node)
@@ -118,7 +118,7 @@ int	exec_node_cmd(t_node *node)
 		if (is_wildcard(node->cmd->av[1]))
 			node->cmd->av = exec_wildcard(node->cmd->av);
 	if (exec_without_fork(node))
-		exec_buildin_without_fork(node);
+		exec_builtin_without_fork(node);
 	else
 	{
 		pid = create_fork();

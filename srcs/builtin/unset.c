@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:24:04 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/27 18:28:54 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/05/01 10:36:07 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ static void	while_unset(t_command *cmd, t_env *tmp, t_env *preview)
 
 /// @brief check is a var and delete var
 /// @param cmd 
-void	buildin_unset(t_command *cmd)
+void	builtin_unset(t_command *cmd)
 {
 	t_env	*tmp;
 	t_env	*preview;

@@ -18,7 +18,7 @@ minishell/
 ├── Makefile             # Master Makefile
 ├── README.md            # README.md
 ├── includes/            # Headers
-│   ├── buildin.h
+│   ├── builtin.h
 │   ├── env.h
 │   ├── execution.h
 │   ├── expand.h
@@ -27,7 +27,7 @@ minishell/
 │   ├── minishell.h
 │   └── parser.h
 ├── srcs/                # .c files
-│   ├── buildin/
+│   ├── builtin/
 │   |   ├── cd.c
 │   |   ├── echo.c
 │   |   ├── env.c
@@ -82,7 +82,7 @@ minishell/
 │   ├── main_cut.c
 │   └── main.c
 ├── .objects/            # .o files
-│   ├── buildin/
+│   ├── builtin/
 │   |   ├── cd.o
 │   |   ├── echo.o
 │   |   ├── env.o

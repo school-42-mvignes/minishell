@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:57 by mvignes           #+#    #+#             */
-/*   Updated: 2026/05/01 10:20:39 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/05/01 10:36:04 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static void	create_or_edit_var(char *av, t_shell *shell)
 
 /// @brief check write env export or create / edit var or error
 /// @param cmd 
-void	buildin_export(t_command *cmd)
+void	builtin_export(t_command *cmd)
 {
 	int	i;
 

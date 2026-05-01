@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:24:01 by mvignes           #+#    #+#             */
-/*   Updated: 2026/05/01 09:43:05 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/05/01 10:36:06 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	error_getcwd(t_shell *shell, char *str, bool pwd, bool first)
 
 /// @brief write path or the message error
 /// @param cmd 
-void	buildin_pwd(t_command *cmd)
+void	builtin_pwd(t_command *cmd)
 {
 	t_env	*pwd;
 	char	*path;

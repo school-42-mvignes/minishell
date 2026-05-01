@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:44 by mvignes           #+#    #+#             */
-/*   Updated: 2026/05/01 09:34:21 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/05/01 10:36:01 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ static void	redirection_to_the_home(t_command *cmd)
 
 /// @brief Function that distributes the work for the different CD actions
 /// @param cmd 
-void	buildin_cd(t_command *cmd)
+void	builtin_cd(t_command *cmd)
 {
 	t_env	*pwd;
 

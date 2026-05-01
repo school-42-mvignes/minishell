@@ -104,16 +104,16 @@ SRCS	= \
 		srcs/utils/print_struc.c\
 		srcs/utils/utils.c\
 		\
-		srcs/buildin/cd.c\
-		srcs/buildin/echo.c\
-		srcs/buildin/env.c\
-		srcs/buildin/exit.c\
-		srcs/buildin/export.c\
-		srcs/buildin/export_utils.c\
-		srcs/buildin/orchestrator.c\
-		srcs/buildin/pwd.c\
-		srcs/buildin/unset.c\
-		srcs/buildin/utils.c\
+		srcs/builtin/cd.c\
+		srcs/builtin/echo.c\
+		srcs/builtin/env.c\
+		srcs/builtin/exit.c\
+		srcs/builtin/export.c\
+		srcs/builtin/export_utils.c\
+		srcs/builtin/orchestrator.c\
+		srcs/builtin/pwd.c\
+		srcs/builtin/unset.c\
+		srcs/builtin/utils.c\
 		\
 		srcs/execution/env.c\
 		srcs/execution/env_utils.c\

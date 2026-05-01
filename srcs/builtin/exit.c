@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:53 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/30 15:31:36 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/05/01 10:36:04 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static void	do_atoll(t_command *cmd, int *error, int *status)
 	exit(*status);
 }
 
-int	buildin_exit(t_command *cmd)
+int	builtin_exit(t_command *cmd)
 {
 	int	error;
 	int	status;

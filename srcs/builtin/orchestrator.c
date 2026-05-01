@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:25:03 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/30 15:11:01 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/05/01 10:36:06 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ t_env	*search_key_var(t_env *env, char *key, bool least)
 	return (NULL);
 }
 
-/// @brief perform the correct buildin
+/// @brief perform the correct builtin
 /// @param node 
 /// @return 
-int	exec_the_buildin(t_node *node, t_shell *shell)
+int	exec_the_builtin(t_node *node, t_shell *shell)
 {
 	int	status;
 
@@ -45,19 +45,19 @@ int	exec_the_buildin(t_node *node, t_shell *shell)
 	if (node->cmd->av[0] == NULL)
 		return (0);
 	else if (!ft_strncmp(ECHOS, node->cmd->av[0], 5))
-		buildin_echo(node->cmd);
+		builtin_echo(node->cmd);
 	else if (!ft_strncmp(CD, node->cmd->av[0], 3))
-		buildin_cd(node->cmd);
+		builtin_cd(node->cmd);
 	else if (!ft_strncmp(PWD, node->cmd->av[0], 4))
-		buildin_pwd(node->cmd);
+		builtin_pwd(node->cmd);
 	else if (!ft_strncmp(ENV, node->cmd->av[0], 4))
-		buildin_env(node->cmd);
+		builtin_env(node->cmd);
 	else if (!ft_strncmp(EXPORT, node->cmd->av[0], 7))
-		buildin_export(node->cmd);
+		builtin_export(node->cmd);
 	else if (!ft_strncmp(UNSET, node->cmd->av[0], 6))
-		buildin_unset(node->cmd);
+		builtin_unset(node->cmd);
 	else if (!ft_strncmp(EXIT, node->cmd->av[0], 5))
-		if (buildin_exit(node->cmd))
+		if (builtin_exit(node->cmd))
 			return (shell->exit_status);
 	shell->exit_status = 0;
 	status = shell->exit_status;
@@ -67,18 +67,18 @@ int	exec_the_buildin(t_node *node, t_shell *shell)
 
 /// @brief executes the right build without being in a fork
 /// @param node 
-void	exec_buildin_without_fork(t_node *node)
+void	exec_builtin_without_fork(t_node *node)
 {
 	if (!ft_strncmp(CD, node->cmd->av[0], 3))
-		buildin_cd(node->cmd);
+		builtin_cd(node->cmd);
 	else if (!ft_strncmp(PWD, node->cmd->av[0], 4))
-		buildin_pwd(node->cmd);
+		builtin_pwd(node->cmd);
 	else if (!ft_strncmp(ENV, node->cmd->av[0], 4))
-		buildin_env(node->cmd);
+		builtin_env(node->cmd);
 	else if (!ft_strncmp(EXPORT, node->cmd->av[0], 7))
-		buildin_export(node->cmd);
+		builtin_export(node->cmd);
 	else if (!ft_strncmp(UNSET, node->cmd->av[0], 6))
-		buildin_unset(node->cmd);
+		builtin_unset(node->cmd);
 	else if (!ft_strncmp(EXIT, node->cmd->av[0], 5))
-		buildin_exit(node->cmd);
+		builtin_exit(node->cmd);
 }

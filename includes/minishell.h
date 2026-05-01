@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 20:55:48 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/30 15:08:04 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/05/01 10:35:59 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // # define DEFAULT_SOURCES
 # include "libft.h"
 # include <stdbool.h>
-# include "buildin.h"
+# include "builtin.h"
 # include "env.h"
 # include "lexer.h"
 # include <signal.h>
