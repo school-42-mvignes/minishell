@@ -27,6 +27,7 @@ RM			= rm -f
 
 MAKEFLAGS	+= --no-print-directory
 
+BLACK		= \033[0;30m
 RED			= \033[0;31m
 GREEN		= \033[0;32m
 YELLOW		= \033[0;33m
@@ -149,12 +150,8 @@ SRCS	= \
 		\
 		srcs/signal/signal.c\
 
-SRCS_BONUS	= \
-
 OBJS		= $(SRCS:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
-OBJS_BONUS	= $(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS_BONUS))
-
-
+DEPS		= $(OBJS:.o=.d)
 INCLUDES	= -I ./includes
 
 
@@ -171,16 +168,14 @@ INCLUDES	= -I ./includes
 
 TOTAL	= $(words $(SRCS) $(SRCS_BONUS))
 
-DEPS		= $(OBJS:.o=.d)
-
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	@printf "\n"
-		$(CC) $(CFLAGS) $(OBJS) -lreadline -o $(NAME); \
-		$(MAKE) name_ascii; \
-		$(MAKE) user42; \
-		printf "$(GREEN)$(GRAS)👌 Compilation terminée !$(RESET)\n\n"; \
+	@$(CC) $(CFLAGS) $(OBJS) -lreadline -o $(NAME); \
+	$(MAKE) name_ascii; \
+	$(MAKE) user42; \
+	printf "$(GREEN)$(GRAS)👌 Compilation terminée !$(RESET)\n\n"; \
 
 clean:
 	@$(RM) -r $(OBJS_DIR)
@@ -193,11 +188,6 @@ fclean: clean
 
 re: fclean all
 
-bonus:
-	@$(MAKE) -j12 $(NAME) $(OBJS_BONUS)
-
-bash:
-	@bash --posix
 
 #============================================================#
 # _____                       _ _       _   _             	||
@@ -212,16 +202,12 @@ bash:
 
 INDEX = 0
 
-define compile_msg
-	$(eval INDEX=$(shell echo $$(($(INDEX)+1))))
-	@printf "\r$(BLUE)$(GRAS)[$(INDEX)/$(TOTAL)]$(RESET) $(GRAS)Compilation: %-30s$(RESET)" "$(notdir $<)"
-endef
-
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	@mkdir -p $(dir $@)
 	@$(eval INDEX=$(shell echo $$(($(INDEX)+1))))
 	@printf "\r$(BLUE)$(GRAS)[$(INDEX)/$(TOTAL)]$(RESET) $(GRAS)Compilation: %-30s$(RESET)" "$<"
 	@$(CC) $(CFLAGS) $(INCLUDES) -MMD -MP -c $< -o $@
+
 
 #============================#
 # _____       _   _ _     	||
@@ -231,6 +217,10 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 #\ \_/ / |_| | |_| | \__ \	||
 # \___/ \__,_|\__|_|_|___/	||
 #============================#
+
+# Lance bash posix
+bash:
+	@bash --posix
 
 # Statistiques du projet
 stats:
@@ -245,17 +235,21 @@ des:
 	@find srcs -name "*.c" -exec awk '/^\/\/\// { c=1; print; next } c\
 	 && /\(/ { print; print ""; print ""; c=0 }' {} +
 
+# Fait un make re et lance valgrind avec les flags (Bug un peu a reparer pour cub3d)
 val:
 	@make re
 	@$(VALGRIND) ./minishell
 
+# Fait un make re et lance minishell
 mi:
 	@make re
 	@./minishell
 
+# Fait un make re et lance un test funcheck pour etre sur de ne avoir laisser des ouvertures a des mallocs non proteger
 fun:
 	@make re
 	@funcheck ./minishell -c "(ls | ls) && (qfdqw || ls)"
+
 
 #===========================================# proubleme "ASSII"
 #  ___       _      ___          _ _ 	   ||
@@ -290,32 +284,34 @@ endef
 
 name_ascii:
 	@printf "\n"
-	@printf "$(call get_random_color)$(GRAS)"
-	@printf "                  ,,                ,,           ,,                 ,,    ,,  \n"
-	@printf "'7MMM.     ,MMF'  db                db         '7MM               '7MM  '7MM  \n"
-	@printf "  MMMb    dPMM                                   MM                 MM    MM  \n"
-	@printf "  M YM   ,M MM  '7MM  '7MMpMMMb.  '7MM  ,pP'Ybd  MMpMMMb.  .gP'Ya   MM    MM  \n"
-	@printf "  M  Mb  M' MM    MM    MM    MM    MM  8I   ''  MM    MM ,M'   Yb  MM    MM  \n"
-	@printf "  M  YM.P'  MM    MM    MM    MM    MM  'YMMMa.  MM    MM 8M''''''  MM    MM  \n"
-	@printf "  M  'YM'   MM    MM    MM    MM    MM  L.   I8  MM    MM YM.    ,  MM    MM  \n"
-	@printf ".JML. ''  .JMML..JMML..JMML  JMML..JMML.M9mmmP'.JMML  JMML.'Mbmmd'.JMML..JMML.\n"
+#	@printf "$(call get_random_color)$(GRAS)"
+	@printf "                                                                                        ,,                ,,           ,,                 ,,    ,,  \n"
+	@printf "                                                                      '7MMM.     ,MMF'  db                db         '7MM               '7MM  '7MM  \n"
+	@printf "                                                                        MMMb    dPMM                                   MM                 MM    MM  \n"
+	@printf "                                                                        M YM   ,M MM  '7MM  '7MMpMMMb.  '7MM  ,pP'Ybd  MMpMMMb.  .gP'Ya   MM    MM  \n"
+	@printf "                                                                        M  Mb  M' MM    MM    MM    MM    MM  8I   ''  MM    MM ,M'   Yb  MM    MM  \n"
+	@printf "                                                                        M  YM.P'  MM    MM    MM    MM    MM  'YMMMa.  MM    MM 8M''''''  MM    MM  \n"
+	@printf "                                                                        M  'YM'   MM    MM    MM    MM    MM  L.   I8  MM    MM YM.    ,  MM    MM  \n"
+	@printf "                                                                      .JML. ''  .JMML..JMML..JMML  JMML..JMML.M9mmmP'.JMML  JMML.'Mbmmd'.JMML..JMML.\n"
 	@printf "$(RESET)\n"
 
+COLOR_MMUSQUER = $(shell NEW=$$(($$RANDOM % 6 + 1)); printf "\033[1;3%dm" $$NEW)
+COLOR_MVIGNES  = $(shell NEW=$$(($$RANDOM % 6 + 1)); printf "\033[1;3%dm" $$NEW)
 
 user42:
-#	@printf "$(call get_random_color)$(GRAS)"
+	@$(eval COL1=$(call get_random_color))
+	@$(eval COL2=$(call get_random_color))
 	@printf "                                                                                                             AW                                                                                  \n"
-	@printf "$(COLOR_MAX)'7MMM.     ,MMF''7MMM.     ,MMF''7MMF'   '7MF'.M***bgd   .g8**8q. '7MMF'   '7MF''7MM***YMM  '7MM***Mq.$(RESET)      ,M'$(COLOR_MAT)'7MMM.     ,MMF''7MMF'   '7MF''7MMF' .g8***bgd '7MN.   '7MF''7MM***YMM   .M***bgd$(RESET) \n"
-	@printf "  $(COLOR_MAX)MMMb    dPMM    MMMb    dPMM    MM       M ,MI    *Y .dP'    'YM. MM       M    MM    '7    MM   'MM.$(RESET)     MV   $(COLOR_MAT)MMMb    dPMM    'MA     ,V    MM .dP'     'M   MMN.    M    MM    '7  ,MI    *Y$(RESET) \n"
-	@printf "  $(COLOR_MAX)M YM   ,M MM    M YM   ,M MM    MM       M 'MMb.     dM'      'MM MM       M    MM   d      MM   ,M9$(RESET)     AW    $(COLOR_MAT)M YM   ,M MM     VM:   ,V     MM dM'       '   M YMb   M    MM   d    'MMb.$(RESET)     \n"
-	@printf "  $(COLOR_MAX)M  Mb  M' MM    M  Mb  M' MM    MM       M   'YMMNq. MM        MM MM       M    MMmmMM      MMmmdM9$(RESET)     ,M'    $(COLOR_MAT)M  Mb  M' MM      MM.  M'     MM MM            M  'MN. M    MMmmMM      'YMMNq.$(RESET) \n"
-	@printf "  $(COLOR_MAX)M  YM.P'  MM    M  YM.P'  MM    MM       M .     'MM MM.      ,MP MM       M    MM   Y  ,   MM  YM.$(RESET)     MV     $(COLOR_MAT)M  YM.P'  MM      'MM A'      MM MM.    '7MMF' M   'MM.M    MM   Y  , .     'MM$(RESET) \n"
-	@printf "  $(COLOR_MAX)M  'YM'   MM    M  'YM'   MM    YM.     ,M Mb     dM 'Mb.    ,dP' YM.     ,M    MM     ,M   MM   'Mb.$(RESET)  AW      $(COLOR_MAT)M  'YM'   MM       :MM;       MM 'Mb.     MM   M     YMM    MM     ,M Mb     dM$(RESET) \n"
-	@printf "$(COLOR_MAX).JML. ''  .JMML..JML. ''  .JMML.   'bmmmmd*' P*Ybmmd*    '*bmmd*'    'bmmmmd*'  .JMMmmmmMMM .JMML. .JMM.$(RESET),M'    $(COLOR_MAT).JML. ''  .JMML.      VF      .JMML. '*bmmmdPY .JML.    YM  .JMMmmmmMMM P*Ybmmd*$(RESET)  \n"
-	@printf "                                                             $(COLOR_MAX)MMb$(RESET)                                        MV                                                                                       \n"
-	@printf "                                                              $(COLOR_MAX)'bood'$(RESET)                                   AW                                                                                        \n"
+	@printf "$(COL1)'7MMM.     ,MMF''7MMM.     ,MMF''7MMF'   '7MF'.M***bgd   .g8**8q. '7MMF'   '7MF''7MM***YMM  '7MM***Mq.$(RESET)      ,M'$(COL2)'7MMM.     ,MMF''7MMF'   '7MF''7MMF' .g8***bgd '7MN.   '7MF''7MM***YMM   .M***bgd$(RESET) \n"
+	@printf "  $(COL1)MMMb    dPMM    MMMb    dPMM    MM       M ,MI    *Y .dP'    'YM. MM       M    MM    '7    MM   'MM.$(RESET)     MV   $(COL2)MMMb    dPMM    'MA     ,V    MM .dP'     'M   MMN.    M    MM    '7  ,MI    *Y$(RESET) \n"
+	@printf "  $(COL1)M YM   ,M MM    M YM   ,M MM    MM       M 'MMb.     dM'      'MM MM       M    MM   d      MM   ,M9$(RESET)     AW    $(COL2)M YM   ,M MM     VM:   ,V     MM dM'       '   M YMb   M    MM   d    'MMb.$(RESET)     \n"
+	@printf "  $(COL1)M  Mb  M' MM    M  Mb  M' MM    MM       M   'YMMNq. MM        MM MM       M    MMmmMM      MMmmdM9$(RESET)     ,M'    $(COL2)M  Mb  M' MM      MM.  M'     MM MM            M  'MN. M    MMmmMM      'YMMNq.$(RESET) \n"
+	@printf "  $(COL1)M  YM.P'  MM    M  YM.P'  MM    MM       M .     'MM MM.      ,MP MM       M    MM   Y  ,   MM  YM.$(RESET)     MV     $(COL2)M  YM.P'  MM      'MM A'      MM MM.    '7MMF' M   'MM.M    MM   Y  , .     'MM$(RESET) \n"
+	@printf "  $(COL1)M  'YM'   MM    M  'YM'   MM    YM.     ,M Mb     dM 'Mb.    ,dP' YM.     ,M    MM     ,M   MM   'Mb.$(RESET)  AW      $(COL2)M  'YM'   MM       :MM;       MM 'Mb.     MM   M     YMM    MM     ,M Mb     dM$(RESET) \n"
+	@printf "$(COL1).JML. ''  .JMML..JML. ''  .JMML.   'bmmmmd*' P*Ybmmd*    '*bmmd*'    'bmmmmd*'  .JMMmmmmMMM .JMML. .JMM.$(RESET),M'    $(COL2).JML. ''  .JMML.      VF      .JMML. '*bmmmdPY .JML.    YM  .JMMmmmmMMM P*Ybmmd*$(RESET)  \n"
+	@printf "                                                             $(COL1)MMb$(RESET)                                        MV                                                                                       \n"
+	@printf "                                                              $(COL1)'bood'$(RESET)                                   AW                                                                                        \n"
 	@printf "$(RESET)\n"
-
 
 #====================================#
 #  ____  _   _  ___  _   ___   __	||
@@ -328,4 +324,4 @@ user42:
 
 -include $(DEPS)
 
-.PHONY: all bonus clean fclean re norm lines name_ascii user42
+.PHONY: all clean fclean re bash stats des val mi fun name_ascii user42

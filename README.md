@@ -40,9 +40,9 @@ minishell/
 │   ├── utils/           # Utils for multiple portion project
 │   └── main.c
 ├── .objects/            # Source files .o
-├── .readline.supp         # file for removes memory leaks coming from readline
-├── .last_colors          # Stores the last color used for compilation
-└── .gitignore            # Used to avoid pushing these files to git
+├── .readline.supp       # file for removes memory leaks coming from readline
+├── .last_colors         # Stores the last color used for compilation
+└── .gitignore           # Used to avoid pushing these files to git
 ```
 
 ### Project Structure complete
