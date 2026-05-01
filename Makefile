@@ -21,7 +21,7 @@
 
 NAME		= minishell
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror -g3
+CFLAGS		= -Wall -Wextra -Werror -g3 -MMD -MP
 VALGRIND	= valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-children=yes
 RM			= rm -f
 
@@ -171,19 +171,16 @@ INCLUDES	= -I ./includes
 
 TOTAL	= $(words $(SRCS) $(SRCS_BONUS))
 
-all:
-	@$(MAKE) -j12 $(NAME)
+DEPS		= $(OBJS:.o=.d)
+
+all: $(NAME)
 
 $(NAME): $(OBJS)
 	@printf "\n"
-	@if $(CC) $(CFLAGS) $(OBJS) -lreadline -o $(NAME); then \
+		$(CC) $(CFLAGS) $(OBJS) -lreadline -o $(NAME); \
 		$(MAKE) name_ascii; \
 		$(MAKE) user42; \
 		printf "$(GREEN)$(GRAS)👌 Compilation terminée !$(RESET)\n\n"; \
-	else \
-		printf "\n$(RED)$(GRAS)Erreur de compilation !$(RESET)\n\n"; \
-		exit 1; \
-	fi
 
 clean:
 	@$(RM) -r $(OBJS_DIR)
@@ -223,8 +220,8 @@ endef
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	@mkdir -p $(dir $@)
 	@$(eval INDEX=$(shell echo $$(($(INDEX)+1))))
-	@printf "\r$(BLUE)$(GRAS)[$(INDEX)/$(TOTAL)]$(RESET) $(GRAS)Compilation: %-30s$(RESET)" "$(notdir $<)"
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@printf "\r$(BLUE)$(GRAS)[$(INDEX)/$(TOTAL)]$(RESET) $(GRAS)Compilation: %-30s$(RESET)" "$<"
+	@$(CC) $(CFLAGS) $(INCLUDES) -MMD -MP -c $< -o $@
 
 #============================#
 # _____       _   _ _     	||
@@ -319,20 +316,6 @@ user42:
 	@printf "                                                              $(COLOR_MAX)'bood'$(RESET)                                   AW                                                                                        \n"
 	@printf "$(RESET)\n"
 
-error_ascii:
-	@printf "\n"
-	@printf "$(RED)$(GRAS)"
-	@printf "  _____ ____  ____   ___  ____                                \n"
-	@printf " | ____|  _ \|  _ \ / _ \|  _ \                               \n"
-	@printf " |  _| | |_) | |_) | | | | |_) |                              \n"
-	@printf " | |___|  _ <|  _ <| |_| |  _ <                               \n"
-	@printf " |_____|_|_\_\_| \_\\____/|_| \_\      _  _____ ___ ___  _   _ \n"
-	@printf "  / ___/ _ \|  \/  |  _ \_ _| |      / \|_   _|_ _/ _ \| \ | |\n"
-	@printf " | |  | | | | |\/| | |_) | || |     / _ \ | |  | | | | |  \| |\n"
-	@printf " | |__| |_| | |  | |  __/| || |___ / ___ \| |  | | |_| | |\  |\n"
-	@printf "  \____\___/|_|  |_|_|  |___|_____/_/   \_\_| |___\___/|_| \_|\n"
-	@printf "$(RESET)\n"
-
 
 #====================================#
 #  ____  _   _  ___  _   ___   __	||
@@ -341,5 +324,8 @@ error_ascii:
 # |  __/|  _  | |_| | |\  | | |  	||
 # |_|   |_| |_|\___/|_| \_| |_|  	||
 #====================================#
+
+
+-include $(DEPS)
 
 .PHONY: all bonus clean fclean re norm lines name_ascii user42
