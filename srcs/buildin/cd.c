@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:44 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/30 14:35:58 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/05/01 08:32:47 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,23 +40,36 @@ static bool	error_cd(t_command *cmd)
 static void	edit_pwd(t_env *env, t_env *node_env_pwd)
 {
 	char	*new_localisation;
+	t_env	*pwd;
 
 	new_localisation = getcwd(NULL, 0);
+	printf("debug 1\n");
+	if (!new_localisation)
+	{
+		printf("debug 3\n");
+		pwd = search_key_var(env, "PWD", false);
+		if (!pwd)
+			new_localisation = ft_strjoin_gnl(new_localisation, "/..");
+		else
+		{
+			new_localisation = ft_strjoin_gnl(pwd->var, "/..");
+		}
+		ft_putstr_fd("error retrieving current directory: getcwd: cannot ", 2);
+		ft_putendl_fd("access parent directories: No such file or directory", 2);
+	}
 	if (!node_env_pwd)
 	{
+		printf("debug 6\n");
 		node_env_pwd = create_var("PWD", new_localisation);
 		if (!node_env_pwd)
 			return ;
 		free(new_localisation);
 		ft_envadd_back(&env, node_env_pwd);
+		printf("debug 10\n");
 		return ;
 	}
 	else
-	{
-		if (node_env_pwd->var)
-			free(node_env_pwd->var);
 		node_env_pwd->var = new_localisation;
-	}
 }
 
 /// @brief Function that will edit the last pwd of the already existing variable

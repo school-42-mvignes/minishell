@@ -6,11 +6,19 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:24:01 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/30 14:36:26 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/05/01 08:13:07 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	pwd_void()
+{
+	{
+		ft_putstr_fd("error retrieving current directory: getcwd: cannot", 2);
+		error_message(" access parent directories: No such file or directory");
+	}
+}
 
 /// @brief write path or the message error
 /// @param cmd 
