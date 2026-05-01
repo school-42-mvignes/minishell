@@ -3,22 +3,55 @@
 # minishell
 
 ## objective
-Reproduire un shell tres simplifier qu'on nomera minishell
+The goal of this project is to recreate a simplified shell, which we have named minishell.
 
 ## Description
-L'objectif du projet est de reproduire un shell tres simplifier. C'est pas parce qu'il est simplifier au shell que cela reste un projet rapidement baclable. Le shell on le retrouve dans nos tout nos ordinateurs que se soit sur windows, linux ou bien macos.
+The aim is to build a functional command-line interface from scratch. Don't be fooled by the "simplified" label; this project is far from something that can be rushed. Shells are the backbone of our interaction with computers, whether on Windows, Linux, or macOS. Building one requires a deep understanding of process management and system calls.
 
-### Dificulter
-Les deux premiere dificulter selon moi est que c'est le plus gros projet en terme de temps qu'on est eux. Il faut donc penser a comment s'organiser des le debut du projet, savoir evaluer combien de temps chaque tache va nous prendre pour respecter les deadline.
-Et la deuxieme dificulter c'est que c'est un projet de groupe. Savoir bien communiquer pour ne pas faire des parties que l'autre est entrain de faire ou modifier des sorties de fonction pendant qu'un autre travail dessus.
+### Features
+- **Command Execution:** Full path handling and relative paths.
+- **Built-ins:** `cd`, `echo`, `pwd`, `export`, `unset`, `env`, `exit`.
+- **Pipes & Redirections:** Support for `|`, `>`, `<`, `>>`, and `<<`.
+- **Logical Operators:** Implementation of `&&` and `||` with parentheses for priority.
+- **Wildcards:** Pattern matching using the `*` character.
+- **Environment Management:** Variable expansion and exit status handling (`$?`).
+- **Signal Handling:** Proper management of interrupts in both interactive and execution modes.
 
-### Project Structure
+
+### Challenges
+- **Time Management:** This project is the most extensive one we have encountered so far in terms of scope and duration. It demanded rigorous organization from day one, requiring us to evaluate tasks accurately to stay on track and meet deadlines.
+- **Team Collaboration:** Working as a pair introduced a new layer of complexity. Maintaining constant communication was essential to prevent redundant work and ensure that modifications to core functions didn't break our partner's progress.
+
+
+### Project Structure summarise
 ```bash
 minishell/
 ├── Makefile             # Master Makefile
 ├── README.md            # README.md
 ├── includes/            # Headers
-│   ├── builtin.h
+├── srcs/                # Source files .c
+│   ├── builtin/         # Built-in command logic
+│   ├── execution/       # Process handling, pipes, and redirections
+│   ├── expand/          # Variable and quote expansion
+│   ├── lexer/           # Tokenization of the input string
+│   ├── libft/           # Custom C library
+│   ├── parser/          # Building the abstract syntax tree
+│   ├── signal/          # Signal management (Ctrl-C, etc.)
+│   ├── utils/           # Utils for multiple portion project
+│   └── main.c
+├── .objects/            # Source files .o
+├── .readline.supp         # file for removes memory leaks coming from readline
+├── .last_colors          # Stores the last color used for compilation
+└── .gitignore            # Used to avoid pushing these files to git
+```
+
+### Project Structure complete
+```bash
+minishell/
+├── Makefile             # Master Makefile
+├── README.md            # README.md
+├── includes/            # Headers
+│   ├── builtin.h        # Built-in command logic
 │   ├── env.h
 │   ├── execution.h
 │   ├── expand.h
@@ -26,7 +59,7 @@ minishell/
 │   ├── libft.h
 │   ├── minishell.h
 │   └── parser.h
-├── srcs/                # .c files
+├── srcs/                # Source files .c
 │   ├── builtin/
 │   |   ├── cd.c
 │   |   ├── echo.c
@@ -38,7 +71,7 @@ minishell/
 │   |   ├── pwd.c
 │   |   ├── unset.c
 │   |   └── utils.c
-│   ├── execution/
+│   ├── execution/       # Process handling, pipes, and redirections
 │   |   ├── and.c
 │   |   ├── env_utils.c
 │   |   ├── env.c
@@ -53,12 +86,12 @@ minishell/
 │   |   ├── utils.c
 │   |   ├── wildcard_utils.c
 │   |   └── wildcard.c
-│   ├── expand/
+│   ├── expand/          # Variable and quote expansion
 │   |   ├── expand_concatenate.c
 │   |   ├── expand_dollards.c
 │   |   ├── expand_quotes.c
 │   |   └── expand.c
-│   ├── lexer/
+│   ├── lexer/           # Tokenization of the input string
 │   |   ├── lexer_checker_bracket.c
 │   |   ├── lexer_checker_main.c
 │   |   ├── lexer_checker_sep_redir.c
@@ -67,12 +100,12 @@ minishell/
 │   |   └── lexer.c
 │   ├── libft/
 │   |   └── *all_libft_mvignes.c*
-│   ├── parser/
+│   ├── parser/          # Building the abstract syntax tree
 │   |   ├── parser_cut.c
 │   |   ├── parser_free.c
 │   |   ├── parser_utils.c
 │   |   └── parser.c
-│   ├── signal/
+│   ├── signal/          # Signal management (Ctrl-C, etc.)
 │   |   └── signal.c
 │   ├── utils/
 │   |   ├── lstenv.c
@@ -81,7 +114,7 @@ minishell/
 │   |   └── utils.c
 │   ├── main_cut.c
 │   └── main.c
-├── .objects/            # .o files
+├── .objects/            # Source files .o
 │   ├── builtin/
 │   |   ├── cd.o
 │   |   ├── echo.o
@@ -158,8 +191,94 @@ make
 ### Manual Testing
 ```bash
 ./minishell
-ls | grep mi
-cd srcs/
+Minishell$ echo "Hello world" > file.txt
+Minishell$ cat file.txt && rm file.txt
+Hello world
+Minishell$ export MY_VAR=42
+Minishell$ echo $MY_VAR
+42
+echo -n test
+testminishell$
+Minishell$ export test1=a test2-=b test3+=c test4d
+Minishell: export:`test2-=b': not a valid identifier
+Minishell$ export | grep test
+export test1="a"
+export test3+="c"
+export test4d=""
+Minishell$ export test1=a test2-=b test3+=c test4d
+Minishell: export:`test2-=b': not a valid identifier
+Minishell$ export | grep test
+export test1="a"
+export test3+="cc"
+export test4d=""
+Minishell$ unset test11 test2 test3 test4
+Minishell$ export | grep test
+export test1="a"
+export test4d=""
+Minishell$ echo salut1 > test1
+Minishell$ echo salut2 > test2
+Minishell$ echo salut3 > test3
+Minishell$ echo salut4 > test4
+Minishell$ mkdir test
+Minishell$ mv test1 test2 test3 test4 test
+Minishell$ cd test
+test/     teststar/ 
+Minishell$ cd test
+Minishell$ pwd
+/home/mvignes/Documents/github/minishell/test
+Minishell$ cat *
+salut1
+salut2
+salut3
+salut4
+Minishell$ cat t*t*
+salut1
+salut2
+salut3
+salut4
+Minishell$ cat t*t1
+salut1
+Minishell$ (cat t*t1 | grep bonjour) || echo OK
+OK
+Minishell$ (cat t*t1 | grep bonjour) && echo OK
+Minishell$ (cat t*t1 | grep salut) && echo OK
+salut1
+OK
+Minishell$ 
+exit
+bash-5.2$ ./minishell
+Minishell$ ./minishell
+Minishell$ env | grep SHLVL
+SHLVL=7
+Minishell$ ./minishell
+Minishell$ ./minishell
+Minishell$ ./minishell
+Minishell$ ./minishell
+Minishell$ ./minishell
+Minishell$ ./minishell
+Minishell$ env | grep SHLVL
+SHLVL=13
+Minishell$ 
+exit
+Minishell$ 
+exit
+Minishell$ 
+exit
+Minishell$ 
+exit
+Minishell$ 
+exit
+Minishell$ 
+exit
+Minishell$ 
+exit
+Minishell$ 
+exit
+bash-5.2$ 
+exit
+bash-5.2$ env | grep SHLVL
+SHLVL=4
+bash-5.2$ 
 ...
 ```
 

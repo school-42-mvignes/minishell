@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buildin.h                                          :+:      :+:    :+:   */
+/*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 14:09:56 by mvignes           #+#    #+#             */
-/*   Updated: 2026/05/01 10:35:56 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/05/01 11:11:55 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ t_env			*search_key_var(t_env *env, char *key, bool least);
 void			error_getcwd(t_shell *shell, char *str, bool pwd, bool first);
 void			empty_var(char *av, t_env *node, t_env *env);
 bool			good_key_var_name(char *av);
+void			error_export(t_command *cmd, int i);
 void			free_exit(t_command *cmd);
 int				is_num(char *str);
 

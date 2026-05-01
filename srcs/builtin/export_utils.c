@@ -6,11 +6,25 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 16:13:08 by mvignes           #+#    #+#             */
-/*   Updated: 2026/05/01 10:29:23 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/05/01 11:11:45 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+/// @brief write error export
+/// @param cmd 
+void	error_export(t_command *cmd, int i)
+{
+	char	*msg;
+
+	msg = ft_strjoin("Minishell: export:", "`");
+	msg = ft_strjoin_gnl(msg, cmd->av[i]);
+	msg = ft_strjoin_gnl(msg, "': not a valid identifier");
+	ft_putendl_fd(msg, 2);
+	free(msg);
+	cmd->shell->exit_status = 1;
+}
 
 /// @brief check is the good name for the key var
 /// @param av 

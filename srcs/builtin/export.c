@@ -6,25 +6,11 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 01:23:57 by mvignes           #+#    #+#             */
-/*   Updated: 2026/05/01 10:36:04 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/05/01 11:14:14 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-/// @brief write error export
-/// @param cmd 
-static void	error_export(t_command *cmd, int i)
-{
-	char	*msg;
-
-	msg = ft_strjoin("Minishell: export:", "`");
-	msg = ft_strjoin_gnl(msg, cmd->av[i]);
-	msg = ft_strjoin_gnl(msg, "': not a valid identifier");
-	ft_putendl_fd(msg, 2);
-	free(msg);
-	cmd->shell->exit_status = 1;
-}
 
 /// @brief edit var in list t_env
 /// @param cmd 
@@ -52,6 +38,24 @@ static void	edit_var(char *av, t_env *node, t_shell *shell)
 	}
 }
 
+static void	tronc_var(t_env *node, t_shell *shell, char **tab)
+{
+	char	*tmp;
+	int		i;
+
+	i = 0;
+	while (tab[0][i] != '+')
+		i++;
+	tmp = ft_substr(tab[0], 0, i);
+	free(tab[0]);
+	tab[0] = ft_strdup(tmp);
+	free(tmp);
+	node = ft_envnew(tab);
+	node->egal_init = true;
+	ft_envadd_back(&shell->env, node);
+	free(tab);
+}
+
 /// @brief edit var in list t_env
 /// @param cmd 
 static void	edit_add_value_var(char *av, t_env *node, t_shell *shell)
@@ -60,15 +64,10 @@ static void	edit_add_value_var(char *av, t_env *node, t_shell *shell)
 
 	tab = split_in_two(av, '=');
 	if (!tab)
-		return ;
+	return ;
 	node = search_key_var(shell->env, tab[0], true);
 	if (!node)
-	{
-		node = ft_envnew(tab);
-		node->egal_init = true;
-		ft_envadd_back(&shell->env, node);
-		free(tab);
-	}
+		tronc_var(node, shell, tab);
 	else
 	{
 		node->var = ft_strjoin_gnl(node->var, tab[1]);
