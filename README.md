@@ -197,8 +197,8 @@ Hello world
 Minishell$ export MY_VAR=42
 Minishell$ echo $MY_VAR
 42
-echo -n test
-testminishell$
+Minishell$ echo -n test
+testMinishell$
 Minishell$ export test1=a test2-=b test3+=c test4d
 Minishell: export:`test2-=b': not a valid identifier
 Minishell$ export | grep test
