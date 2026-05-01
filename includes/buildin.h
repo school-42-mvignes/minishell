@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 14:09:56 by mvignes           #+#    #+#             */
-/*   Updated: 2026/05/01 10:28:32 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/05/01 10:32:52 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef struct s_shell		t_shell;
 
 int				exec_the_buildin(t_node *node, t_shell *shell);
 void			exec_buildin_without_fork(t_node *node);
+bool			exec_without_fork(t_node *node);
+bool			is_one_buildin(t_node *node);
 
 void			buildin_unset(t_command *cmd);
 void			buildin_export(t_command *cmd);
@@ -42,15 +44,11 @@ void			buildin_cd_cut(t_command *cmd, t_env *home);
 void			buildin_echo(t_command *cmd);
 int				buildin_exit(t_command *cmd);
 
+t_env			*search_key_var(t_env *env, char *key, bool least);
 void			error_getcwd(t_shell *shell, char *str, bool pwd, bool first);
 void			empty_var(char *av, t_env *node, t_env *env);
-bool			exec_without_fork(t_node *node);
-bool			is_one_buildin(t_node *node);
-t_env			*search_key_var(t_env *env, char *key, bool least);
+bool			good_key_var_name(char *av);
 void			free_exit(t_command *cmd);
 int				is_num(char *str);
-bool			dont_dash_in_key_var(char	*str);
-
-bool			good_key_var_name(char *av);
 
 #endif
