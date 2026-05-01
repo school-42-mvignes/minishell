@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_heredoc_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmusquer <mmusquer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 17:08:23 by mmusquer          #+#    #+#             */
-/*   Updated: 2026/04/30 17:03:59 by mmusquer         ###   ########.fr       */
+/*   Updated: 2026/05/01 08:55:24 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ int	avenger_assemble(t_node *node, t_shell *shell)
 	if (node->type == NODE_CMD)
 	{
 		redir = node->cmd->redir;
-		// if (redir)
-		// 	redir->do_not_expand = 0;
 		ret = assemble_cut(redir, shell);
 		if (ret == 130)
 			return (130);
