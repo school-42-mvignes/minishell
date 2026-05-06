@@ -6,7 +6,7 @@
 /*   By: mvignes <mvignes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 15:50:37 by mvignes           #+#    #+#             */
-/*   Updated: 2026/04/29 12:56:17 by mvignes          ###   ########.fr       */
+/*   Updated: 2026/05/06 10:13:54 by mvignes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ t_env	*create_var(char *key, char *var)
 	if (!new)
 		free_tab(tab);
 	free(tab);
+	new->egal_init = true;
 	return (new);
 }
